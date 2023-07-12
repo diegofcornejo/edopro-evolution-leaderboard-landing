@@ -1,6 +1,4 @@
 import { createClient } from 'redis';
-const client = createClient({ url: process.env.REDIS_URL });
-client.on('error', (err) => console.log('Redis Client Error', err));
 
 import Banner from './components/Banner/index';
 import Companies from './components/Companies/index';
@@ -12,18 +10,21 @@ import Trade from './components/Trade/index';
 import Faq from './components/Faq/index';
 
 interface Player {
-  value: string;
-  score: number;
-  wins: number;
-  losses: number;
-  winrate: number;
+	value: string;
+	score: number;
+	wins: number;
+	losses: number;
+	winrate: number;
 }
 
 async function getLeaderboard() {
+	const client = createClient({ url: process.env.REDIS_URL });
+	client.on('error', (err) => console.log('Redis Client Error', err));
 	await client.connect();
 	let points = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:points', '-inf', '+inf');
 	let wins = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:wins', '-inf', '+inf');
 	let losses = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:losses', '-inf', '+inf');
+	await client.quit();
 
 	let leaderboard: Player[] = [];
 
@@ -53,14 +54,16 @@ async function getLeaderboard() {
 		}
 
 		// Calcular el winrate
-		player.winrate = parseFloat(((player.wins / (player.wins + player.losses)) * 100).toFixed(2));
+		player.winrate = parseFloat(
+			((player.wins / (player.wins + player.losses)) * 100).toFixed(2)
+		);
 
 		// Agregar el jugador al leaderboard
 		leaderboard.push(player);
 	}
 
 	leaderboard = leaderboard.sort((a, b) => b.score - a.score);
-	await client.quit();
+
 	return leaderboard;
 }
 
