@@ -7,7 +7,7 @@ const Table = ({ leaderboard }) => {
 		<>
 			<div className='mx-auto max-w-7xl pt-40 px-6' id='exchange-section'>
 				<div className='table-b bg-navyblue p-8 overflow-x-auto'>
-					<h3 className='text-offwhite text-2xl'>Market Trend Live Stream</h3>
+					<h3 className='text-offwhite text-2xl'>EDOPro Ranking</h3>
 					<table className='table-auto w-full mt-10'>
 						<thead>
 							<tr className='text-white bg-darkblue rounded-lg'>
