@@ -11,12 +11,54 @@ import Simple from './components/Simple/index';
 import Trade from './components/Trade/index';
 import Faq from './components/Faq/index';
 
+interface Player {
+  value: string;
+  score: number;
+  wins: number;
+  losses: number;
+  winrate: number;
+}
+
 async function getLeaderboard() {
-	// const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/leaderboard`)
-	// const leaderboard = await res.json()
-	// return leaderboard
 	await client.connect();
-	let leaderboard = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard', '-inf', '+inf');
+	let points = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:points', '-inf', '+inf');
+	let wins = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:wins', '-inf', '+inf');
+	let losses = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:losses', '-inf', '+inf');
+
+	let leaderboard: Player[] = [];
+
+	// Iterar sobre los arrays de puntos, victorias y derrotas
+	for (let i = 0; i < points.length; i++) {
+		const player = {
+			value: points[i].value,
+			score: points[i].score,
+			wins: 0,
+			losses: 0,
+			winrate: 0,
+		};
+
+		// Buscar las victorias y derrotas del jugador actual
+		for (let j = 0; j < wins.length; j++) {
+			if (wins[j].value === player.value) {
+				player.wins = wins[j].score;
+				break;
+			}
+		}
+
+		for (let k = 0; k < losses.length; k++) {
+			if (losses[k].value === player.value) {
+				player.losses = losses[k].score;
+				break;
+			}
+		}
+
+		// Calcular el winrate
+		player.winrate = parseFloat(((player.wins / (player.wins + player.losses)) * 100).toFixed(2));
+
+		// Agregar el jugador al leaderboard
+		leaderboard.push(player);
+	}
+
 	leaderboard = leaderboard.sort((a, b) => b.score - a.score);
 	await client.quit();
 	return leaderboard;

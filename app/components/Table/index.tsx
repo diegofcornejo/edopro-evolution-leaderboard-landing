@@ -2,7 +2,6 @@
 import Image from 'next/image';
 
 const Table = ({ leaderboard }) => {
-	console.log(leaderboard);
 	return (
 		<>
 			<div className='mx-auto max-w-7xl pt-40 px-6' id='exchange-section'>
@@ -37,13 +36,13 @@ const Table = ({ leaderboard }) => {
 										{items.score.toLocaleString()}
 									</td>
 									<td className='px-4 py-6 text-center text-green'>
-										10
+										{items.wins.toLocaleString()}
 									</td>
 									<td className='px-4 py-6 text-center text-red'>
-										5
+                                        {items.losses.toLocaleString()}
 									</td>
 									<td className='px-4 py-6 text-center text-white'>
-										50%
+										{items.winrate}%
 									</td>
 									{/* <td className={`px-4 py-6 text-center ${items.change < 0 ? 'text-red' : 'text-green'} `}>{items.change}%</td>
                                     <td className="px-4 py-6 text-center text-white">${items.cap.toLocaleString()}</td>

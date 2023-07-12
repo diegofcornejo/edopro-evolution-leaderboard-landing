@@ -55,13 +55,13 @@ const Work = ({ leaderboard }) => {
 								Points: {items.score}
 							</p>
 							<p className='text-base font-normal text-bluish text-center mt-2 text-green'>
-								Wins: 10
+								Wins: {items.wins}
 							</p>
 							<p className='text-base font-normal text-bluish text-center mt-2 text-red'>
-								Losses: 5
+								Losses: {items.losses}
 							</p>
 							<span className='text-base font-normal m-0 text-bluish text-center hides'>
-								Add useful statistics about the user here.
+								Winrate: {items.winrate}%
 							</span>
 						</div>
 					))}
