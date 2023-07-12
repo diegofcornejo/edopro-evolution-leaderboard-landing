@@ -5,8 +5,8 @@ import Footer from './components/Footer/index';
 
 
 export const metadata = {
-  title: 'EdoPro - Leaderboard',
-  description: 'Leaderboard for EdoPro',
+  title: 'Evolution - EDOPro Server',
+  description: 'Leaderboard for Evolution EDOPro Server',
   icons: {
     icon: '/logo.svg',
   },

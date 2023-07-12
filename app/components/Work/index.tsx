@@ -8,11 +8,11 @@ const Work = ({ leaderboard }) => {
 
 	return (
 		<div>
-			<div className='mx-auto max-w-7xl mt-16 px-6 mb-20 relative'>
+			<div className='mx-auto max-w-7xl mt-16 px-6 mb-20 relative'  id='topplayers-section'>
 				<div className='radial-bgone hidden lg:block'></div>
 				<div className='text-center mb-14'>
 					<h3 className='text-offwhite text-3xl md:text-5xl font-bold mb-3'>
-						Best Players
+						Top Players
 					</h3>
 					<p className='text-bluish md:text-lg font-normal leading-8'>
 						Lorem Ipsum is simply dummy text of the printing and typesetting industry.{' '}
