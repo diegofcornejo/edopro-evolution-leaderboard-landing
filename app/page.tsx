@@ -2,10 +2,10 @@ import { createClient } from 'redis';
 
 import Banner from './components/Banner/index';
 import Companies from './components/Companies/index';
-import Work from './components/Work/index';
+import Top from './components/Top/index';
 import Table from './components/Table/index';
 import Features from './components/Features/index';
-import Simple from './components/Simple/index';
+import Download from './components/Download/index';
 import Trade from './components/Trade/index';
 import Faq from './components/Faq/index';
 
@@ -73,12 +73,12 @@ export default async function Home() {
 	return (
 		<main>
 			<Banner />
-			<Companies />
-			<Work leaderboard={leaderboard} />
+			{/* <Companies /> */}
+			<Top leaderboard={leaderboard} />
 			<Table leaderboard={leaderboard} />
 			<Features />
-			<Simple />
-			<Trade />
+			<Download />
+			{/* <Trade /> */}
 			<Faq />
 		</main>
 	);

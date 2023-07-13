@@ -10,14 +10,16 @@ interface NavigationItem {
     name: string;
     href: string;
     current: boolean;
+    target?: string;
 }
 
 const navigation: NavigationItem[] = [
     { name: 'Home', href: '#home-section', current: false },
     { name: 'Top', href: '#topplayers-section', current: false },
     { name: 'Ranking', href: '#exchange-section', current: false },
-    { name: 'Download', href: '#features-section', current: false },
-    { name: 'Github', href: '#faq-section', current: false },
+    { name: 'Features', href: '#features-section', current: false },
+    { name: 'Download', href: '#download-section', current: false },
+    { name: 'Github', href: 'https://github.com/diangogav/EDOpro-server-ts', current: false, target: '_blank' },
 ]
 
 function classNames(...classes: string[]) {
@@ -63,6 +65,7 @@ const Navbar = () => {
                                                 'px-3 py-4 rounded-md text-lg font-normal'
                                             )}
                                             aria-current={item.href ? 'page' : undefined}
+                                            target={item.target}
                                         >
                                             {item.name}
                                         </Link>
