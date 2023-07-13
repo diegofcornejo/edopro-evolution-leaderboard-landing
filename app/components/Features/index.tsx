@@ -10,19 +10,19 @@ interface featuresdata {
 const featuresdata: featuresdata[] = [
     {
         imgSrc: '/images/Features/featureOne.svg',
-        heading: 'Secure storage',
-        subheading: 'We lake data security and privacy very seriously',
+        heading: 'Duel Reconnection',
+        subheading: 'Don\'t worry about disconnecting mid duel',
+    },
+    {
+        imgSrc: '/images/Features/feature_ranking_color.svg',
+        heading: 'Automatic Ranking',
+        subheading: 'Rank up by winning duels',
     },
     {
         imgSrc: '/images/Features/featureTwo.svg',
         heading: 'Free to use',
-        subheading: 'Top notch crypto portfolio traking at no cost',
-    },
-    {
-        imgSrc: '/images/Features/featureThree.svg',
-        heading: 'Real-time price data',
-        subheading: 'Updating 24/7 using price data form the biggest exchanges',
-    },
+        subheading: 'No need to pay to use the server',
+    }
 ]
 
 const Features = () => {
@@ -33,8 +33,8 @@ const Features = () => {
                 {/* Column-1 */}
                 <div>
                     <h3 className="feature-font text-lg font-semibold mb-4 text-center md:text-start">FEATURES</h3>
-                    <h2 className="text-offwhite text-3xl lg:text-5xl font-semibold leading-snug mb-6 text-center md:text-start">The most trusted cryptocurrency platform</h2>
-                    <p className="lg:text-lg font-normal text-bluish text-center md:text-start">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s.</p>
+                    <h2 className="text-offwhite text-3xl lg:text-5xl font-semibold leading-snug mb-6 text-center md:text-start">The most featured EDOPro Server</h2>
+                    <p className="lg:text-lg font-normal text-bluish text-center md:text-start">Evolution is built on top of the EDOPro Server, which is fully compatible with their client and offers additional features such as duel reconnection and automatic ranking.</p>
                 </div>
                 {/* Column-2 */}
                 <div>

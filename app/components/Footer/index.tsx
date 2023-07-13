@@ -17,7 +17,7 @@ const products: ProductType[] = [
   {
     id: 1,
     section: "Useful Links",
-    link: ['Home', 'Exchange', 'Features', 'FAQ'],
+    link: ['Home', 'Download', 'Features', 'FAQ'],
   }
 ]
 
@@ -44,7 +44,7 @@ const footer = () => {
               src={'/images/Logo/logo.svg'}
               alt="Crypto-Logo"
             />
-            <h3 className='text-lightblue text-sm font-normal leading-9 mb-4 lg:mb-16'> Cryptocurrency is a type of virtual currency that uses cryptography to secure transactions that are digitally recorded on a distributed ledger, such as a blockchain.</h3>
+            <h3 className='text-lightblue text-sm font-normal leading-9 mb-4 lg:mb-16'>Evolution is another server that utilizes the EDOPro core to facilitate Yu-Gi-Oh! matches. However, our main focus lies in the scalability of the code, enabling effortless integration of new features associated with the data generated during duels</h3>
             <div className='flex gap-4'>
               {socialLinks.map((items, i) => (
                 <Link href={items.href} key={i}><img src={items.imgsrc} alt={items.imgsrc} className='footer-icons' /></Link>
@@ -69,9 +69,12 @@ const footer = () => {
 
           <div className="col-span-4">
             <h3 className="text-white text-xl font-medium mb-9">Contact Us</h3>
-            <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/number.svg'} alt="number-icon" width={20} height={20} />(406) 555-012</h4>
-            <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/email.svg'} alt="email-icon" width={20} height={20} />tim.jennings@example.com</h4>
-            <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/address.svg'} alt="address-icon" width={20} height={20} />Elgin St. Celina, Delaware 10299</h4>
+            {/* <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/number.svg'} alt="number-icon" width={20} height={20} />(406) 555-012</h4> */}
+            <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/github.svg'} alt="github-icon" width={20} height={20} /><Link href="https://github.com/diangogav" target="_blank">diangogav</Link></h4>
+            <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/github.svg'} alt="github-icon" width={20} height={20} /><Link href="https://github.com/leip1493" target="_blank">leip1493</Link></h4>
+            <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/github.svg'} alt="github-icon" width={20} height={20} /><Link href="https://github.com/termitaklk" target="_blank">termitaklk</Link></h4>
+            <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/github.svg'} alt="github-icon" width={20} height={20} /><Link href="https://github.com/diegofcornejo" target="_blank">diegofcornejo</Link></h4>
+            {/* <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/address.svg'} alt="address-icon" width={20} height={20} />Elgin St. Celina, Delaware 10299</h4> */}
           </div>
 
         </div>
@@ -80,7 +83,7 @@ const footer = () => {
       {/* All Rights Reserved */}
 
       <div className='py-8 px-4 border-t border-t-lightblue'>
-        <h3 className='text-center text-offwhite'>@2023 - All Rights Reserved by <Link href="https://adminmart.com/" target="_blank"> Adminmart.com</Link></h3>
+        <h3 className='text-center text-offwhite'>@2023 - All Rights Reserved by <Link href="#" target="_blank"> Evolution Server</Link></h3>
       </div>
 
     </div>

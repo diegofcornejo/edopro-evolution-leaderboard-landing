@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 
-const Work = ({ leaderboard }) => {
+const Top = ({ leaderboard }) => {
 	leaderboard.sort((a, b) => b.score - a.score);
 	let topThree = leaderboard.slice(0, 3);
 	let leaders = [topThree[1], topThree[0], topThree[2]];
@@ -15,8 +15,8 @@ const Work = ({ leaderboard }) => {
 						Top Players
 					</h3>
 					<p className='text-bluish md:text-lg font-normal leading-8'>
-						Lorem Ipsum is simply dummy text of the printing and typesetting industry.{' '}
-						<br /> Lorem Ipsum has been the industry standard dummy text ever.
+            Explore the top players in our community. Discover who the standout competitors are in our tournaments and events. 
+						<br/> Get to know their achievements, strategies, and stay updated with the rankings.
 					</p>
 				</div>
 
@@ -71,4 +71,4 @@ const Work = ({ leaderboard }) => {
 	);
 };
 
-export default Work;
+export default Top;
