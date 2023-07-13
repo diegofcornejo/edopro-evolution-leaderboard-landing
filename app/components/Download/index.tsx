@@ -13,7 +13,7 @@ const Download = () => {
 					Ready to duel? <br /> Just download a client
 				</h3>
 				<p className='text-center text-bluish text-lg font-normal mb-8'>
-					Disclaimer: Evolution does not have its own client. <br />
+					Evolution does not have its own client. <br />
 					We recommend downloading the official EDOPro client.
 				</p>
 				<div className='flex justify-center '>
