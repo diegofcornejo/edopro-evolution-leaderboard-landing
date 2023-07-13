@@ -74,7 +74,7 @@ const Banner = () => {
 								alt='nothing'
 								width={640}
 								height={200}
-								style={{ float: 'right', paddingTop: '6rem' }}
+								style={{ float: 'right', paddingTop: '9rem' }}
 							/>
 							<div className='arrowSix'></div>
 							<div className='arrowSeven'></div>
