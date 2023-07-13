@@ -8,15 +8,17 @@ const Top = ({ leaderboard }) => {
 
 	return (
 		<div>
-			<div className='mx-auto max-w-7xl mt-16 px-6 mb-20 relative'  id='topplayers-section'>
+			<div className='mx-auto max-w-7xl mt-16 px-6 mb-20 relative' id='topplayers-section'>
 				<div className='radial-bgone hidden lg:block'></div>
 				<div className='text-center mb-14'>
 					<h3 className='text-offwhite text-3xl md:text-5xl font-bold mb-3'>
 						Top Players
 					</h3>
 					<p className='text-bluish md:text-lg font-normal leading-8'>
-            Explore the top players in our community. Discover who the standout competitors are in our tournaments and events. 
-						<br/> Get to know their achievements, strategies, and stay updated with the rankings.
+						Explore the top players in our community. Discover who the standout
+						competitors are in our tournaments and events.
+						<br /> Get to know their achievements, strategies, and stay updated with the
+						rankings.
 					</p>
 				</div>
 
@@ -24,12 +26,16 @@ const Top = ({ leaderboard }) => {
 					{leaders.map((items, i) => (
 						<div className='card-b p-8' key={i}>
 							<div className='work-img-bg rounded-full flex justify-center absolute p-6'>
-								{/* <Image
-									src={items.imgSrc}
-									alt={items.imgSrc}
-									width={44}
-									height={44}
-								/> */}
+								{i === 1 && (
+									<img
+										src={'/images/Features/feature_ranking_color.svg'}
+										alt={''}
+										width={32}
+										height={32}
+										className='rounded-full'
+										style={{ position: 'absolute', top: '0', right: '0' }}
+									/>
+								)}
 								<img
 									src={
 										'https://cdn.discordapp.com/avatars/489192723132317696/41c41bcaf349e1bf8e386ba8351c89f2.webp?size=160'
