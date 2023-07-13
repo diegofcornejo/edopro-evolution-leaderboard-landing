@@ -4,7 +4,7 @@ import Image from 'next/image';
 const Table = ({ leaderboard }) => {
 	return (
 		<>
-			<div className='mx-auto max-w-7xl pt-40 px-6' id='exchange-section'>
+			<div className='mx-auto max-w-7xl pt-40 px-6' id='ranking-section'>
 				<div className='table-b bg-navyblue p-8 overflow-x-auto'>
 					<h3 className='text-offwhite text-2xl'>Evolution Ranking</h3>
 					<table className='table-auto w-full mt-10'>
