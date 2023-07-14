@@ -14,7 +14,7 @@ const Banner = () => {
 			<ModalVideo
 				channel='youtube'
 				isOpen={isOpen}
-				videoId='1YyAzVmP9xQ'
+				videoId='pwut81EXms4'
 				onClose={() => setOpen(false)}
 			/>
 
