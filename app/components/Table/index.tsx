@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import LetterAvatar from '../LetterAvatar';
 
 const Table = ({ leaderboard }) => {
 	return (
@@ -23,9 +24,11 @@ const Table = ({ leaderboard }) => {
 								<tr key={i} className='border-b border-b-darkblue'>
 									<td className='px-4 py-6 text-center text-white'>{i+1}</td>
 									<td className='px-4 py-6 text-center text-white flex items-center justify-start gap-5 '>
-										<img src={'https://cdn.discordapp.com/avatars/489192723132317696/41c41bcaf349e1bf8e386ba8351c89f2.webp?size=160'} alt={''} width={50} height={50} className='rounded-full'/>
+										{/* <img src={'https://cdn.discordapp.com/avatars/489192723132317696/41c41bcaf349e1bf8e386ba8351c89f2.webp?size=160'} alt={''} width={50} height={50} className='rounded-full'/> */}
+										<LetterAvatar name={items.value}/>
 										{items.value}
 									</td>
+									
 									<td className='px-4 py-6 text-center text-white'>
 										{items.score.toLocaleString()}
 									</td>
