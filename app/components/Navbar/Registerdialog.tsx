@@ -4,6 +4,10 @@ import { LockClosedIcon } from '@heroicons/react/20/solid';
 
 const Register = () => {
 	let [isOpen, setIsOpen] = useState(false);
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
+	const [email, setEmail] = useState('');
+	const [error, setError] = useState('');
 
 	const closeModal = () => {
 		setIsOpen(false);
@@ -12,6 +16,31 @@ const Register = () => {
 	const openModal = () => {
 		setIsOpen(true);
 	};
+
+	const cleanForm = () => {
+		setUsername('');
+		setPassword('');
+	};
+
+	const handleSignup = async (e) => {
+		e.preventDefault();
+		const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ username, password, email }),
+		});
+		if (response.ok) {
+			const res = await response.json();
+			console.log(res.message);
+			closeModal();
+		}else{
+			const res  = await response.json();
+			console.log(res)
+			setError(res.error)
+		}
+		cleanForm();
+	};
+
 
 	return (
 		<>
@@ -66,8 +95,7 @@ const Register = () => {
 											</div>
 											<form
 												className='mt-8 space-y-6'
-												action='#'
-												method='POST'
+												onSubmit={handleSignup}
 											>
 												<input
 													type='hidden'
@@ -77,16 +105,20 @@ const Register = () => {
 												<div className='-space-y-px rounded-md shadow-sm'>
 													<div>
 														<label
-															htmlFor='email-address'
+															htmlFor='signup-username'
 															className='sr-only'
 														>
 															Username
 														</label>
 														<input
-															id='email-address'
-															name='email'
-															type='email'
-															autoComplete='email'
+															id='signup-username'
+															name='username'
+															type='text'
+															value={username}
+															onChange={(e) =>
+																setUsername(e.target.value)
+															}
+															autoComplete='signup-username'
 															required
 															className='relative block w-full appearance-none rounded-none rounded-t-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
 															placeholder='Username'
@@ -94,16 +126,41 @@ const Register = () => {
 													</div>
 													<div>
 														<label
-															htmlFor='password'
+															htmlFor='signup-email'
+															className='sr-only'
+														>
+															Email
+														</label>
+														<input
+															id='signup-email'
+															name='email'
+															type='email'
+															value={email}
+															onChange={(e) =>
+																setEmail(e.target.value)
+															}
+															autoComplete='signup-email'
+															required
+															className='relative block w-full appearance-none rounded-none rounded-t-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+															placeholder='Email'
+														/>
+													</div>
+													<div>
+														<label
+															htmlFor='signup-password'
 															className='sr-only'
 														>
 															Password
 														</label>
 														<input
-															id='password'
-															name='password'
+															id='signup-password'
+															name='signup-password'
 															type='password'
-															autoComplete='current-password'
+															value={password}
+															onChange={(e) =>
+																setPassword(e.target.value)
+															}
+															autoComplete='signup-password'
 															required
 															className='relative block w-full appearance-none rounded-none rounded-b-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
 															placeholder='Password'
