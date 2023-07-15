@@ -22,23 +22,23 @@ const Table = ({ leaderboard }) => {
 						<tbody>
 							{leaderboard.map((items, i) => (
 								<tr key={i} className='border-b border-b-darkblue'>
-									<td className='px-4 py-6 text-center text-white'>{i+1}</td>
-									<td className='px-4 py-6 text-center text-white flex items-center justify-start gap-5 '>
+									<td className='px-4 py-4 text-center text-white'>{i+1}</td>
+									<td className='px-4 py-4 text-center text-white flex items-center justify-start gap-5 '>
 										{/* <img src={'https://cdn.discordapp.com/avatars/489192723132317696/41c41bcaf349e1bf8e386ba8351c89f2.webp?size=160'} alt={''} width={50} height={50} className='rounded-full'/> */}
-										<LetterAvatar name={items.value}/>
+										<LetterAvatar name={items.value} size={56}/>
 										{items.value}
 									</td>
 									
-									<td className='px-4 py-6 text-center text-white'>
+									<td className='px-4 py-4 text-center text-white'>
 										{items.score.toLocaleString()}
 									</td>
-									<td className='px-4 py-6 text-center text-green'>
+									<td className='px-4 py-4 text-center text-green'>
 										{items.wins.toLocaleString()}
 									</td>
-									<td className='px-4 py-6 text-center text-red'>
+									<td className='px-4 py-4 text-center text-red'>
                                         {items.losses.toLocaleString()}
 									</td>
-									<td className='px-4 py-6 text-center text-white'>
+									<td className='px-4 py-4 text-center text-white'>
 										{items.winrate}%
 									</td>
 									{/* <td className={`px-4 py-6 text-center ${items.change < 0 ? 'text-red' : 'text-green'} `}>{items.change}%</td>
