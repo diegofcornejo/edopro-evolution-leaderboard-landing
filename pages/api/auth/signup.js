@@ -6,19 +6,25 @@ const handler = async (req, res) => {
 		client.on('error', (err) => console.log('Redis Client Error', err));
 		await client.connect();
 		const { username, password, email } = req.body;
-		const key = await client.HEXISTS(`user:${username}`, 'username');
-		if (key) {
-			res.status(409).json({ error: 'User already exists' });
+		const usernameExists = await client.EXISTS(`user:${username}`);
+		if (usernameExists) {
+			res.status(409).json({ error: 'Username already registered' });
+			return;
+		}
+		const emailExists = await client.EXISTS(`email:${email}`);
+		if (emailExists) {
+			res.status(409).json({ error: 'Email already registered' });
 			return;
 		}
 		const create = await client.hSet(`user:${username}`, { username, password, email });
 		if (create === 3) { //This is the number of fields that we are setting
-			await client.zAdd('leaderboard:points', {score:0, value:username});
-			await client.zAdd('leaderboard:wins', {score:0, value:username});
-			await client.zAdd('leaderboard:losses', {score:0, value:username});
+			await client.set(`email:${email}`, username);
+			await client.zAdd('leaderboard:points', { score: 0, value: username });
+			await client.zAdd('leaderboard:wins', { score: 0, value: username });
+			await client.zAdd('leaderboard:losses', { score: 0, value: username });
 			await client.quit();
 			res.status(202).json({ message: 'User created' });
-		}else{
+		} else {
 			await client.quit();
 			res.status(500).json({ error: 'User not created' });
 			return;
