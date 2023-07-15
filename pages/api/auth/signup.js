@@ -1,5 +1,39 @@
 import { createClient } from 'redis';
 
+//Send email with sendgrid template
+import sgMail from '@sendgrid/mail';
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+const sendEmail = async (email, username, password) => {
+	const message = {
+		"from": {
+			"email": process.env.SENDGRID_FROM_EMAIL
+		},
+		"personalizations": [
+			{
+				"to": [
+					{
+						"email": email
+					}
+				],
+				"dynamic_template_data": {
+					"username": username,
+					"password": password
+				}
+			}
+		],
+		"template_id": process.env.SENDGRID_TEMPLATE_ID
+	}
+	try {
+		await sgMail.send(message);
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+
+
+
 const handler = async (req, res) => {
 	if (req.method === 'POST') {
 		const client = createClient({ url: process.env.REDIS_URL });
@@ -23,7 +57,8 @@ const handler = async (req, res) => {
 			await client.zAdd('leaderboard:wins', { score: 0, value: username });
 			await client.zAdd('leaderboard:losses', { score: 0, value: username });
 			await client.quit();
-			res.status(202).json({ message: 'User created' });
+			await sendEmail(email, username, password);
+			res.status(202).json({ message: 'User created: We have sent your credentials to the registered email' });
 		} else {
 			await client.quit();
 			res.status(500).json({ error: 'User not created' });
