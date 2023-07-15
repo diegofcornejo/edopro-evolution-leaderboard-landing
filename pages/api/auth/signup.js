@@ -2,9 +2,6 @@ import { createClient } from 'redis';
 
 const handler = async (req, res) => {
 	if (req.method === 'POST') {
-		console.log('POST');
-		console.log(req.body);
-		console.log('POST');
 		const client = createClient({ url: process.env.REDIS_URL });
 		client.on('error', (err) => console.log('Redis Client Error', err));
 		await client.connect();

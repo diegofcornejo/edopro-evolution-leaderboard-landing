@@ -7,40 +7,43 @@ const Register = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
-	const [error, setError] = useState('');
+	const [message, setMessage] = useState('');
+	const [error, setError] = useState(false);
+
+	const cleanForm = () => {
+		setUsername('');
+		setPassword('');
+		setEmail('');
+		setMessage('');
+		setError(false);
+	};
 
 	const closeModal = () => {
 		setIsOpen(false);
 	};
 
 	const openModal = () => {
+		cleanForm();
 		setIsOpen(true);
-	};
-
-	const cleanForm = () => {
-		setUsername('');
-		setPassword('');
 	};
 
 	const handleSignup = async (e) => {
 		e.preventDefault();
+		setMessage('');
+		setError(false);
 		const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ username, password, email }),
 		});
+		const res = await response.json();
 		if (response.ok) {
-			const res = await response.json();
-			console.log(res.message);
-			closeModal();
-		}else{
-			const res  = await response.json();
-			console.log(res)
-			setError(res.error)
+			setMessage(res.message);
+		} else {
+			setError(true);
+			setMessage(res.error);
 		}
-		cleanForm();
 	};
-
 
 	return (
 		<>
@@ -118,6 +121,7 @@ const Register = () => {
 															onChange={(e) =>
 																setUsername(e.target.value)
 															}
+															pattern="^\S+$" title="Spaces are not allowed"
 															autoComplete='signup-username'
 															required
 															className='relative block w-full appearance-none rounded-none rounded-t-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
@@ -141,7 +145,7 @@ const Register = () => {
 															}
 															autoComplete='signup-email'
 															required
-															className='relative block w-full appearance-none rounded-none rounded-t-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+															className='relative block w-full appearance-none rounded-none border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
 															placeholder='Email'
 														/>
 													</div>
@@ -160,6 +164,7 @@ const Register = () => {
 															onChange={(e) =>
 																setPassword(e.target.value)
 															}
+															pattern="[^:]*" title="Password cannot contain the ':' character"
 															autoComplete='signup-password'
 															required
 															className='relative block w-full appearance-none rounded-none rounded-b-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
@@ -199,6 +204,9 @@ const Register = () => {
 														Register Now
 													</button>
 												</div>
+												<p className={error ? 'text-red' : 'text-green'}>
+													{message}
+												</p>
 											</form>
 										</div>
 									</div>
