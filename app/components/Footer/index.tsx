@@ -2,10 +2,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 // MIDDLE LINKS DATA
+interface ProductLink {
+  name: string;
+  section: string;
+}
+
 interface ProductType {
-	id: number;
-	section: string;
-	link: string[];
+  id: number;
+  section: string;
+  links: ProductLink[];
 }
 
 interface Social {
@@ -13,12 +18,21 @@ interface Social {
 	href: string;
 }
 
+interface Dev {
+	github: string;
+}
+
 const products: ProductType[] = [
-	{
-		id: 1,
-		section: 'Useful Links',
-		link: ['Home', 'Download', 'Features', 'FAQ'],
-	},
+  {
+    id: 1,
+    section: 'Useful Links',
+    links: [
+      { name: 'Home', section: '#home-section' },
+      { name: 'Top', section: '#topplayers-section' },
+      { name: 'Ranking', section: '#ranking-section' },
+      { name: 'Features', section: '#features-section' },
+    ]
+  },
 ];
 
 const socialLinks: Social[] = [
@@ -26,6 +40,13 @@ const socialLinks: Social[] = [
 	{ imgsrc: '/images/Footer/dribble.svg', href: 'https://dribble.com/' },
 	{ imgsrc: '/images/Footer/twitter.svg', href: 'https://twitter.com/' },
 	{ imgsrc: '/images/Footer/youtube.svg', href: 'https://youtube.com/' },
+];
+
+const team: Dev[] = [
+	{ github: 'djngogav' },
+	{ github: 'leip1493' },
+	{ github: 'termitaklk' },
+	{ github: 'diegofcornejo' },
 ];
 
 const footer = () => {
@@ -67,13 +88,13 @@ const footer = () => {
 						<div key={product.id} className='group relative col-span-2'>
 							<p className='text-white text-xl font-medium mb-9'>{product.section}</p>
 							<ul>
-								{product.link.map((link: string, index: number) => (
+								{product.links.map((link, index) => (
 									<li key={index} className='mb-5'>
 										<Link
-											href='/'
+											href={link.section}
 											className='text-offwhite  text-sm font-normal mb-6 space-links'
 										>
-											{link}
+											{link.name}
 										</Link>
 									</li>
 								))}
@@ -84,50 +105,19 @@ const footer = () => {
 					<div className='col-span-4'>
 						<h3 className='text-white text-xl font-medium mb-9'>Contact Us</h3>
 						{/* <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/number.svg'} alt="number-icon" width={20} height={20} />(406) 555-012</h4> */}
-						<h4 className='text-offwhite text-sm font-normal mb-6 flex gap-2'>
-							<Image
-								src={'/images/Footer/github.svg'}
-								alt='github-icon'
-								width={20}
-								height={20}
-							/>
-							<Link href='https://github.com/diangogav' target='_blank'>
-								diangogav
-							</Link>
-						</h4>
-						<h4 className='text-offwhite text-sm font-normal mb-6 flex gap-2'>
-							<Image
-								src={'/images/Footer/github.svg'}
-								alt='github-icon'
-								width={20}
-								height={20}
-							/>
-							<Link href='https://github.com/leip1493' target='_blank'>
-								leip1493
-							</Link>
-						</h4>
-						<h4 className='text-offwhite text-sm font-normal mb-6 flex gap-2'>
-							<Image
-								src={'/images/Footer/github.svg'}
-								alt='github-icon'
-								width={20}
-								height={20}
-							/>
-							<Link href='https://github.com/termitaklk' target='_blank'>
-								termitaklk
-							</Link>
-						</h4>
-						<h4 className='text-offwhite text-sm font-normal mb-6 flex gap-2'>
-							<Image
-								src={'/images/Footer/github.svg'}
-								alt='github-icon'
-								width={20}
-								height={20}
-							/>
-							<Link href='https://github.com/diegofcornejo' target='_blank'>
-								diegofcornejo
-							</Link>
-						</h4>
+						{team.map((item, i) => (
+							<h4 key={i} className='text-offwhite text-sm font-normal mb-6 flex gap-2'>
+								<Image
+									src={'/images/Footer/github.svg'}
+									alt='github-icon'
+									width={20}
+									height={20}
+								/>
+								<Link href={`https://github.com/${item.github}`} target='_blank'>
+									{item.github}
+								</Link>
+							</h4>
+						))}
 						{/* <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/address.svg'} alt="address-icon" width={20} height={20} />Elgin St. Celina, Delaware 10299</h4> */}
 					</div>
 				</div>
