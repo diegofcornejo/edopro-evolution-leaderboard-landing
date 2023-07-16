@@ -57,7 +57,6 @@ const Register = () => {
 					</button>
 				</div>
 			</div>
-
 			<Transition appear show={isOpen} as={Fragment}>
 				<Dialog as='div' className='relative z-10' onClose={closeModal}>
 					<Transition.Child
@@ -100,11 +99,11 @@ const Register = () => {
 												className='mt-8 space-y-6'
 												onSubmit={handleSignup}
 											>
-												<input
+												{/* <input
 													type='hidden'
 													name='remember'
 													defaultValue='true'
-												/>
+												/> */}
 												<div className='-space-y-px rounded-md shadow-sm'>
 													<div>
 														<label

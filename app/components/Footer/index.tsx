@@ -61,7 +61,7 @@ const footer = () => {
 						<img
 							className='block h-12 w-20px mb-4'
 							src={'/images/Logo/logo.svg'}
-							alt='Crypto-Logo'
+							alt='Evolution-Logo'
 						/>
 						<h3 className='text-lightblue text-sm font-normal leading-9 mb-4 lg:mb-16'>
 							Evolution is another server that utilizes the EDOPro core to facilitate

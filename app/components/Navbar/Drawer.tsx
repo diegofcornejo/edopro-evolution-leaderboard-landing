@@ -30,7 +30,7 @@ const Drawer = ({ children, isOpen, setIsOpen }: DrawerProps) => {
 							<img
 								className='block h-10 lg:hidden'
 								src={'/images/Logo/logo.svg'}
-								alt='Crypto-Logo'
+								alt='Evolution-Logo'
 							/>
 						</div>
 

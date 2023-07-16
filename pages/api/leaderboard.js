@@ -48,9 +48,9 @@ const handler = async (req, res) => {
 			}
 		
 			leaderboard = leaderboard.sort((a, b) => b.score - a.score);
-		
+			const top = leaderboard.slice(0, 20);
 			// return leaderboard;
-			res.status(200).json(leaderboard);
+			res.status(200).json(top);
 		
     } else {
         res.status(405).json({ error: 'Method not allowed' });

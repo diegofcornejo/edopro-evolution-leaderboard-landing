@@ -4,7 +4,7 @@ import React from 'react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import Drawer from './Drawer';
 import Drawerdata from './Drawerdata';
-import Signdialog from './Signdialog';
+// import Signdialog from './Signdialog';
 import Registerdialog from './Registerdialog';
 // import Contactusform from './Contactus';
 
@@ -48,12 +48,12 @@ const Navbar = () => {
 								<img
 									className='block h-10 w-20px lg:hidden'
 									src={'/images/Logo/logo.svg'}
-									alt='Crypto-Logo'
+									alt='Evolution-Logo'
 								/>
 								<img
 									className='hidden h-48px w-48px lg:block'
 									src={'/images/Logo/logo.svg'}
-									alt='Crypto-Logo'
+									alt='Evolution-Logo'
 								/>
 							</div>
 
