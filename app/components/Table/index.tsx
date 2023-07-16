@@ -3,11 +3,12 @@ import Image from 'next/image';
 import LetterAvatar from '../LetterAvatar';
 
 const Table = ({ leaderboard }) => {
+	leaderboard.splice(0, 3);
 	return (
 		<>
 			<div className='mx-auto max-w-7xl pt-40 px-6' id='ranking-section'>
 				<div className='table-b bg-navyblue p-8 overflow-x-auto'>
-					<h3 className='text-offwhite text-2xl'>Evolution Ranking</h3>
+					<h3 className='text-offwhite text-2xl'>Ranking</h3>
 					<table className='table-auto w-full mt-10'>
 						<thead>
 							<tr className='text-white bg-darkblue rounded-lg'>
@@ -22,7 +23,7 @@ const Table = ({ leaderboard }) => {
 						<tbody>
 							{leaderboard.map((items, i) => (
 								<tr key={i} className='border-b border-b-darkblue'>
-									<td className='px-4 py-4 text-center text-white'>{i+1}</td>
+									<td className='px-4 py-4 text-center text-white'>{i+4}</td>
 									<td className='px-4 py-4 text-center text-white flex items-center justify-start gap-5 '>
 										{/* <img src={'https://cdn.discordapp.com/avatars/489192723132317696/41c41bcaf349e1bf8e386ba8351c89f2.webp?size=160'} alt={''} width={50} height={50} className='rounded-full'/> */}
 										<LetterAvatar name={items.value} size={56}/>

@@ -4,6 +4,9 @@ import Image from 'next/image';
 const Top = ({ leaderboard }) => {
 	leaderboard.sort((a, b) => b.score - a.score);
 	let topThree = leaderboard.slice(0, 3);
+	topThree[0].rank = 1;
+	topThree[1].rank = 2;
+	topThree[2].rank = 3;
 	let leaders = [topThree[1], topThree[0], topThree[2]];
 
 	return (
@@ -26,16 +29,16 @@ const Top = ({ leaderboard }) => {
 					{leaders.map((items, i) => (
 						<div className='card-b p-8' key={i}>
 							<div className='work-img-bg rounded-full flex justify-center absolute p-6'>
-								{i === 1 && (
+								{/* {i === 1 && ( */}
 									<img
-										src={'/images/Features/feature_ranking_color.svg'}
+										src={`/images/Top/${items.rank}.svg`}
 										alt={''}
 										width={32}
 										height={32}
 										className='rounded-full'
 										style={{ position: 'absolute', top: '0', right: '0' }}
 									/>
-								)}
+								{/* )} */}
 								<img
 									src={
 										'https://cdn.discordapp.com/avatars/489192723132317696/41c41bcaf349e1bf8e386ba8351c89f2.webp?size=160'
@@ -55,7 +58,7 @@ const Top = ({ leaderboard }) => {
 								/>
 							</div>
 							<h3 className='text-2xl text-offwhite font-semibold text-center mt-8'>
-								{items.value}
+								#{items.rank} {items.value}
 							</h3>
 							<p className='text-base font-normal text-bluish text-center mt-2'>
 								Points: {items.score}
