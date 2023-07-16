@@ -2,9 +2,9 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
 
-const Signin = () => {
+const Signin = ({ isLogged, setIsLogged }) => {
 	let [isOpen, setIsOpen] = useState(false);
-
+	const [username, setUsername] = useState('');
 	const closeModal = () => {
 		setIsOpen(false);
 	};
@@ -13,6 +13,28 @@ const Signin = () => {
 		setIsOpen(true);
 	};
 
+	const handleSignin = async (e) => {
+		e.preventDefault();
+		setIsLogged(true);
+		// const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signin`, {
+		// 	method: 'POST',
+		// 	headers: { 'Content-Type': 'application/json' },
+		// 	body: JSON.stringify({ username }),
+		// });
+		// const res = await response.json();
+		// if (response.ok) {
+		// 	setIsLogged(true);
+		// 	localStorage.setItem('token', res.token);
+		// 	localStorage.setItem('username', res.username);
+		// 	localStorage.setItem('id', res.id);
+		// 	closeModal();
+		// } else {
+		// 	setIsLogged(false);
+		// 	localStorage.removeItem('token');
+		// 	localStorage.removeItem('username');
+		// 	localStorage.removeItem('id');
+		// }
+	};
 	return (
 		<>
 			<div className='absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
@@ -63,12 +85,13 @@ const Signin = () => {
 												/>
 												<h2 className='mt-6 text-center text-xl tracking-tight text-white'>
 													Sign in to your account
+													<br/>
+													<p className='text-red text-xs '>(For testing purposes, you can use any username)</p>
 												</h2>
 											</div>
 											<form
 												className='mt-8 space-y-6'
-												action='#'
-												method='POST'
+												onSubmit={handleSignin}
 											>
 												<input
 													type='hidden'
@@ -78,16 +101,22 @@ const Signin = () => {
 												<div className='-space-y-px rounded-md shadow-sm'>
 													<div>
 														<label
-															htmlFor='email-address'
+															htmlFor='signin-username'
 															className='sr-only'
 														>
 															Username
 														</label>
 														<input
-															id='email-address'
-															name='email'
-															type='email'
-															autoComplete='email'
+															id='signin-username'
+															name='username'
+															type='text'
+															value={username}
+															onChange={(e) => {
+																setUsername(e.target.value);
+															}}
+															pattern='^\S+$'
+															title='Spaces are not allowed'
+															autoComplete='signin-username'
 															required
 															className='relative block w-full appearance-none rounded-none rounded-t-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
 															placeholder='Username'

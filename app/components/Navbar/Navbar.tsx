@@ -1,11 +1,12 @@
 import { Disclosure } from '@headlessui/react';
 import Link from 'next/link';
-import React from 'react';
+import { useState } from 'react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import Drawer from './Drawer';
 import Drawerdata from './Drawerdata';
-// import Signdialog from './Signdialog';
+import Signdialog from './Signdialog';
 import Registerdialog from './Registerdialog';
+import Profile from './Profile';
 // import Contactusform from './Contactus';
 
 interface NavigationItem {
@@ -34,7 +35,8 @@ function classNames(...classes: string[]) {
 }
 
 const Navbar = () => {
-	const [isOpen, setIsOpen] = React.useState(false);
+	const [isOpen, setIsOpen] = useState(false);
+	const [isLogged, setIsLogged] = useState(false);
 
 	return (
 		<Disclosure as='nav' className='navbar'>
@@ -82,8 +84,13 @@ const Navbar = () => {
 							{/* <button className='hidden lg:flex justify-end text-xl font-semibold py-4 px-6 lg:px-12 navbutton text-white'>
 								Login
 							</button> */}
-							{/* <Signdialog /> */}
-							<Registerdialog />
+							{!isLogged && (
+								<>
+									<Registerdialog />
+									<Signdialog isLogged={isLogged} setIsLogged={setIsLogged}/>
+								</>
+							)}
+							{isLogged && <Profile isLogged={isLogged} setIsLogged={setIsLogged}/>}
 							{/* <Contactusform /> */}
 						</div>
 
