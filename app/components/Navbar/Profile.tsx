@@ -10,17 +10,18 @@ import {
 	ListItemIcon,
 	ListItemText,
 } from '@mui/material';
+import LetterAvatar from '../LetterAvatar';
 
-import { IconListCheck, IconMail, IconUser, IconMedal, IconUserCircle } from '@tabler/icons-react';
+import { IconListCheck, IconMail, IconUser, IconMedal, IconUserCircle, IconHexagon } from '@tabler/icons-react';
 
 const handleOpenProfile = () => {
 	console.log('Open Profile');
-	alert('Show Profile')
-}
+	alert('Show Profile');
+};
 
-const Profile = ({ isLogged, setIsLogged }) => {
+const Profile = ({setIsLogged, user}) => {
+
 	const [anchorEl2, setAnchorEl2] = useState(null);
-	const username = 'metalwarrior';
 	const handleClick2 = (event: any) => {
 		setAnchorEl2(event.currentTarget);
 	};
@@ -43,14 +44,15 @@ const Profile = ({ isLogged, setIsLogged }) => {
 				}}
 				onClick={handleClick2}
 			>
-				<Avatar
+				{/* <Avatar
 					src='https://avatars.githubusercontent.com/u/7274655?v=4'
 					alt='image'
 					sx={{
 						width: 35,
 						height: 35,
 					}}
-				/>
+				/> */}
+				<LetterAvatar name={user.username} size={48} />
 			</IconButton>
 			{/* ------------------------------------------- */}
 			{/* Message Dropdown */}
@@ -73,20 +75,38 @@ const Profile = ({ isLogged, setIsLogged }) => {
 					<ListItemIcon>
 						<IconUserCircle width={20} />
 					</ListItemIcon>
-					<ListItemText>{username}</ListItemText>
+					<ListItemText>{user.username}</ListItemText>
 				</MenuItem>
 				<MenuItem disableRipple disabled>
 					<ListItemIcon>
 						<IconMedal width={20} />
 					</ListItemIcon>
-					<ListItemText>Rank #100</ListItemText>
+					<ListItemText>Rank # {user.rank}</ListItemText>
 				</MenuItem>
-				<MenuItem onClick={handleOpenProfile}>
+				<MenuItem disableRipple disabled>
+					<ListItemIcon>
+						<IconHexagon width={20} />
+					</ListItemIcon>
+					<ListItemText>Points: {user.points}</ListItemText>
+				</MenuItem>
+				<MenuItem disableRipple disabled>
+					<ListItemIcon>
+						<IconHexagon width={20} />
+					</ListItemIcon>
+					<ListItemText>Wins: {user.wins}</ListItemText>
+				</MenuItem>
+				<MenuItem disableRipple disabled>
+					<ListItemIcon>
+						<IconHexagon width={20} />
+					</ListItemIcon>
+					<ListItemText>Losses: {user.losses}</ListItemText>
+				</MenuItem>
+				{/* <MenuItem onClick={handleOpenProfile} disableRipple disabled>
 					<ListItemIcon>
 						<IconUser width={20} />
 					</ListItemIcon>
 					<ListItemText>My Profile</ListItemText>
-				</MenuItem>
+				</MenuItem> */}
 				<Box mt={1} py={1} px={2}>
 					<Button
 						href='/'
