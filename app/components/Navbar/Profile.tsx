@@ -81,7 +81,7 @@ const Profile = ({setIsLogged, user}) => {
 					<ListItemIcon>
 						<IconMedal width={20} />
 					</ListItemIcon>
-					<ListItemText>Rank # {user.rank}</ListItemText>
+					<ListItemText>Rank # {user.rank + 1}</ListItemText>
 				</MenuItem>
 				<MenuItem disableRipple disabled>
 					<ListItemIcon>
