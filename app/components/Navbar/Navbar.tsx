@@ -37,6 +37,7 @@ function classNames(...classes: string[]) {
 const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isLogged, setIsLogged] = useState(false);
+	const [user, setUser] = useState(null);
 
 	return (
 		<Disclosure as='nav' className='navbar'>
@@ -87,10 +88,10 @@ const Navbar = () => {
 							{!isLogged && (
 								<>
 									<Registerdialog />
-									<Signdialog isLogged={isLogged} setIsLogged={setIsLogged}/>
+									<Signdialog setIsLogged={setIsLogged} setUser={setUser}/>
 								</>
 							)}
-							{isLogged && <Profile isLogged={isLogged} setIsLogged={setIsLogged}/>}
+							{isLogged && <Profile setIsLogged={setIsLogged} user={user}/>}
 							{/* <Contactusform /> */}
 						</div>
 

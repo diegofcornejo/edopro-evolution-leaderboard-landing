@@ -2,9 +2,13 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
 
-const Signin = ({ isLogged, setIsLogged }) => {
+const Signin = ({ setIsLogged, setUser }) => {
 	let [isOpen, setIsOpen] = useState(false);
 	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
+	const [message, setMessage] = useState('');
+	const [error, setError] = useState(false);
+
 	const closeModal = () => {
 		setIsOpen(false);
 	};
@@ -15,25 +19,27 @@ const Signin = ({ isLogged, setIsLogged }) => {
 
 	const handleSignin = async (e) => {
 		e.preventDefault();
-		setIsLogged(true);
-		// const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signin`, {
-		// 	method: 'POST',
-		// 	headers: { 'Content-Type': 'application/json' },
-		// 	body: JSON.stringify({ username }),
-		// });
-		// const res = await response.json();
-		// if (response.ok) {
-		// 	setIsLogged(true);
-		// 	localStorage.setItem('token', res.token);
-		// 	localStorage.setItem('username', res.username);
-		// 	localStorage.setItem('id', res.id);
-		// 	closeModal();
-		// } else {
-		// 	setIsLogged(false);
-		// 	localStorage.removeItem('token');
-		// 	localStorage.removeItem('username');
-		// 	localStorage.removeItem('id');
-		// }
+		const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signin`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ username, password }),
+		});
+		const res = await response.json();
+		if (response.ok) {
+			setIsLogged(true);
+			setUser(res);
+			// localStorage.setItem('token', res.token);
+			// localStorage.setItem('username', res.username);
+			// localStorage.setItem('id', res.id);
+			closeModal();
+		} else {
+			setIsLogged(false);
+			setError(true);
+			setMessage(res.error);
+			// localStorage.removeItem('token');
+			// localStorage.removeItem('username');
+			// localStorage.removeItem('id');
+		}
 	};
 	return (
 		<>
@@ -85,8 +91,8 @@ const Signin = ({ isLogged, setIsLogged }) => {
 												/>
 												<h2 className='mt-6 text-center text-xl tracking-tight text-white'>
 													Sign in to your account
-													<br/>
-													<p className='text-red text-xs '>(For testing purposes, you can use any username)</p>
+													{/* <br/>
+													<p className='text-red text-xs '>(For testing purposes, you can use any username)</p> */}
 												</h2>
 											</div>
 											<form
@@ -124,16 +130,21 @@ const Signin = ({ isLogged, setIsLogged }) => {
 													</div>
 													<div>
 														<label
-															htmlFor='password'
+															htmlFor='signup-password'
 															className='sr-only'
 														>
 															Password
 														</label>
 														<input
-															id='password'
-															name='password'
+															id='signup-password'
+															name='signup-password'
 															type='password'
-															autoComplete='current-password'
+															value={password}
+															onChange={(e) =>
+																setPassword(e.target.value)
+															}
+															pattern="[^:]*" title="Password cannot contain the ':' character"
+															autoComplete='signup-password'
 															required
 															className='relative block w-full appearance-none rounded-none rounded-b-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
 															placeholder='Password'
@@ -157,14 +168,14 @@ const Signin = ({ isLogged, setIsLogged }) => {
 														</label>
 													</div> */}
 
-													<div className='text-sm'>
+													{/* <div className='text-sm'>
 														<a
 															href='#'
 															className='font-medium text-white hover:text-buttonblue'
 														>
 															Forgot your password?
 														</a>
-													</div>
+													</div> */}
 												</div>
 
 												<div>
@@ -181,6 +192,9 @@ const Signin = ({ isLogged, setIsLogged }) => {
 														Sign in
 													</button>
 												</div>
+												<p className={error ? 'text-red' : 'text-green'}>
+													{message}
+												</p>
 											</form>
 										</div>
 									</div>
