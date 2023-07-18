@@ -20,6 +20,7 @@ interface Social {
 
 interface Dev {
 	github: string;
+	description: string;
 }
 
 const products: ProductType[] = [
@@ -43,11 +44,11 @@ const socialLinks: Social[] = [
 ];
 
 const team: Dev[] = [
-	{ github: 'djngogav' },
-	{ github: 'leip1493' },
-	{ github: 'termitaklk' },
-	{ github: 'leandrogavidia' },
-	{ github: 'diegofcornejo' },
+	{ github: 'diangogav', description:'Project Lead' },
+	{ github: 'leip1493', description:'Dev' },
+	{ github: 'termitaklk', description:'Dev' },
+	{ github: 'leandrogavidia', description: 'Designer' },
+	{ github: 'diegofcornejo', description: 'Web Dev & Ranking'},
 ];
 
 const footer = () => {
@@ -118,7 +119,7 @@ const footer = () => {
 									height={20}
 								/>
 								<Link href={`https://github.com/${item.github}`} target='_blank'>
-									{item.github}
+									{item.github} ({item.description})
 								</Link>
 							</h4>
 						))}
