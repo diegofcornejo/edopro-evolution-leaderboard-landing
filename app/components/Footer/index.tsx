@@ -66,7 +66,7 @@ const footer = () => {
 						/>
 						<h3 className='text-lightblue text-sm font-normal leading-9 mb-4 lg:mb-16'>
 							Evolution is another server that utilizes the EDOPro core to facilitate
-							Yu-Gi-Oh! matches. However, our main focus lies in the scalability of
+							Duel Monsters matches. However, our main focus lies in the scalability of
 							the code, enabling effortless integration of new features associated
 							with the data generated during duels
 						</h3>
