@@ -32,7 +32,7 @@ const Banner = () => {
 								seeking new challenges. <br /> This is the perfect place for you.
 							</p>
 							<div className='flex align-middle justify-center md:justify-start'>
-								<Link href='#download-section'>
+								<Link href='https://discord.gg/bgjddgWkWk' target='_blank'>
 									<button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 navbutton mr-6'>
 										<Image
 											src={'/images/Banner/discord.svg'}
