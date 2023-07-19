@@ -117,12 +117,16 @@ const Register = () => {
 															name='username'
 															type='text'
 															value={username}
-															onChange={(e) =>
-																setUsername(e.target.value)
-															}
-															pattern="^\S+$" title="Spaces are not allowed"
+															onChange={(e) => {
+																if (e.target.value.length <= 10) {
+																	setUsername(e.target.value);
+																}
+															}}
+															pattern='^\S+$'
+															title='Spaces are not allowed'
 															autoComplete='signup-username'
 															required
+															maxLength={10}
 															className='relative block w-full appearance-none rounded-none rounded-t-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
 															placeholder='Username'
 														/>
@@ -160,12 +164,16 @@ const Register = () => {
 															name='signup-password'
 															type='password'
 															value={password}
-															onChange={(e) =>
-																setPassword(e.target.value)
-															}
-															pattern="[^:]*" title="Password cannot contain the ':' character"
+															onChange={(e) => {
+																if (e.target.value.length <= 10) {
+																	setPassword(e.target.value);
+																}
+															}}
+															pattern='[^:]*'
+															title="Password cannot contain the ':' character"
 															autoComplete='signup-password'
 															required
+															maxLength={8}
 															className='relative block w-full appearance-none rounded-none rounded-b-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
 															placeholder='Password'
 														/>
