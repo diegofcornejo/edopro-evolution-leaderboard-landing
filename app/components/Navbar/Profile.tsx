@@ -101,6 +101,12 @@ const Profile = ({setIsLogged, user}) => {
 					</ListItemIcon>
 					<ListItemText>Losses: {user.losses}</ListItemText>
 				</MenuItem>
+				<MenuItem disableRipple disabled>
+					<ListItemIcon>
+						<IconHexagon width={20} />
+					</ListItemIcon>
+					<ListItemText>Winrate: {user.winrate}%</ListItemText>
+				</MenuItem>
 				{/* <MenuItem onClick={handleOpenProfile} disableRipple disabled>
 					<ListItemIcon>
 						<IconUser width={20} />
