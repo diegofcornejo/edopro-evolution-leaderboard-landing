@@ -1,6 +1,6 @@
 {
-  "name": "crypto",
-  "version": "0.1.0",
+  "name": "edopro-ranking-landing",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,8 +11,8 @@
   "dependencies": {
     "@emotion/react": "11.11.1",
     "@emotion/styled": "11.11.0",
-    "@headlessui/react": "^1.7.14",
-    "@heroicons/react": "^2.0.18",
+    "@headlessui/react": "1.7.14",
+    "@heroicons/react": "2.0.18",
     "@mui/material": "5.14.0",
     "@sendgrid/mail": "7.7.0",
     "@tabler/icons-react": "2.25.0",
@@ -26,16 +26,17 @@
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-modal-video": "^2.0.0",
-    "react-slick": "^0.29.0",
+    "react-modal-video": "2.0.0",
+    "react-onesignal": "2.0.4",
+    "react-slick": "0.29.0",
     "redis": "4.6.7",
-    "sass": "^1.62.1",
-    "slick-carousel": "^1.8.1",
+    "sass": "1.62.1",
+    "slick-carousel": "1.8.1",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4"
   },
   "devDependencies": {
-    "@types/react-modal-video": "^1.2.0",
-    "@types/react-slick": "^0.23.10"
+    "@types/react-modal-video": "1.2.0",
+    "@types/react-slick": "0.23.10"
   }
 }
