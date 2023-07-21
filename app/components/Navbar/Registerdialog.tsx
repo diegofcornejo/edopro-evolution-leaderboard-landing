@@ -5,14 +5,14 @@ import { LockClosedIcon } from '@heroicons/react/20/solid';
 const Register = () => {
 	let [isOpen, setIsOpen] = useState(false);
 	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
+	// const [password, setPassword] = useState('');
 	const [email, setEmail] = useState('');
 	const [message, setMessage] = useState('');
 	const [error, setError] = useState(false);
 
 	const cleanForm = () => {
 		setUsername('');
-		setPassword('');
+		// setPassword('');
 		setEmail('');
 		setMessage('');
 		setError(false);
@@ -34,7 +34,7 @@ const Register = () => {
 		const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signup`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ username, password, email }),
+			body: JSON.stringify({ username, email }),
 		});
 		const res = await response.json();
 		if (response.ok) {
@@ -118,7 +118,7 @@ const Register = () => {
 															type='text'
 															value={username}
 															onChange={(e) => {
-																if (e.target.value.length <= 10) {
+																if (e.target.value.length <= 14) {
 																	setUsername(e.target.value);
 																}
 															}}
@@ -126,7 +126,7 @@ const Register = () => {
 															title='Spaces are not allowed'
 															autoComplete='signup-username'
 															required
-															maxLength={10}
+															maxLength={14}
 															className='relative block w-full appearance-none rounded-none rounded-t-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
 															placeholder='Username'
 														/>
@@ -152,7 +152,7 @@ const Register = () => {
 															placeholder='Email'
 														/>
 													</div>
-													<div>
+													{/* <div>
 														<label
 															htmlFor='signup-password'
 															className='sr-only'
@@ -177,7 +177,7 @@ const Register = () => {
 															className='relative block w-full appearance-none rounded-none rounded-b-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
 															placeholder='Password'
 														/>
-													</div>
+													</div> */}
 												</div>
 
 												<div className='flex items-center justify-between'>

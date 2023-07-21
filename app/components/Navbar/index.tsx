@@ -1,7 +1,7 @@
 'use client';
 import Navbar from './Navbar';
 import React, { useEffect } from 'react';
-import runOneSignal from '../../libs/onesignal';
+import runOneSignal from '../../../libs/onesignal';
 
 const Navbarin: React.FC = () => {
 	useEffect(() => {

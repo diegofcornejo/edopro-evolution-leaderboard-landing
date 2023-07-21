@@ -1,4 +1,5 @@
 import { createClient } from 'redis';
+import {passwordGenerator} from '../../../libs/helpers';
 
 //Send email with sendgrid template
 import sgMail from '@sendgrid/mail';
@@ -13,12 +14,12 @@ const sendEmail = async (email, username, password) => {
 			{
 				"to": [
 					{
-						"email": email
+						email
 					}
 				],
 				"dynamic_template_data": {
-					"username": username,
-					"password": password
+					username,
+					password
 				}
 			}
 		],
@@ -39,12 +40,12 @@ const handler = async (req, res) => {
 		try {
 			await client.connect();
 
-			if (!req.body.username || !req.body.password || !req.body.email) {
-				res.status(400).json({ error: 'Missing username, password, or email in the request body' });
+			if (!req.body.username || !req.body.email) {
+				res.status(400).json({ error: 'Missing username, or email in the request body' });
 				return;
 			}
 
-			const { username, password, email } = req.body;
+			const { username, email } = req.body;
 
 			const usernameExists = await client.exists(`user:${username}`);
 			if (usernameExists) {
@@ -57,6 +58,9 @@ const handler = async (req, res) => {
 				res.status(409).json({ error: 'Email already registered' });
 				return;
 			}
+
+			//Generate a random password
+			const password = passwordGenerator(4);
 
 			const createUser = await client.hSet(`user:${username}`, { username, password, email });
 			if (createUser === 3) { //This is the number of fields that we are setting

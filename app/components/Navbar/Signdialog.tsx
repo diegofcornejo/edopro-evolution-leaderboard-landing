@@ -118,12 +118,15 @@ const Signin = ({ setIsLogged, setUser }) => {
 															type='text'
 															value={username}
 															onChange={(e) => {
-																setUsername(e.target.value);
+																if (e.target.value.length <= 14) {
+																	setUsername(e.target.value);
+																}
 															}}
 															pattern='^\S+$'
 															title='Spaces are not allowed'
 															autoComplete='signin-username'
 															required
+															maxLength={14}
 															className='relative block w-full appearance-none rounded-none rounded-t-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
 															placeholder='Username'
 														/>
