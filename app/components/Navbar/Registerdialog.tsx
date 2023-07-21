@@ -47,10 +47,10 @@ const Register = () => {
 
 	return (
 		<>
-			<div className='absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto  sm:pr-0'>
-				<div className='hidden md:block'>
+			<div className='relative min-lg:absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto  sm:pr-0'>
+				<div className='block md:block'>
 					<button
-						className='hidden lg:flex justify-end text-l py-2 px-4 lg:px-4 navbutton text-white'
+						className='block lg:flex justify-end text-l py-2 px-4 lg:px-4 navbutton text-white'
 						onClick={openModal}
 					>
 						Register

@@ -44,7 +44,7 @@ const Navbar = () => {
 			<>
 				<div className='mx-auto max-w-7xl p-3 md:p-4 lg:px-8'>
 					<div className='relative flex h-12 sm:h-20 items-center'>
-						<div className='flex flex-1 items-center sm:justify-between'>
+						<div className='flex flex-1 items-center justify-between'>
 							{/* LOGO */}
 
 							<div className='flex flex-shrink-0 items-center'>
@@ -99,7 +99,7 @@ const Navbar = () => {
 
 						{/* DRAWER ICON */}
 
-						<div className='block lg:hidden'>
+						<div className='block lg:hidden ml-4'>
 							<Bars3Icon
 								className='block h-6 w-6 text-white'
 								aria-hidden='true'
