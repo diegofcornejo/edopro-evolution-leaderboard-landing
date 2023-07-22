@@ -1,4 +1,4 @@
-
+import { Toaster } from 'react-hot-toast';
 import Banner from './components/Banner/index';
 // import Companies from './components/Companies/index';
 import Top from './components/Top/index';
@@ -28,6 +28,7 @@ export default async function Home() {
 			<Download />
 			{/* <Trade /> */}
 			<Faq />
+			<Toaster position="bottom-center" reverseOrder={false}/>
 		</main>
 	);
 }

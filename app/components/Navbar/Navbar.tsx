@@ -2,6 +2,7 @@ import { Disclosure } from '@headlessui/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
+import toast from 'react-hot-toast';
 import Drawer from './Drawer';
 import Drawerdata from './Drawerdata';
 import Signdialog from './Signdialog';
@@ -34,12 +35,17 @@ function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ');
 }
 
+const errorFetchingUserData = () => {
+	toast.error(`Error while fetching user data,
+		Please login again`);
+	localStorage.removeItem('token');
+};
+
 const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isLogged, setIsLogged] = useState(false);
 	const [user, setUser] = useState(null);
-	
-	//check if user is logged in
+
 	if (typeof window !== 'undefined') {
 		const token = localStorage.getItem('token');
 		if (token && !user) {
@@ -52,15 +58,15 @@ const Navbar = () => {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					if(data.username){
+					if (data.username) {
 						setUser(data);
 						setIsLogged(true);
-					}else{
-						localStorage.removeItem('token');
+					} else {
+						errorFetchingUserData();
 					}
 				})
 				.catch((err) => {
-					
+					errorFetchingUserData();
 				});
 		}
 	}
@@ -114,10 +120,10 @@ const Navbar = () => {
 							{!isLogged && (
 								<>
 									<Registerdialog />
-									<Signdialog setIsLogged={setIsLogged} setUser={setUser}/>
+									<Signdialog setIsLogged={setIsLogged} setUser={setUser} />
 								</>
 							)}
-							{isLogged && <Profile setIsLogged={setIsLogged} user={user}/>}
+							{isLogged && <Profile setIsLogged={setIsLogged} user={user} />}
 							{/* <Contactusform /> */}
 						</div>
 
