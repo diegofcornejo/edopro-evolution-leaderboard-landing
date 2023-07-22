@@ -3,24 +3,28 @@ import jwt from 'jsonwebtoken';
 
 const handler = async (req, res) => {
 	if (req.method === 'POST') {
+
+		//verify jwt
+		const token = req.headers.authorization.split(' ')[1];
+		const decoded = jwt.verify(token, process.env.JWT_SECRET, { issuer: process.env.JWT_ISSUER});
+		console.log("🚀 ~ file: rank.js:10 ~ handler ~ decoded:", decoded)
+		if (!decoded) {
+			res.status(401).json({ error: 'Invalid credentials' });
+			return;
+		}
+		
 		const client = createClient({ url: process.env.REDIS_URL });
 		client.on('error', (err) => console.log('Redis Client Error', err));
 
 		await client.connect();
 
 		try {
-			const { username, password } = req.body;
+			const { username } = req.body;
 			const key = `user:${username}`;
 			const usernameExists = await client.exists(key);
 
 			if (!usernameExists) {
 				res.status(409).json({ error: 'Username does not exist' });
-				return;
-			}
-
-			const userPassword = await client.hGet(key, 'password');
-			if (userPassword !== password) {
-				res.status(401).json({ error: 'Invalid credentials' });
 				return;
 			}
 
@@ -33,9 +37,7 @@ const handler = async (req, res) => {
 
 			const winrate = parseFloat(((wins / (wins + losses)) * 100).toFixed(2));
 
-			const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '7d', issuer: process.env.JWT_ISSUER });
-
-			res.status(200).json({token, username, rank, points, wins, losses, winrate });
+			res.status(200).json({username, rank, points, wins, losses, winrate });
 		} catch (error) {
 			console.error('Error during processing:', error);
 			res.status(500).json({ error: 'Internal Server Error' });
