@@ -48,7 +48,7 @@ const team: Dev[] = [
 	{ github: 'leip1493', description:'Dev' },
 	{ github: 'termitaklk', description:'Dev' },
 	{ github: 'leandrogavidia', description: 'Designer' },
-	{ github: 'diegofcornejo', description: 'Web Dev & Ranking'},
+	{ github: 'diegofcornejo', description: 'SRE & Ranking'},
 ];
 
 const footer = () => {
