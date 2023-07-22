@@ -28,17 +28,12 @@ const Signin = ({ setIsLogged, setUser }) => {
 		if (response.ok) {
 			setIsLogged(true);
 			setUser(res);
-			// localStorage.setItem('token', res.token);
-			// localStorage.setItem('username', res.username);
-			// localStorage.setItem('id', res.id);
+			localStorage.setItem('token', res.token);
 			closeModal();
 		} else {
 			setIsLogged(false);
 			setError(true);
 			setMessage(res.error);
-			// localStorage.removeItem('token');
-			// localStorage.removeItem('username');
-			// localStorage.removeItem('id');
 		}
 	};
 	return (
