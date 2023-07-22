@@ -19,7 +19,7 @@ const handler = async (req, res) => {
 		await client.connect();
 
 		try {
-			const { username } = req.body;
+			const { username } = decoded;
 			const key = `user:${username}`;
 			const usernameExists = await client.exists(key);
 

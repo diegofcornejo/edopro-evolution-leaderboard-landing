@@ -38,6 +38,32 @@ const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isLogged, setIsLogged] = useState(false);
 	const [user, setUser] = useState(null);
+	
+	//check if user is logged in
+	if (typeof window !== 'undefined') {
+		const token = localStorage.getItem('token');
+		if (token && !user) {
+			fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/rank`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${token}`,
+				},
+			})
+				.then((res) => res.json())
+				.then((data) => {
+					if(data.username){
+						setUser(data);
+						setIsLogged(true);
+					}else{
+						localStorage.removeItem('token');
+					}
+				})
+				.catch((err) => {
+					
+				});
+		}
+	}
 
 	return (
 		<Disclosure as='nav' className='navbar'>

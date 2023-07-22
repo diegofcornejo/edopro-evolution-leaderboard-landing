@@ -21,6 +21,10 @@ const handleOpenProfile = () => {
 
 const Profile = ({setIsLogged, user}) => {
 
+	const handleLogout = () => {
+		setIsLogged(false);
+		localStorage.removeItem('token');
+	};
 	const [anchorEl2, setAnchorEl2] = useState(null);
 	const handleClick2 = (event: any) => {
 		setAnchorEl2(event.currentTarget);
@@ -119,7 +123,7 @@ const Profile = ({setIsLogged, user}) => {
 						variant='outlined'
 						color='info'
 						component={Link}
-						onClick={() => setIsLogged(false)}
+						onClick={() => handleLogout()}
 						fullWidth
 					>
 						Logout
