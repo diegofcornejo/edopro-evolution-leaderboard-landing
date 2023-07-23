@@ -7,7 +7,6 @@ const handler = async (req, res) => {
 		//verify jwt
 		const token = req.headers.authorization.split(' ')[1];
 		const decoded = jwt.verify(token, process.env.JWT_SECRET, { issuer: process.env.JWT_ISSUER});
-		console.log("🚀 ~ file: rank.js:10 ~ handler ~ decoded:", decoded)
 		if (!decoded) {
 			res.status(401).json({ error: 'Invalid credentials' });
 			return;

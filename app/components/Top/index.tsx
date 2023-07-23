@@ -1,5 +1,6 @@
 'use client';
 import Image from 'next/image';
+import LetterAvatar from '../LetterAvatar';
 
 const Top = ({ leaderboard }) => {
 	leaderboard.sort((a, b) => b.score - a.score);
@@ -39,7 +40,7 @@ const Top = ({ leaderboard }) => {
 										style={{ position: 'absolute', top: '0', right: '0' }}
 									/>
 								{/* )} */}
-								<img
+								{/* <img
 									src={
 										'https://cdn.discordapp.com/avatars/489192723132317696/41c41bcaf349e1bf8e386ba8351c89f2.webp?size=160'
 									}
@@ -47,7 +48,8 @@ const Top = ({ leaderboard }) => {
 									width={50}
 									height={50}
 									className='rounded-full'
-								/>
+								/> */}
+								<LetterAvatar name={items.value} size={50}/>
 							</div>
 							<div>
 								<Image
