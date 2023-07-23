@@ -37,7 +37,7 @@ const Profile = ({setIsLogged, user}) => {
 		<Box>
 			<IconButton
 				size='large'
-				aria-label='show 11 new notifications'
+				aria-label='Open profile'
 				color='inherit'
 				aria-controls='msgs-menu'
 				aria-haspopup='true'
@@ -56,7 +56,7 @@ const Profile = ({setIsLogged, user}) => {
 						height: 35,
 					}}
 				/> */}
-				<LetterAvatar name={user.username} size={48} />
+				<LetterAvatar name={user.username} size={48} borderColor='#ffffff'/>
 			</IconButton>
 			{/* ------------------------------------------- */}
 			{/* Message Dropdown */}
@@ -72,42 +72,44 @@ const Profile = ({setIsLogged, user}) => {
 				sx={{
 					'& .MuiMenu-paper': {
 						width: '200px',
-					},
+						bgcolor: '#291545',
+						color: '#ffffff'
+					}
 				}}
 			>
-				<MenuItem disableRipple disabled>
+				<MenuItem disableRipple>
 					<ListItemIcon>
-						<IconUserCircle width={20} />
+						<IconUserCircle width={20} color='#ffffff'/>
 					</ListItemIcon>
 					<ListItemText>{user.username}</ListItemText>
 				</MenuItem>
-				<MenuItem disableRipple disabled>
+				<MenuItem disableRipple>
 					<ListItemIcon>
-						<IconMedal width={20} />
+						<IconMedal width={20} color='#ffffff'/>
 					</ListItemIcon>
 					<ListItemText>Rank # {user.rank + 1}</ListItemText>
 				</MenuItem>
-				<MenuItem disableRipple disabled>
+				<MenuItem disableRipple>
 					<ListItemIcon>
-						<IconHexagon width={20} />
+						<IconHexagon width={20} color='#ffffff'/>
 					</ListItemIcon>
 					<ListItemText>Points: {user.points}</ListItemText>
 				</MenuItem>
-				<MenuItem disableRipple disabled>
+				<MenuItem disableRipple>
 					<ListItemIcon>
-						<IconHexagon width={20} />
+						<IconHexagon width={20} color='#ffffff'/>
 					</ListItemIcon>
 					<ListItemText>Wins: {user.wins}</ListItemText>
 				</MenuItem>
-				<MenuItem disableRipple disabled>
+				<MenuItem disableRipple>
 					<ListItemIcon>
-						<IconHexagon width={20} />
+						<IconHexagon width={20} color='#ffffff'/>
 					</ListItemIcon>
 					<ListItemText>Losses: {user.losses}</ListItemText>
 				</MenuItem>
-				<MenuItem disableRipple disabled>
+				<MenuItem disableRipple>
 					<ListItemIcon>
-						<IconHexagon width={20} />
+						<IconHexagon width={20} color='#ffffff'/>
 					</ListItemIcon>
 					<ListItemText>Winrate: {user.winrate}%</ListItemText>
 				</MenuItem>
