@@ -18,7 +18,7 @@ const welcomeToast = (username) =>
 					</div>
 					<div className='ml-3 flex-1'>
 						<p className='text-xl font-medium text-gray-900'>Welcome {username}</p>
-						<p className='mt-1 text-l text-gray-500'>Let's Duel!</p>
+						<p className='mt-1 text-l text-gray-500'>Let&aposs Duel!</p>
 					</div>
 				</div>
 			</div>
