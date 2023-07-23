@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 import {
 	Avatar,
 	Box,
@@ -12,15 +13,27 @@ import {
 } from '@mui/material';
 import LetterAvatar from '../LetterAvatar';
 
-import { IconListCheck, IconMail, IconUser, IconMedal, IconUserCircle, IconHexagon } from '@tabler/icons-react';
+import { IconMedal, IconUserCircle, IconHexagon, IconList } from '@tabler/icons-react';
 
-const handleOpenProfile = () => {
-	console.log('Open Profile');
-	alert('Show Profile');
+const handleOpenHistory = async () => {
+	const token = localStorage.getItem('token');
+	const res = await fetch('/api/user/duels', {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`,
+		},
+	});
+	if (res.ok) {
+		const data = await res.json();
+		console.log(data);
+		toast.success(JSON.stringify(data));
+	} else {
+		toast.error('Error while fetching user history');
+	}
 };
 
-const Profile = ({setIsLogged, user}) => {
-
+const Profile = ({ setIsLogged, user }) => {
 	const handleLogout = () => {
 		setIsLogged(false);
 		localStorage.removeItem('token');
@@ -48,15 +61,7 @@ const Profile = ({setIsLogged, user}) => {
 				}}
 				onClick={handleClick2}
 			>
-				{/* <Avatar
-					src='https://avatars.githubusercontent.com/u/7274655?v=4'
-					alt='image'
-					sx={{
-						width: 35,
-						height: 35,
-					}}
-				/> */}
-				<LetterAvatar name={user.username} size={48} borderColor='#ffffff'/>
+				<LetterAvatar name={user.username} size={48} borderColor='#ffffff' />
 			</IconButton>
 			{/* ------------------------------------------- */}
 			{/* Message Dropdown */}
@@ -73,52 +78,52 @@ const Profile = ({setIsLogged, user}) => {
 					'& .MuiMenu-paper': {
 						width: '200px',
 						bgcolor: '#291545',
-						color: '#ffffff'
-					}
+						color: '#ffffff',
+					},
 				}}
 			>
 				<MenuItem disableRipple>
 					<ListItemIcon>
-						<IconUserCircle width={20} color='#ffffff'/>
+						<IconUserCircle width={20} color='#ffffff' />
 					</ListItemIcon>
 					<ListItemText>{user.username}</ListItemText>
 				</MenuItem>
 				<MenuItem disableRipple>
 					<ListItemIcon>
-						<IconMedal width={20} color='#ffffff'/>
+						<IconMedal width={20} color='#ffffff' />
 					</ListItemIcon>
 					<ListItemText>Rank # {user.rank + 1}</ListItemText>
 				</MenuItem>
 				<MenuItem disableRipple>
 					<ListItemIcon>
-						<IconHexagon width={20} color='#ffffff'/>
+						<IconHexagon width={20} color='#ffffff' />
 					</ListItemIcon>
 					<ListItemText>Points: {user.points}</ListItemText>
 				</MenuItem>
 				<MenuItem disableRipple>
 					<ListItemIcon>
-						<IconHexagon width={20} color='#ffffff'/>
+						<IconHexagon width={20} color='#ffffff' />
 					</ListItemIcon>
 					<ListItemText>Wins: {user.wins}</ListItemText>
 				</MenuItem>
 				<MenuItem disableRipple>
 					<ListItemIcon>
-						<IconHexagon width={20} color='#ffffff'/>
+						<IconHexagon width={20} color='#ffffff' />
 					</ListItemIcon>
 					<ListItemText>Losses: {user.losses}</ListItemText>
 				</MenuItem>
 				<MenuItem disableRipple>
 					<ListItemIcon>
-						<IconHexagon width={20} color='#ffffff'/>
+						<IconHexagon width={20} color='#ffffff' />
 					</ListItemIcon>
 					<ListItemText>Winrate: {user.winrate}%</ListItemText>
 				</MenuItem>
-				{/* <MenuItem onClick={handleOpenProfile} disableRipple disabled>
+				<MenuItem onClick={handleOpenHistory} disableRipple>
 					<ListItemIcon>
-						<IconUser width={20} />
+						<IconList width={20} color='#ffffff'/>
 					</ListItemIcon>
-					<ListItemText>My Profile</ListItemText>
-				</MenuItem> */}
+					<ListItemText>Duel Logs</ListItemText>
+				</MenuItem>
 				<Box mt={1} py={1} px={2}>
 					<Button
 						href='/'

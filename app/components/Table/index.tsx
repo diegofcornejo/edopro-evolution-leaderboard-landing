@@ -41,11 +41,6 @@ const Table = ({ leaderboard }) => {
 									<td className='px-4 py-4 text-center text-white'>
 										{items.winrate}%
 									</td>
-									{/* <td className={`px-4 py-6 text-center ${items.change < 0 ? 'text-red' : 'text-green'} `}>{items.change}%</td>
-                                    <td className="px-4 py-6 text-center text-white">${items.cap.toLocaleString()}</td>
-                                    <td className={`px-4 py-6 text-center ${items.action === 'Buy' ? 'text-green' : 'text-red'}`}>
-                                        {items.action}
-                                    </td> */}
 								</tr>
 							))}
 						</tbody>
