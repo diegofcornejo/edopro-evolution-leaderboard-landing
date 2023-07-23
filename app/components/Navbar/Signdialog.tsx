@@ -2,6 +2,28 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
 import toast from 'react-hot-toast';
+import LetterAvatar from '../LetterAvatar';
+
+const welcomeToast = (username) =>
+	toast.custom((t) => (
+		<div
+			className={`${
+				t.visible ? 'animate-enter' : 'animate-leave'
+			} max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+		>
+			<div className='flex-1 w-0 p-4'>
+				<div className='flex items-start'>
+					<div className='flex-shrink-0 pt-0.5'>
+						<LetterAvatar name={username} size={64} />
+					</div>
+					<div className='ml-3 flex-1'>
+						<p className='text-xl font-medium text-gray-900'>Welcome {username}</p>
+						<p className='mt-1 text-l text-gray-500'>Let's Duel!</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	));
 
 const Signin = ({ setIsLogged, setUser }) => {
 	let [isOpen, setIsOpen] = useState(false);
@@ -31,7 +53,8 @@ const Signin = ({ setIsLogged, setUser }) => {
 			setUser(res);
 			localStorage.setItem('token', res.token);
 			closeModal();
-			toast.success(`Welcome ${res.username}`);
+			// toast.success(`Welcome ${res.username}`);
+			welcomeToast(res.username);
 		} else {
 			setIsLogged(false);
 			setError(true);
@@ -143,7 +166,8 @@ const Signin = ({ setIsLogged, setUser }) => {
 															onChange={(e) =>
 																setPassword(e.target.value)
 															}
-															pattern="[^:]*" title="Password cannot contain the ':' character"
+															pattern='[^:]*'
+															title="Password cannot contain the ':' character"
 															autoComplete='signup-password'
 															required
 															className='relative block w-full appearance-none rounded-none rounded-b-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
