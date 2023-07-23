@@ -44,6 +44,8 @@ const handler = async (req, res) => {
 			await client.quit();
 		}
 
+	}else {
+		res.status(405).json({ error: 'Method not allowed' });
 	}
 }
 
