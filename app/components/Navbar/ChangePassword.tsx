@@ -1,13 +1,9 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState, useEffect } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
-import { MenuItem, ListItemIcon, ListItemText } from '@mui/material';
-import { IconList } from '@tabler/icons-react';
 import toast from 'react-hot-toast';
 
-const ChangePassword = ({isOpenPasswordChange, setIsOpenPasswordChange, setIsLogged}) => {
-	
-	// let [isOpen, setIsOpen] = useState(open);
+const ChangePassword = ({ isOpenPasswordChange, setIsOpenPasswordChange, setIsLogged }) => {
 	const [password, setPassword] = useState('');
 	const [newPassword, setNewPassword] = useState('');
 	const [message, setMessage] = useState(`New password can't be more than 4 characters`);
@@ -22,18 +18,18 @@ const ChangePassword = ({isOpenPasswordChange, setIsOpenPasswordChange, setIsLog
 		const token = localStorage.getItem('token');
 		const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/password`, {
 			method: 'POST',
-			headers: { 
-				'Content-Type': 'application/json', 
-				'Authorization': `Bearer ${token}` },
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
 			body: JSON.stringify({ password, newPassword }),
 		});
 		const res = await response.json();
 		if (response.ok) {
-			// setMessage(res.message);
 			closeModal();
 			localStorage.removeItem('token');
 			setIsLogged(false);
-			toast.success('Password changed successfully, Please login again',{duration: 5000});
+			toast.success('Password changed successfully, Please login again', { duration: 5000 });
 		} else {
 			setError(true);
 			setMessage(res.error);
@@ -102,7 +98,7 @@ const ChangePassword = ({isOpenPasswordChange, setIsOpenPasswordChange, setIsLog
 															}
 															pattern='[^:]*'
 															title="Password cannot contain the ':' character"
-															// autoComplete='change-password'
+															autoComplete='change-password'
 															required
 															className='relative block w-full appearance-none rounded-none rounded-t-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
 															placeholder='Actual Password'
@@ -121,13 +117,13 @@ const ChangePassword = ({isOpenPasswordChange, setIsOpenPasswordChange, setIsLog
 															type='password'
 															defaultValue={newPassword}
 															onChange={(e) => {
-																// if (e.target.value.length <= 4) {
+																if (e.target.value.length <= 4) {
 																	setNewPassword(e.target.value);
-																// }
+																}
 															}}
 															pattern='[^:]*'
 															title="Password cannot contain the ':' character"
-															// autoComplete='change-new-password'
+															autoComplete='change-new-password'
 															required
 															maxLength={4}
 															className='relative block w-full appearance-none rounded-none rounded-b-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'

@@ -6,12 +6,12 @@ const handler = async (req, res) => {
 
 		//verify jwt
 		const token = req.headers.authorization.split(' ')[1];
-		const decoded = jwt.verify(token, process.env.JWT_SECRET, { issuer: process.env.JWT_ISSUER});
+		const decoded = jwt.verify(token, process.env.JWT_SECRET, { issuer: process.env.JWT_ISSUER });
 		if (!decoded) {
 			res.status(401).json({ error: 'Invalid token' });
 			return;
 		}
-		
+
 		const client = createClient({ url: process.env.REDIS_URL });
 		client.on('error', (err) => console.log('Redis Client Error', err));
 
@@ -19,7 +19,6 @@ const handler = async (req, res) => {
 
 		try {
 			const { username } = decoded;
-			console.log(req.body)
 			const { password, newPassword } = req.body;
 			const key = `user:${username}`;
 			const usernameExists = await client.exists(key);
@@ -52,7 +51,7 @@ const handler = async (req, res) => {
 			await client.quit();
 		}
 
-	}else {
+	} else {
 		res.status(405).json({ error: 'Method not allowed' });
 	}
 }
