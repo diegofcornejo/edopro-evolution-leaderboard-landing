@@ -2,10 +2,6 @@ import createRedisClient from '../../../libs/redisUtils';
 import { passwordGenerator } from '../../../libs/helpers';
 import sendEmail from '../../../libs/sendGridUtils';
 
-//Send email with sendgrid template
-import sgMail from '@sendgrid/mail';
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
 const handler = async (req, res) => {
 	if (req.method === 'POST') {
 

@@ -11,15 +11,15 @@ interface faqdata {
 const faqdata: faqdata[] = [
     {
         heading: "1. How to play on Evolution Server?",
-        subheading: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into'
+        subheading: `You only need to download a compatible client. We recommend downloading the official EDOPro client (Project Ignis) or from the downloads section on our Discord server. Finally, follow the instructions provided on our Discord to set up the server.`
     },
     {
         heading: "2. Do I need an account to play on Evolution Server?",
-        subheading: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into'
+        subheading: `You don't need an account to play on Evolution Server, but for a complete experience, we recommend registering. In addition to automatic ranking you'll gain access to more content and special events.`
     },
     {
         heading: "3. How does ranking work?",
-        subheading: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into'
+        subheading: 'No matter which game mode you play, you will earn points for each victory. The more points you accumulate, the higher your rank will be. You can check your rank on the website; the website only displays the top 20 ranks. If you are not in the top 20, you can find your rank in your profile.'
     },
 
 ]
