@@ -1,5 +1,6 @@
 import { createClient } from 'redis';
 import jwt from 'jsonwebtoken';
+import { generateJwt } from '../../../libs/jwtUtils';
 
 const handler = async (req, res) => {
 	if (req.method === 'POST') {
@@ -32,8 +33,8 @@ const handler = async (req, res) => {
 			]);
 
 			const winrate = parseFloat(((wins / (wins + losses)) * 100).toFixed(2));
-
-			const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '7d', issuer: process.env.JWT_ISSUER });
+			
+			const token = generateJwt({ username });
 
 			res.status(200).json({token, username, rank, points, wins, losses, winrate });
 		} catch (error) {

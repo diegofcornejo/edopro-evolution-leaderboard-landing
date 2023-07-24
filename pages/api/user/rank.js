@@ -1,16 +1,17 @@
 import { createClient } from 'redis';
-import jwt from 'jsonwebtoken';
+import { verifyJwt } from '../../../libs/jwtUtils';
 
 const handler = async (req, res) => {
 	if (req.method === 'POST') {
 
-		//verify jwt
-		const token = req.headers.authorization.split(' ')[1];
-		const decoded = jwt.verify(token, process.env.JWT_SECRET, { issuer: process.env.JWT_ISSUER});
-		if (!decoded) {
-			res.status(401).json({ error: 'Invalid credentials' });
-			return;
-		}
+		let decoded;
+    // Verify jwt
+    try {
+      decoded = verifyJwt(req);
+    } catch (error) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
 		
 		const client = createClient({ url: process.env.REDIS_URL });
 		client.on('error', (err) => console.log('Redis Client Error', err));
