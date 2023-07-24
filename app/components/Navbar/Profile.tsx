@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import {
@@ -15,13 +15,15 @@ import LetterAvatar from '../LetterAvatar';
 
 import { IconMedal, IconUserCircle, IconHexagon, IconList } from '@tabler/icons-react';
 
+import ChangePassword from './ChangePassword';
+
 const handleOpenHistory = async () => {
 	const token = localStorage.getItem('token');
 	const res = await fetch('/api/user/duels', {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': `Bearer ${token}`,
+			Authorization: `Bearer ${token}`,
 		},
 	});
 	if (res.ok) {
@@ -45,6 +47,17 @@ const Profile = ({ setIsLogged, user }) => {
 	const handleClose2 = () => {
 		setAnchorEl2(null);
 	};
+
+	const [isOpenPasswordChange, setIsOpenPasswordChange] = useState(false);
+	const handleOpenPasswordChange = () => {
+		setIsOpenPasswordChange(true);
+		setAnchorEl2(null);
+	};
+
+	// useEffect(() => {
+	// 	console.log('use effect');
+	// 	console.log(isOpenPasswordChange);
+	// }, [isOpenPasswordChange]);
 
 	return (
 		<Box>
@@ -118,11 +131,17 @@ const Profile = ({ setIsLogged, user }) => {
 					</ListItemIcon>
 					<ListItemText>Winrate: {user.winrate}%</ListItemText>
 				</MenuItem>
-				<MenuItem onClick={handleOpenHistory} disableRipple>
+				{/* <MenuItem onClick={handleOpenHistory} disableRipple>
 					<ListItemIcon>
 						<IconList width={20} color='#ffffff'/>
 					</ListItemIcon>
 					<ListItemText>Duel Logs</ListItemText>
+				</MenuItem> */}
+				<MenuItem onClick={handleOpenPasswordChange}>
+					<ListItemIcon>
+						<IconList width={20} color='#ffffff' />
+					</ListItemIcon>
+					<ListItemText>Change Password</ListItemText>
 				</MenuItem>
 				<Box mt={1} py={1} px={2}>
 					<Button
@@ -137,6 +156,13 @@ const Profile = ({ setIsLogged, user }) => {
 					</Button>
 				</Box>
 			</Menu>
+			{isOpenPasswordChange && (
+				<ChangePassword
+					isOpenPasswordChange={isOpenPasswordChange}
+					setIsOpenPasswordChange={setIsOpenPasswordChange}
+					setIsLogged={setIsLogged}
+				/>
+			)}
 		</Box>
 	);
 };
