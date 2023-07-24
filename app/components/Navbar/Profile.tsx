@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import LetterAvatar from '../LetterAvatar';
 
-import { IconMedal, IconUserCircle, IconHexagon, IconList } from '@tabler/icons-react';
+import { IconMedal, IconUserCircle, IconHexagon, IconShieldLock } from '@tabler/icons-react';
 
 import ChangePassword from './ChangePassword';
 
@@ -139,7 +139,7 @@ const Profile = ({ setIsLogged, user }) => {
 				</MenuItem> */}
 				<MenuItem onClick={handleOpenPasswordChange}>
 					<ListItemIcon>
-						<IconList width={20} color='#ffffff' />
+						<IconShieldLock width={20} color='#ffffff' />
 					</ListItemIcon>
 					<ListItemText>Change Password</ListItemText>
 				</MenuItem>
