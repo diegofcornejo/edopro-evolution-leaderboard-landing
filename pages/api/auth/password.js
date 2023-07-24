@@ -1,6 +1,37 @@
 import { createClient } from 'redis';
 import jwt from 'jsonwebtoken';
 
+//Send email with sendgrid template
+import sgMail from '@sendgrid/mail';
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+const sendEmail = async (email, username, password) => {
+	const message = {
+		"from": {
+			"email": process.env.SENDGRID_FROM_EMAIL
+		},
+		"personalizations": [
+			{
+				"to": [
+					{
+						email
+					}
+				],
+				"dynamic_template_data": {
+					username,
+					password
+				}
+			}
+		],
+		"template_id": process.env.SENDGRID_PASSWORD_TEMPLATE_ID
+	}
+	try {
+		await sgMail.send(message);
+	} catch (error) {
+		console.log('Sengrid Client Error', error);
+	}
+}
+
 const handler = async (req, res) => {
 	if (req.method === 'POST') {
 
@@ -42,7 +73,8 @@ const handler = async (req, res) => {
 				res.status(401).json({ error: 'Password update failed' });
 				return;
 			}
-
+			const email = await client.hGet(key, 'email');
+			await sendEmail(email, username, newPassword);
 			res.status(200).json({ message: 'Password updated' });
 		} catch (error) {
 			console.error('Error during processing:', error);
