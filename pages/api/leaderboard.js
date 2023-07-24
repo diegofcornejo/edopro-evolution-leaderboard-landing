@@ -1,40 +1,47 @@
-import { createClient } from 'redis';
+import createRedisClient from '../../libs/redisUtils';
 
 const handler = async (req, res) => {
 	if (req.method === 'GET') {
-		const client = createClient({ url: process.env.REDIS_URL });
-		client.on('error', (err) => console.log('Redis Client Error', err));
 
-		await client.connect();
+		let client;
 
-		let points = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:points', '-inf', '+inf');
-		let wins = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:wins', '-inf', '+inf');
-		let losses = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:losses', '-inf', '+inf');
-		await client.quit();
+		try {
 
-		const leaderboard = points.map(point => {
-			const player = {
-				value: point.value,
-				score: point.score,
-				wins: 0,
-				losses: 0,
-				winrate: 0,
-			};
+		  client = await createRedisClient();
 
-			const foundWin = wins.find(win => win.value === player.value);
-			const foundLoss = losses.find(loss => loss.value === player.value);
+			let points = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:points', '-inf', '+inf');
+			let wins = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:wins', '-inf', '+inf');
+			let losses = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:losses', '-inf', '+inf');
 
-			player.wins = foundWin ? foundWin.score : 0;
-			player.losses = foundLoss ? foundLoss.score : 0;
-			player.winrate = parseFloat(((player.wins / (player.wins + player.losses)) * 100).toFixed(2));
+			const leaderboard = points.map(point => {
+				const player = {
+					value: point.value,
+					score: point.score,
+					wins: 0,
+					losses: 0,
+					winrate: 0,
+				};
 
-			return player;
-		});
+				const foundWin = wins.find(win => win.value === player.value);
+				const foundLoss = losses.find(loss => loss.value === player.value);
 
-		const sortedLeaderboard = leaderboard.sort((a, b) => b.score - a.score);
-		const top = sortedLeaderboard.slice(0, 20);
+				player.wins = foundWin ? foundWin.score : 0;
+				player.losses = foundLoss ? foundLoss.score : 0;
+				player.winrate = parseFloat(((player.wins / (player.wins + player.losses)) * 100).toFixed(2));
 
-		res.status(200).json(top);
+				return player;
+			});
+
+			const sortedLeaderboard = leaderboard.sort((a, b) => b.score - a.score);
+			const top = sortedLeaderboard.slice(0, 20);
+
+			res.status(200).json(top);
+		} catch (error) {
+			console.error('Error during processing:', error);
+			res.status(500).json({ error: 'Internal Server Error' });
+		} finally {
+			if(client) await client.quit();
+		}
 
 	} else {
 		res.status(405).json({ error: 'Method not allowed' });

@@ -1,4 +1,4 @@
-import { createClient } from 'redis';
+import createRedisClient from '../../../libs/redisUtils';
 import {verifyJwt} from '../../../libs/jwtUtils';
 
 const getPlayerScore = (games) => {
@@ -22,11 +22,10 @@ const handler = async (req, res) => {
       return;
     }
 
-    const client = createClient({ url: process.env.REDIS_URL });
-    client.on('error', (err) => console.log('Redis Client Error', err));
+		let client;
 
     try {
-      await client.connect();
+      client = await createRedisClient();
       const { username } = decoded;
       const key = `user:${username}`;
       const usernameExists = await client.exists(key);
@@ -65,7 +64,7 @@ const handler = async (req, res) => {
       console.error('Error during processing:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     } finally {
-      await client.quit();
+      if(client) await client.quit();
     }
   } else {
     res.status(405).json({ error: 'Method not allowed' });

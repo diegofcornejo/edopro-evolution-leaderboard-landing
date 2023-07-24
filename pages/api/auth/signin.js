@@ -1,15 +1,13 @@
-import { createClient } from 'redis';
-import jwt from 'jsonwebtoken';
+import createRedisClient from '../../../libs/redisUtils';
 import { generateJwt } from '../../../libs/jwtUtils';
 
 const handler = async (req, res) => {
 	if (req.method === 'POST') {
-		const client = createClient({ url: process.env.REDIS_URL });
-		client.on('error', (err) => console.log('Redis Client Error', err));
-
-		await client.connect();
-
+		
+		let client;
+		
 		try {
+			client = await createRedisClient();
 			const { username, password } = req.body;
 			const key = `user:${username}`;
 			const usernameExists = await client.exists(key);
@@ -41,7 +39,7 @@ const handler = async (req, res) => {
 			console.error('Error during processing:', error);
 			res.status(500).json({ error: 'Internal Server Error' });
 		} finally {
-			await client.quit();
+			if(client) await client.quit();
 		}
 
 	}else {

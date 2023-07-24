@@ -1,5 +1,5 @@
-import { createClient } from 'redis';
-import {passwordGenerator} from '../../../libs/helpers';
+import createRedisClient from '../../../libs/redisUtils';
+import { passwordGenerator } from '../../../libs/helpers';
 
 //Send email with sendgrid template
 import sgMail from '@sendgrid/mail';
@@ -34,11 +34,11 @@ const sendEmail = async (email, username, password) => {
 
 const handler = async (req, res) => {
 	if (req.method === 'POST') {
-		const client = createClient({ url: process.env.REDIS_URL });
-		client.on('error', (err) => console.log('Redis Client Error', err));
 
+		let client;
 		try {
-			await client.connect();
+
+			client = await createRedisClient();
 
 			if (!req.body.username || !req.body.email) {
 				res.status(400).json({ error: 'Missing username, or email in the request body' });
@@ -82,7 +82,7 @@ const handler = async (req, res) => {
 			console.error('Error during processing:', error);
 			res.status(500).json({ error: 'Internal Server Error' });
 		} finally {
-			await client.quit();
+			if(client) await client.quit();
 		}
 
 	} else {

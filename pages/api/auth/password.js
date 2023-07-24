@@ -1,4 +1,4 @@
-import { createClient } from 'redis';
+import createRedisClient from '../../../libs/redisUtils';
 import { verifyJwt } from '../../../libs/jwtUtils';
 
 //Send email with sendgrid template
@@ -44,12 +44,9 @@ const handler = async (req, res) => {
       return;
     }
 
-		const client = createClient({ url: process.env.REDIS_URL });
-		client.on('error', (err) => console.log('Redis Client Error', err));
-
-		await client.connect();
-
+		let client;
 		try {
+		  client = await createRedisClient();
 			const { username } = decoded;
 			const { password, newPassword } = req.body;
 			const key = `user:${username}`;
@@ -75,13 +72,14 @@ const handler = async (req, res) => {
 				return;
 			}
 			const email = await client.hGet(key, 'email');
+			
 			await sendEmail(email, username, newPassword);
 			res.status(200).json({ message: 'Password updated' });
 		} catch (error) {
 			console.error('Error during processing:', error);
 			res.status(500).json({ error: 'Internal Server Error' });
 		} finally {
-			await client.quit();
+			if(client) await client.quit();
 		}
 
 	} else {
