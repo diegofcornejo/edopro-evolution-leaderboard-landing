@@ -1,36 +1,10 @@
 import createRedisClient from '../../../libs/redisUtils';
 import { passwordGenerator } from '../../../libs/helpers';
+import sendEmail from '../../../libs/sendGridUtils';
 
 //Send email with sendgrid template
 import sgMail from '@sendgrid/mail';
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-const sendEmail = async (email, username, password) => {
-	const message = {
-		"from": {
-			"email": process.env.SENDGRID_FROM_EMAIL
-		},
-		"personalizations": [
-			{
-				"to": [
-					{
-						email
-					}
-				],
-				"dynamic_template_data": {
-					username,
-					password
-				}
-			}
-		],
-		"template_id": process.env.SENDGRID_TEMPLATE_ID
-	}
-	try {
-		await sgMail.send(message);
-	} catch (error) {
-		console.log('Sengrid Client Error', error);
-	}
-}
 
 const handler = async (req, res) => {
 	if (req.method === 'POST') {
@@ -71,7 +45,14 @@ const handler = async (req, res) => {
 					await client.zAdd('leaderboard:losses', { score: 0, value: username })
 				]);
 
-				await sendEmail(email, username, password);
+				const emailData = {
+					email,
+					username,
+					password,
+					template_id: process.env.SENDGRID_TEMPLATE_ID
+				};
+				await sendEmail(emailData);
+
 				res.status(202).json({ message: 'User created: We have sent your credentials to the registered email' });
 			} else {
 				await client.del(`user:${username}`);

@@ -1,42 +1,11 @@
 import createRedisClient from '../../../libs/redisUtils';
 import { verifyJwt } from '../../../libs/jwtUtils';
-
-//Send email with sendgrid template
-import sgMail from '@sendgrid/mail';
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-const sendEmail = async (email, username, password) => {
-	const message = {
-		"from": {
-			"email": process.env.SENDGRID_FROM_EMAIL
-		},
-		"personalizations": [
-			{
-				"to": [
-					{
-						email
-					}
-				],
-				"dynamic_template_data": {
-					username,
-					password
-				}
-			}
-		],
-		"template_id": process.env.SENDGRID_PASSWORD_TEMPLATE_ID
-	}
-	try {
-		await sgMail.send(message);
-	} catch (error) {
-		console.log('Sengrid Client Error', error);
-	}
-}
+import sendEmail from '../../../libs/sendGridUtils';
 
 const handler = async (req, res) => {
 	if (req.method === 'POST') {
 
 		let decoded;
-    // Verify jwt
     try {
       decoded = verifyJwt(req);
     } catch (error) {
@@ -72,8 +41,13 @@ const handler = async (req, res) => {
 				return;
 			}
 			const email = await client.hGet(key, 'email');
-			
-			await sendEmail(email, username, newPassword);
+			const emailData = {
+				email,
+				username,
+				password: newPassword,
+				template_id: process.env.SENDGRID_PASSWORD_TEMPLATE_ID
+			};
+			await sendEmail(emailData);
 			res.status(200).json({ message: 'Password updated' });
 		} catch (error) {
 			console.error('Error during processing:', error);
