@@ -2,15 +2,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 // MIDDLE LINKS DATA
-interface ProductLink {
+interface ThanksLink {
 	name: string;
-	section: string;
+	url: string;
 }
 
-interface ProductType {
+interface ThanksType {
 	id: number;
 	section: string;
-	links: ProductLink[];
+	links: ThanksLink[];
 }
 
 interface Social {
@@ -23,18 +23,17 @@ interface Dev {
 	description: string;
 }
 
-const products: ProductType[] = [
-	{
-		id: 1,
-		section: 'Useful Links',
-		links: [
-			{ name: 'Home', section: '#home-section' },
-			{ name: 'Top', section: '#topplayers-section' },
-			{ name: 'Ranking', section: '#ranking-section' },
-			{ name: 'Features', section: '#features-section' },
-		],
-	},
-];
+// const thanks: ThanksType[] = [
+// 	{
+// 		id: 1,
+// 		section: 'Special Thanks',
+// 		links: [
+// 			{ name: 'Dyxel', url: 'https://github.com/DyXel' },
+// 			{ name: 'Dyxel', url: 'https://github.com/edo9300' },
+// 			{ name: 'Project Ignis', url: 'https://projectignis.github.io' },
+// 		],
+// 	},
+// ];
 
 const socialLinks: Social[] = [
 	{ imgsrc: '/images/Footer/insta.svg', href: 'https://instagram.com/' },
@@ -43,13 +42,21 @@ const socialLinks: Social[] = [
 	{ imgsrc: '/images/Footer/youtube.svg', href: 'https://youtube.com/' },
 ];
 
-const team: Dev[] = [
-	{ github: 'diangogav', description:'Project Lead' },
-	{ github: 'leip1493', description:'Dev' },
-	{ github: 'termitaklk', description:'Dev' },
-	{ github: 'leandrogavidia', description: 'Designer' },
-	{ github: 'diegofcornejo', description: 'SRE & Ranking'},
+const thanks: Dev[] = [
+	{ github: 'DyXel', description: '' },
+	{ github: 'edo9300', description: '' },
+	{ github: 'ProjectIgnis', description: '' },
 ];
+
+const team: Dev[] = [
+	{ github: 'diangogav', description: 'Project Lead' },
+	{ github: 'leip1493', description: 'Dev' },
+	{ github: 'termitaklk', description: 'Dev' },
+	{ github: 'leandrogavidia', description: 'Designer' },
+	{ github: 'diegofcornejo', description: 'SRE & Ranking' }
+];
+
+
 
 const footer = () => {
 	return (
@@ -67,8 +74,8 @@ const footer = () => {
 						/>
 						<h3 className='text-lightblue text-sm font-normal leading-9 mb-4 lg:mb-16'>
 							Evolution is another server that utilizes the EDOPro core to facilitate
-							Duel Monsters matches. However, our main focus lies in the scalability of
-							the code, enabling effortless integration of new features associated
+							Duel Monsters matches. However, our main focus lies in the scalability
+							of the code, enabling effortless integration of new features associated
 							with the data generated during duels
 						</h3>
 						<div className='flex gap-4'>
@@ -86,25 +93,54 @@ const footer = () => {
 
 					{/* CLOUMN-2/3 */}
 
-					{products.map((product) => (
-						<div key={product.id} className='group relative col-span-2'>
-							<p className='text-white text-xl font-medium mb-9'>{product.section}</p>
-							<ul>
-								{product.links.map((link, index) => (
-									<li key={index} className='mb-5'>
+					{/* {thanks.map((thank) => (
+						<div key={thank.id} className='col-span-3'>
+							<p className='text-white text-xl font-medium mb-9'>{thank.section}</p>
+							
+								{thank.links.map((link, index) => (
+									<h4 key={index} className='mb-5'>
+										<Image
+												src={'/images/Footer/github.svg'}
+												alt='github-icon'
+												width={20}
+												height={20}
+											/>
 										<Link
-											href={link.section}
+											href={link.url}
 											className='text-offwhite  text-sm font-normal mb-6 space-links'
+											target='_blank'
 										>
 											{link.name}
 										</Link>
-									</li>
+									</h4>
 								))}
-							</ul>
+							
 						</div>
-					))}
+					))} */}
 
-					<div className='col-span-4'>
+					<div className='col-span-3'>
+						<h3 className='text-white text-xl font-medium mb-9'>Special Thanks To</h3>
+						{/* <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/number.svg'} alt="number-icon" width={20} height={20} />(406) 555-012</h4> */}
+						{thanks.map((item, i) => (
+							<h4
+								key={i}
+								className='text-offwhite text-sm font-normal mb-6 flex gap-2'
+							>
+								<Image
+									src={'/images/Footer/github.svg'}
+									alt='github-icon'
+									width={20}
+									height={20}
+								/>
+								<Link href={`https://github.com/${item.github}`} target='_blank'>
+									{item.github} {item.description}
+								</Link>
+							</h4>
+						))}
+						{/* <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/address.svg'} alt="address-icon" width={20} height={20} />Elgin St. Celina, Delaware 10299</h4> */}
+					</div>
+
+					<div className='col-span-3'>
 						<h3 className='text-white text-xl font-medium mb-9'>Team</h3>
 						{/* <h4 className="text-offwhite text-sm font-normal mb-6 flex gap-2"><Image src={'/images/Footer/number.svg'} alt="number-icon" width={20} height={20} />(406) 555-012</h4> */}
 						{team.map((item, i) => (
