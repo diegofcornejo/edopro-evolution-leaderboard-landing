@@ -32,9 +32,11 @@ const handler = async (req, res) => {
 				return player;
 			});
 
-			const sortedLeaderboard = leaderboard.sort((a, b) => b.score - a.score);
-			const top = sortedLeaderboard.slice(0, 20);
-
+			// const sortedLeaderboard = leaderboard.sort((a, b) => b.score - a.score);
+			const reverseLeaderBoard = leaderboard.reverse();
+			
+			const top = reverseLeaderBoard.slice(0, 20);
+			
 			res.status(200).json(top);
 		} catch (error) {
 			console.error('Error during processing:', error);
