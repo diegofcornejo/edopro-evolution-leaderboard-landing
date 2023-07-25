@@ -17,7 +17,7 @@ const Download = () => {
 					We recommend downloading the official EDOPro client.
 				</p>
 				<div className='flex justify-center '>
-					<Link href='https://discord.gg/ygopro-percy' rel="noopener noreferrer" target="_blank">
+					<Link href='https://projectignis.github.io/download.html' rel="noopener noreferrer" target="_blank">
 						<button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 navbutton'>
 							Download
 						</button>
