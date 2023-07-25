@@ -26,7 +26,7 @@ const handler = async (req, res) => {
 			}
 
 			const [rank, points, wins, losses] = await Promise.all([
-				client.zRevRank('leaderboard:points', username),
+				client.zRank('leaderboard:points', username),
 				client.zScore('leaderboard:points', username),
 				client.zScore('leaderboard:wins', username),
 				client.zScore('leaderboard:losses', username),
