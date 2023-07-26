@@ -1,14 +1,14 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState, useEffect } from 'react';
 // import Avatar from 'avataaars';
-import UserAvatar from '../Avatar'
+import UserAvatar from '../Avatar';
 import toast from 'react-hot-toast';
-import {camelCaseToWords} from '../../../libs/helpers';
+import { camelCaseToWords } from '../../../libs/helpers';
 import options from './options';
 
-const CustomAvatar = ({ isOpenCustomAvatar, setIsOpenCustomAvatar}) => {
+const CustomAvatar = ({ isOpenCustomAvatar, setIsOpenCustomAvatar }) => {
 	const [avatarParts, setAvatarParts] = useState({});
-	
+
 	const handleChange = (option, value) => {
 		setAvatarParts((prevParts) => ({
 			...prevParts,
@@ -25,7 +25,7 @@ const CustomAvatar = ({ isOpenCustomAvatar, setIsOpenCustomAvatar}) => {
 				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
 			},
-			body: JSON.stringify({avatar: avatarParts}),
+			body: JSON.stringify({ avatar: avatarParts }),
 		});
 		const res = await response.json();
 		if (response.ok) {
@@ -33,7 +33,7 @@ const CustomAvatar = ({ isOpenCustomAvatar, setIsOpenCustomAvatar}) => {
 		} else {
 			toast.error(res.error, { duration: 5000 });
 		}
-	}
+	};
 
 	const closeModal = () => {
 		setIsOpenCustomAvatar(false);
@@ -79,7 +79,11 @@ const CustomAvatar = ({ isOpenCustomAvatar, setIsOpenCustomAvatar}) => {
 													className='mx-auto w-auto'
 													{...avatarParts}
 												/> */}
-												<UserAvatar size='10rem' avatarParts={avatarParts} />
+												<UserAvatar
+													size='10rem'
+													avatarParts={avatarParts}
+													className='mx-auto w-auto'
+												/>
 											</div>
 											<form
 												className='mt-8 space-y-6'
@@ -87,16 +91,40 @@ const CustomAvatar = ({ isOpenCustomAvatar, setIsOpenCustomAvatar}) => {
 											>
 												<div className='-space-y-px rounded-md shadow-sm'>
 													<div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
-													{Object.keys(options).map(option => (
-														<div key={option} className='grid'>
-															<label htmlFor={option} className='text-white'>{camelCaseToWords(option)}</label>
-															<select id={option} value={avatarParts[option] || ''} onChange={(e) => handleChange(option, e.target.value)} className='w-full'>
-																{options[option].map(value => (
-																	<option key={value} value={value}>{value}</option>
-																))}
-															</select>
-														</div>
-													))}
+														{Object.keys(options).map((option) => (
+															<div key={option} className='grid'>
+																<label
+																	htmlFor={option}
+																	className='text-white'
+																>
+																	{camelCaseToWords(option)}
+																</label>
+																<select
+																	id={option}
+																	value={
+																		avatarParts[option] || ''
+																	}
+																	onChange={(e) =>
+																		handleChange(
+																			option,
+																			e.target.value
+																		)
+																	}
+																	className='w-full'
+																>
+																	{options[option].map(
+																		(value) => (
+																			<option
+																				key={value}
+																				value={value}
+																			>
+																				{value}
+																			</option>
+																		)
+																	)}
+																</select>
+															</div>
+														))}
 													</div>
 												</div>
 												<div>

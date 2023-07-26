@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import LetterAvatar from '../LetterAvatar';
+import UserAvatar from '../Avatar';
 
 const Table = ({ leaderboard }) => {
 	leaderboard.splice(0, 3);
@@ -25,11 +26,15 @@ const Table = ({ leaderboard }) => {
 								<tr key={i} className='border-b border-b-darkblue'>
 									<td className='px-4 py-2 text-center text-white'>{i + 4}</td>
 									<td className='px-4 py-2 text-center text-white flex items-center justify-start gap-5 '>
-										<LetterAvatar
-											name={items.value}
-											size={40}
-											fontSize={`1rem`}
-										/>
+										{items.avatar ? (
+											<UserAvatar size={'40px'} avatarParts={items.avatar} />
+										) : (
+											<LetterAvatar
+												name={items.value}
+												size={40}
+												fontSize={`1rem`}
+											/>
+										)}
 										{items.value}
 									</td>
 

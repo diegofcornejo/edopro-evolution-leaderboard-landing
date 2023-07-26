@@ -1,13 +1,13 @@
 'use client';
 import Avatar from 'avataaars';
 
-const UserAvatar = ({ size, avatarParts }) => {
+const UserAvatar = ({ size, avatarParts, className='' }) => {
 	return (
 		<Avatar
 			style={{ width: size, height: size }}
 			avatarStyle='Circle'
-			className='mx-auto w-auto'
 			{...avatarParts}
+			className={className}
 		/>
 	);
 };

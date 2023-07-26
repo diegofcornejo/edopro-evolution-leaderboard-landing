@@ -1,9 +1,10 @@
 'use client';
 import Image from 'next/image';
 import LetterAvatar from '../LetterAvatar';
+import UserAvatar from '../Avatar';
 
 const Top = ({ leaderboard }) => {
-	leaderboard.sort((a, b) => b.score - a.score);
+	// leaderboard.sort((a, b) => b.score - a.score);
 	let topThree = leaderboard.slice(0, 3);
 	topThree[0].rank = 1;
 	topThree[1].rank = 2;
@@ -49,7 +50,15 @@ const Top = ({ leaderboard }) => {
 									height={50}
 									className='rounded-full'
 								/> */}
-								<LetterAvatar name={items.value} size={50}/>
+								{items.avatar ? (
+									<UserAvatar size={'50px'} avatarParts={items.avatar} />
+								) : (
+									<LetterAvatar
+										name={items.value}
+										size={50}
+									/>
+								)}
+								{/* <LetterAvatar name={items.value} size={50}/> */}
 							</div>
 							<div>
 								<Image

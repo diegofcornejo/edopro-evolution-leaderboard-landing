@@ -7,7 +7,7 @@ const handler = async (req, res) => {
 
 		try {
 
-		  client = await createRedisClient();
+			client = await createRedisClient();
 
 			let points = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:points', '-inf', '+inf');
 			let wins = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:wins', '-inf', '+inf');
@@ -34,15 +34,26 @@ const handler = async (req, res) => {
 
 			// const sortedLeaderboard = leaderboard.sort((a, b) => b.score - a.score);
 			const reverseLeaderBoard = leaderboard.reverse();
-			
+
 			const top = reverseLeaderBoard.slice(0, 20);
-			
-			res.status(200).json(top);
+
+			//get avatars for top players
+			const data = await Promise.all(top.map(async (player) => {
+				const avatar = await client.hGet(`user:${player.value}`, 'avatar');
+				return {
+					...player,
+					avatar: avatar ? JSON.parse(avatar) : null,
+				};
+			}));
+
+			console.log("🚀 ~ file: leaderboard.js:48 ~ data ~ data:", data)
+
+			res.status(200).json(data);
 		} catch (error) {
 			console.error('Error during processing:', error);
 			res.status(500).json({ error: 'Internal Server Error' });
 		} finally {
-			if(client) await client.quit();
+			if (client) await client.quit();
 		}
 
 	} else {
