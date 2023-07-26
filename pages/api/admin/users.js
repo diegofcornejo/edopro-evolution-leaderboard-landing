@@ -1,4 +1,4 @@
-import createRedisClient from '../../libs/redisUtils';
+import createRedisClient from '../../../libs/redisUtils';
 
 const handler = async (req, res) => {
 	if (req.method === 'GET') {
@@ -27,26 +27,14 @@ const handler = async (req, res) => {
 
 				player.wins = foundWin ? foundWin.score : 0;
 				player.losses = foundLoss ? foundLoss.score : 0;
-				player.winrate = parseFloat(((player.wins / (player.wins + player.losses)) * 100).toFixed(2));
+				// player.winrate = parseFloat(((player.wins / (player.wins + player.losses)) * 100).toFixed(2));
 
 				return player;
 			});
 
-			// const sortedLeaderboard = leaderboard.sort((a, b) => b.score - a.score);
+			const count = leaderboard.length;
 			const reverseLeaderBoard = leaderboard.reverse();
-
-			const top = reverseLeaderBoard.slice(0, 20);
-
-			//get avatars for top players
-			const data = await Promise.all(top.map(async (player) => {
-				const avatar = await client.hGet(`user:${player.value}`, 'avatar');
-				return {
-					...player,
-					avatar: avatar ? JSON.parse(avatar) : null,
-				};
-			}));
-
-			res.status(200).json(data);
+			res.status(200).json({count, users: reverseLeaderBoard});
 		} catch (error) {
 			console.error('Error during processing:', error);
 			res.status(500).json({ error: 'Internal Server Error' });
