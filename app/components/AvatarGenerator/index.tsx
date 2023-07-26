@@ -6,8 +6,10 @@ import toast from 'react-hot-toast';
 import { camelCaseToWords } from '../../../libs/helpers';
 import options from './options';
 
-const CustomAvatar = ({ isOpenCustomAvatar, setIsOpenCustomAvatar }) => {
-	const [avatarParts, setAvatarParts] = useState({});
+const CustomAvatar = ({ isOpenCustomAvatar, setIsOpenCustomAvatar, avatar }) => {
+	
+	if(!avatar) avatar = {};
+	const [avatarParts, setAvatarParts] = useState(avatar);
 
 	const handleChange = (option, value) => {
 		setAvatarParts((prevParts) => ({

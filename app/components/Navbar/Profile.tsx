@@ -17,7 +17,6 @@ import { IconMedal, IconUserCircle, IconHexagon, IconShieldLock, IconUserStar } 
 
 import ChangePassword from './ChangePassword';
 import CustomAvatar from '../AvatarGenerator';
-import { type } from 'os';
 
 const handleOpenHistory = async () => {
 	const token = localStorage.getItem('token');
@@ -181,6 +180,7 @@ const Profile = ({ setIsLogged, user }) => {
 				<CustomAvatar
 					isOpenCustomAvatar={isOpenCustomAvatar}
 					setIsOpenCustomAvatar={setIsOpenCustomAvatar}
+					avatar={user.avatar}
 				/>
 			)}
 		</Box>
