@@ -11,11 +11,13 @@ import {
 	ListItemText,
 } from '@mui/material';
 import LetterAvatar from '../LetterAvatar';
+import UserAvatar from '../Avatar';
 
-import { IconMedal, IconUserCircle, IconHexagon, IconShieldLock } from '@tabler/icons-react';
+import { IconMedal, IconUserCircle, IconHexagon, IconShieldLock, IconUserStar } from '@tabler/icons-react';
 
 import ChangePassword from './ChangePassword';
 import CustomAvatar from '../AvatarGenerator';
+import { type } from 'os';
 
 const handleOpenHistory = async () => {
 	const token = localStorage.getItem('token');
@@ -28,7 +30,6 @@ const handleOpenHistory = async () => {
 	});
 	if (res.ok) {
 		const data = await res.json();
-		console.log(data);
 		toast.success(JSON.stringify(data));
 	} else {
 		toast.error('Error while fetching user history');
@@ -60,10 +61,11 @@ const Profile = ({ setIsLogged, user }) => {
 		setAnchorEl2(null);
 	};
 
-	// useEffect(() => {
-	// 	console.log('use effect');
-	// 	console.log(isOpenPasswordChange);
-	// }, [isOpenPasswordChange]);
+	const AvatarComponent = user?.avatar ? (
+    <UserAvatar size={'48px'} avatarParts={user.avatar} />
+  ) : (
+    <LetterAvatar name={user.username} size={48} borderColor='#ffffff' />
+  );
 
 	return (
 		<Box>
@@ -80,7 +82,7 @@ const Profile = ({ setIsLogged, user }) => {
 				}}
 				onClick={handleClick2}
 			>
-				<LetterAvatar name={user.username} size={48} borderColor='#ffffff' />
+				{AvatarComponent}
 			</IconButton>
 			{/* ------------------------------------------- */}
 			{/* Message Dropdown */}
@@ -151,7 +153,7 @@ const Profile = ({ setIsLogged, user }) => {
 				</MenuItem>
 				<MenuItem onClick={handleOpenCustomAvatar}>
 					<ListItemIcon>
-						<IconShieldLock width={20} color='#ffffff' />
+						<IconUserStar width={20} color='#ffffff' />
 					</ListItemIcon>
 					<ListItemText>Avatar</ListItemText>
 				</MenuItem>

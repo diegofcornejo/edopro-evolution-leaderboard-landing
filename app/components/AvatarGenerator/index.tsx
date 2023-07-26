@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
-import Avatar from 'avataaars';
+import { Fragment, useState, useEffect } from 'react';
+// import Avatar from 'avataaars';
+import UserAvatar from '../Avatar'
 import toast from 'react-hot-toast';
 import {camelCaseToWords} from '../../../libs/helpers';
 import options from './options';
@@ -72,12 +73,13 @@ const CustomAvatar = ({ isOpenCustomAvatar, setIsOpenCustomAvatar}) => {
 												<h2 className='mt-6 text-center text-xl tracking-tight text-white'>
 													Setup your Avatar
 												</h2>
-												<Avatar
+												{/* <Avatar
 													style={{ width: '10rem', height: '10rem' }}
 													avatarStyle='Circle'
 													className='mx-auto w-auto'
 													{...avatarParts}
-												/>
+												/> */}
+												<UserAvatar size='10rem' avatarParts={avatarParts} />
 											</div>
 											<form
 												className='mt-8 space-y-6'

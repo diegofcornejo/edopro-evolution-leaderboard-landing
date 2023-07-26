@@ -25,16 +25,19 @@ const handler = async (req, res) => {
 				return;
 			}
 
-			const [rank, points, wins, losses] = await Promise.all([
+			let [avatar, rank, points, wins, losses] = await Promise.all([
+				client.hGet(key, 'avatar'),
 				client.zRevRank('leaderboard:points', username),
 				client.zScore('leaderboard:points', username),
 				client.zScore('leaderboard:wins', username),
 				client.zScore('leaderboard:losses', username),
 			]);
 
+			if(avatar) avatar = JSON.parse(avatar);
+
 			const winrate = parseFloat(((wins / (wins + losses)) * 100).toFixed(2));
 
-			res.status(200).json({username, rank, points, wins, losses, winrate });
+			res.status(200).json({username, avatar, rank, points, wins, losses, winrate });
 		} catch (error) {
 			console.error('Error during processing:', error);
 			res.status(500).json({ error: 'Internal Server Error' });
