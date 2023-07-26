@@ -11,5 +11,13 @@ const passwordGenerator = (length) => {
 	return password;
 }
 
+const camelCaseToWords = (camelCaseWord) => {
+	return camelCaseWord
+		.replace(/([a-z])([A-Z])/g, '$1 $2') // Encuentra las letras mayúsculas y las separa
+		.split(/(?=[A-Z])/) // Divide la palabra utilizando las mayúsculas como punto de separación
+		.map(part => part.toLowerCase()) // Convierte todas las partes a minúsculas
+		.join(' '); // Une las partes con espacios
+}
 
-export { passwordGenerator}
+
+export { passwordGenerator, camelCaseToWords }
