@@ -14,7 +14,7 @@ const Banner = () => {
 			<ModalVideo
 				channel='youtube'
 				isOpen={isOpen}
-				videoId='pwut81EXms4'
+				videoId='p75116MjEoY'
 				onClose={() => setOpen(false)}
 			/>
 
@@ -59,7 +59,7 @@ const Banner = () => {
 										width={47}
 										height={47}
 									/>
-									Gameplay
+									Tutorial
 								</button>
 							</div>
 						</div>
