@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import {
-	Avatar,
 	Box,
 	Menu,
 	Button,
@@ -12,10 +11,13 @@ import {
 	ListItemText,
 } from '@mui/material';
 import LetterAvatar from '../LetterAvatar';
+import UserAvatar from '../Avatar';
 
-import { IconMedal, IconUserCircle, IconHexagon, IconShieldLock } from '@tabler/icons-react';
+import { IconMedal, IconUserCircle, IconHexagon, IconShieldLock, IconUserStar } from '@tabler/icons-react';
 
 import ChangePassword from './ChangePassword';
+import CustomAvatar from '../AvatarGenerator';
+import { type } from 'os';
 
 const handleOpenHistory = async () => {
 	const token = localStorage.getItem('token');
@@ -28,7 +30,6 @@ const handleOpenHistory = async () => {
 	});
 	if (res.ok) {
 		const data = await res.json();
-		console.log(data);
 		toast.success(JSON.stringify(data));
 	} else {
 		toast.error('Error while fetching user history');
@@ -54,10 +55,17 @@ const Profile = ({ setIsLogged, user }) => {
 		setAnchorEl2(null);
 	};
 
-	// useEffect(() => {
-	// 	console.log('use effect');
-	// 	console.log(isOpenPasswordChange);
-	// }, [isOpenPasswordChange]);
+	const [isOpenCustomAvatar, setIsOpenCustomAvatar] = useState(false);
+	const handleOpenCustomAvatar = () => {
+		setIsOpenCustomAvatar(true);
+		setAnchorEl2(null);
+	};
+
+	const AvatarComponent = user?.avatar ? (
+    <UserAvatar size={'48px'} avatarParts={user.avatar} />
+  ) : (
+    <LetterAvatar name={user.username} size={48} borderColor='#ffffff' />
+  );
 
 	return (
 		<Box>
@@ -74,7 +82,7 @@ const Profile = ({ setIsLogged, user }) => {
 				}}
 				onClick={handleClick2}
 			>
-				<LetterAvatar name={user.username} size={48} borderColor='#ffffff' />
+				{AvatarComponent}
 			</IconButton>
 			{/* ------------------------------------------- */}
 			{/* Message Dropdown */}
@@ -143,6 +151,12 @@ const Profile = ({ setIsLogged, user }) => {
 					</ListItemIcon>
 					<ListItemText>Change Password</ListItemText>
 				</MenuItem>
+				<MenuItem onClick={handleOpenCustomAvatar}>
+					<ListItemIcon>
+						<IconUserStar width={20} color='#ffffff' />
+					</ListItemIcon>
+					<ListItemText>Avatar</ListItemText>
+				</MenuItem>
 				<Box mt={1} py={1} px={2}>
 					<Button
 						href='/'
@@ -161,6 +175,12 @@ const Profile = ({ setIsLogged, user }) => {
 					isOpenPasswordChange={isOpenPasswordChange}
 					setIsOpenPasswordChange={setIsOpenPasswordChange}
 					setIsLogged={setIsLogged}
+				/>
+			)}
+			{isOpenCustomAvatar && (
+				<CustomAvatar
+					isOpenCustomAvatar={isOpenCustomAvatar}
+					setIsOpenCustomAvatar={setIsOpenCustomAvatar}
 				/>
 			)}
 		</Box>

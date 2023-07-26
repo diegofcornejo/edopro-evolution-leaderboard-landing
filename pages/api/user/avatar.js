@@ -5,18 +5,19 @@ const handler = async (req, res) => {
 	if (req.method === 'POST') {
 
 		let decoded;
-    // Verify jwt
-    try {
-      decoded = verifyJwt(req);
-    } catch (error) {
-      res.status(401).json({ error: 'Unauthorized' });
-      return;
-    }
-		
+		// Verify jwt
+		try {
+			decoded = verifyJwt(req);
+		} catch (error) {
+			res.status(401).json({ error: 'Unauthorized' });
+			return;
+		}
+
 		let client;
 		try {
 			client = await createRedisClient();
 			const { username } = decoded;
+			const { avatar } = req.body;
 			const key = `user:${username}`;
 			const usernameExists = await client.exists(key);
 
@@ -25,27 +26,22 @@ const handler = async (req, res) => {
 				return;
 			}
 
-			let [avatar, rank, points, wins, losses] = await Promise.all([
-				client.hGet(key, 'avatar'),
-				client.zRevRank('leaderboard:points', username),
-				client.zScore('leaderboard:points', username),
-				client.zScore('leaderboard:wins', username),
-				client.zScore('leaderboard:losses', username),
-			]);
+			const saveAvatar = await client.hSet(key, 'avatar', JSON.stringify(avatar));
+			console.log("🚀 ~ file: avatar.js:31 ~ handler ~ saveAvatar:", saveAvatar)
+			if (saveAvatar != 0 && saveAvatar != 1) {
+				res.status(401).json({ error: 'Avatar save failed' });
+				return;
+			}
 
-			if(avatar) avatar = JSON.parse(avatar);
-
-			const winrate = parseFloat(((wins / (wins + losses)) * 100).toFixed(2));
-
-			res.status(200).json({username, avatar, rank, points, wins, losses, winrate });
+			res.status(200).json({ message: 'Avatar saved' });
 		} catch (error) {
 			console.error('Error during processing:', error);
 			res.status(500).json({ error: 'Internal Server Error' });
 		} finally {
-			if(client) await client.quit();
+			if (client) await client.quit();
 		}
 
-	}else {
+	} else {
 		res.status(405).json({ error: 'Method not allowed' });
 	}
 }
