@@ -16,95 +16,11 @@ import {
 
 import ChangePassword from './ChangePassword';
 import CustomAvatar from '../AvatarGenerator';
+import DuelLogs from '../DuelLogs';
 
-const handleOpenHistory = async () => {
-	const token = localStorage.getItem('token');
-	const res = await fetch('/api/user/duels', {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`,
-		},
-	});
-	if (res.ok) {
-		const duels = await res.json();
-		toast.custom(
-			(t) => (
-				<>
-					<div className='mx-auto max-w-7xl px-6' id='ranking-section'>
-						<div className='relative table-b bg-navyblue p-8 overflow-x-auto'>
-							<h3 className='text-offwhite text-2xl'>Duels ({duels.length})</h3>
-							<h3
-								className='absolute top-4 right-4 text-offwhite text-2xl cursor-pointer'
-								onClick={() => toast.dismiss(t.id)}
-							>
-								x
-							</h3>
-							<table className='table-auto w-full mt-10'>
-								<thead>
-									<tr className='text-white bg-darkblue rounded-lg'>
-										<th className='px-4 py-4 font-normal'>DUEL MODE</th>
-										<th className='px-4 py-4 font-normal'>TYPE</th>
-										<th className='px-4 py-4 text-start font-normal'>
-											Player 1
-										</th>
-										<th className='px-4 py-4 text-start font-normal'>vs</th>
-										<th className='px-4 py-4 text-start font-normal'>
-											Player 2
-										</th>
-										<th className='px-4 py-4 text-start font-normal'>Turns</th>
-										<th className='px-4 py-4 text-start font-normal'>Result</th>
-									</tr>
-								</thead>
-								<tbody>
-									{duels.map((duel, i) => (
-										<tr key={i} className='border-b border-b-darkblue'>
-											<td className='px-4 py-2 text-center text-white'>
-												{duel.players[0].name.split(',').length} v{' '}
-												{duel.players[1].name.split(',').length} | Best Of{' '}
-												{duel.bestOf}
-											</td>
-											<td className='px-4 py-2 text-white'>
-												{duel.type}
-											</td>
-											<td className='px-4 py-2 text-white'>
-												{/* <LetterAvatar
-													name={duel.players[0].name}
-													size={40}
-													fontSize={`1rem`}
-												/> */}
-												{duel.players[0].name}
-											</td>
-											<td className='px-4 py-2 text-white'></td>
-											<td className='px-4 py-2 text-white'>
-												{duel.players[1].name}
-											</td>
-											<td className='px-4 py-2 text-white'>{duel.turns}</td>
-											<td
-												className={`px-4 py-2 ${
-													duel.players[0].winner
-														? 'text-green'
-														: 'text-red'
-												}`}
-											>
-												{duel.players[0].score} - {duel.players[1].score}
-											</td>
-										</tr>
-									))}
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</>
-			),
-			{
-				duration: Infinity,
-			}
-		);
-	} else {
-		toast.error('Error while fetching user history');
-	}
-};
+// const handleOpenHistory = async () => {
+	
+// };
 
 const Profile = ({ setIsLogged, user }) => {
 	const handleLogout = () => {
@@ -129,6 +45,28 @@ const Profile = ({ setIsLogged, user }) => {
 	const handleOpenCustomAvatar = () => {
 		setIsOpenCustomAvatar(true);
 		setAnchorEl2(null);
+	};
+
+	const [duels, setDuels] = useState([]);
+	const [isOpenDuelLogs, setIsOpenDuelLogs] = useState(false);
+	const handleOpenDuelLogs = async () => {
+		const token = localStorage.getItem('token');
+		const res = await fetch('/api/user/duels', {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${token}`,
+		},
+	});
+	if (res.ok) {
+		const duels = await res.json();
+		setDuels(duels);
+		setIsOpenDuelLogs(true);
+		setAnchorEl2(null);
+		toast.success('Duel logs fetched successfully');
+	} else {
+		toast.error('Error while fetching duel logs');
+	}
 	};
 
 	const AvatarComponent = user?.avatar ? (
@@ -170,7 +108,7 @@ const Profile = ({ setIsLogged, user }) => {
 		{
 			text: 'Duel Log',
 			icon: IconListDetails,
-			onClick: handleOpenHistory,
+			onClick: handleOpenDuelLogs,
 		},
 		{
 			text: 'Change Password',
@@ -250,6 +188,14 @@ const Profile = ({ setIsLogged, user }) => {
 					avatar={user.avatar}
 				/>
 			)}
+			{isOpenDuelLogs && (
+				<DuelLogs
+					isOpenDuelLogs={isOpenDuelLogs}
+					setIsOpenDuelLogs={setIsOpenDuelLogs}
+					duels={duels}
+				/>
+			)}
+
 		</Box>
 	);
 };

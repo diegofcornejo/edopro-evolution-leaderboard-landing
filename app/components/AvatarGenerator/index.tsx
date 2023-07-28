@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState} from 'react';
 // import Avatar from 'avataaars';
 import UserAvatar from '../Avatar';
 import toast from 'react-hot-toast';
