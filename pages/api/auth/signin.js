@@ -37,7 +37,7 @@ const handler = async (req, res) => {
 			
 			const token = generateJwt({ username });
 
-			res.status(200).json({token, username, avatar, rank, points, wins, losses, winrate });
+			res.status(200).json({token, username, avatar, rank, points, wins, losses, winrate }) || 0;
 		} catch (error) {
 			console.error('Error during processing:', error);
 			res.status(500).json({ error: 'Internal Server Error' });

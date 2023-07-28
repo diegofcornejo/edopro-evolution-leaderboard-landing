@@ -35,7 +35,7 @@ const handler = async (req, res) => {
 
 			if(avatar) avatar = JSON.parse(avatar);
 
-			const winrate = parseFloat(((wins / (wins + losses)) * 100).toFixed(2));
+			const winrate = parseFloat(((wins / (wins + losses)) * 100).toFixed(2)) || 0;
 
 			res.status(200).json({username, avatar, rank, points, wins, losses, winrate });
 		} catch (error) {
