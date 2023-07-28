@@ -33,11 +33,11 @@ const handler = async (req, res) => {
 
 			if(avatar) avatar = JSON.parse(avatar);
 
-			const winrate = parseFloat(((wins / (wins + losses)) * 100).toFixed(2));
+			const winrate = parseFloat(((wins / (wins + losses)) * 100).toFixed(2)) || 0;
 			
 			const token = generateJwt({ username });
 
-			res.status(200).json({token, username, avatar, rank, points, wins, losses, winrate }) || 0;
+			res.status(200).json({token, username, avatar, rank, points, wins, losses, winrate });
 		} catch (error) {
 			console.error('Error during processing:', error);
 			res.status(500).json({ error: 'Internal Server Error' });
