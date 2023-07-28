@@ -136,23 +136,23 @@ html:not([data-scroll="0"]) .navbar {
   border-radius: 20px;
   position: relative;
   transition: transform 430ms;
-  height: 258px;
+  height: auto;
 }
 
-.card-b:hover {
+/* .card-b:hover {
   filter: drop-shadow(0px 20px 5px rgba(0, 0, 0, 0.1));
   transform: scale(1.05);
   border: 1px solid #BD24DF;
   height: 360px;
-}
+} */
 
 .hides {
   display: none;
 }
 
-.card-b:hover > .hides {
+/* .card-b:hover > .hides {
   display: block;
-}
+} */
 
 .work-img-bg {
   background: linear-gradient(90deg, #BD24DF 0%, #2D6ADE 97.15%);

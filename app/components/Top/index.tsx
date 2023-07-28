@@ -40,16 +40,6 @@ const Top = ({ leaderboard }) => {
 										className='rounded-full'
 										style={{ position: 'absolute', top: '0', right: '0' }}
 									/>
-								{/* )} */}
-								{/* <img
-									src={
-										'https://cdn.discordapp.com/avatars/489192723132317696/41c41bcaf349e1bf8e386ba8351c89f2.webp?size=160'
-									}
-									alt={''}
-									width={50}
-									height={50}
-									className='rounded-full'
-								/> */}
 								{items.avatar ? (
 									<UserAvatar size={'50px'} avatarParts={items.avatar} />
 								) : (
@@ -58,7 +48,6 @@ const Top = ({ leaderboard }) => {
 										size={50}
 									/>
 								)}
-								{/* <LetterAvatar name={items.value} size={50}/> */}
 							</div>
 							<div>
 								<Image
@@ -80,9 +69,9 @@ const Top = ({ leaderboard }) => {
 							<p className='text-base font-normal text-bluish text-center mt-2 text-red'>
 								Losses: {items.losses}
 							</p>
-							<span className='text-base font-normal m-0 text-bluish text-center hides'>
+							<p className='text-base font-normal text-bluish text-center mt-2 mb-8'>
 								Winrate: {items.winrate}%
-							</span>
+							</p>
 						</div>
 					))}
 				</div>

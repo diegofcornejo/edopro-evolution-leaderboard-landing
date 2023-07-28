@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
-import {
-	Box,
-	Menu,
-	Button,
-	IconButton,
-	MenuItem,
-	ListItemIcon,
-	ListItemText,
-} from '@mui/material';
+import { Box, Menu, Button, IconButton, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
 import LetterAvatar from '../LetterAvatar';
 import UserAvatar from '../Avatar';
 
-import { IconMedal, IconUserCircle, IconHexagon, IconShieldLock, IconUserStar } from '@tabler/icons-react';
+import {
+	IconMedal,
+	IconUserCircle,
+	IconHexagon,
+	IconShieldLock,
+	IconUserStar,
+} from '@tabler/icons-react';
 
 import ChangePassword from './ChangePassword';
 import CustomAvatar from '../AvatarGenerator';
@@ -61,10 +59,47 @@ const Profile = ({ setIsLogged, user }) => {
 	};
 
 	const AvatarComponent = user?.avatar ? (
-    <UserAvatar size={'48px'} avatarParts={user.avatar} />
-  ) : (
-    <LetterAvatar name={user.username} size={48} borderColor='#ffffff' />
-  );
+		<UserAvatar size={'48px'} avatarParts={user.avatar} />
+	) : (
+		<LetterAvatar name={user.username} size={48} borderColor='#ffffff' />
+	);
+
+	const menuItems = [
+		{
+			text: user.username,
+			icon: IconUserCircle,
+		},
+		{
+			text: `Rank # ${user.rank + 1}`,
+			icon: IconMedal,
+		},
+		{
+			text: `Points: ${user.points}`,
+			icon: IconHexagon,
+		},
+		{
+			text: `Wins: ${user.wins}`,
+			icon: IconHexagon,
+		},
+		{
+			text: `Losses: ${user.losses}`,
+			icon: IconHexagon,
+		},
+		{
+			text: `Winrate: ${user.winrate}%`,
+			icon: IconHexagon,
+		},
+		{
+			text: 'Change Password',
+			icon: IconShieldLock,
+			onClick: handleOpenPasswordChange,
+		},
+		{
+			text: 'Avatar',
+			icon: IconUserStar,
+			onClick: handleOpenCustomAvatar,
+		},
+	];
 
 	return (
 		<Box>
@@ -102,60 +137,12 @@ const Profile = ({ setIsLogged, user }) => {
 					},
 				}}
 			>
-				<MenuItem disableRipple>
-					<ListItemIcon>
-						<IconUserCircle width={20} color='#ffffff' />
-					</ListItemIcon>
-					<ListItemText>{user.username}</ListItemText>
-				</MenuItem>
-				<MenuItem disableRipple>
-					<ListItemIcon>
-						<IconMedal width={20} color='#ffffff' />
-					</ListItemIcon>
-					<ListItemText>Rank # {user.rank + 1}</ListItemText>
-				</MenuItem>
-				<MenuItem disableRipple>
-					<ListItemIcon>
-						<IconHexagon width={20} color='#ffffff' />
-					</ListItemIcon>
-					<ListItemText>Points: {user.points}</ListItemText>
-				</MenuItem>
-				<MenuItem disableRipple>
-					<ListItemIcon>
-						<IconHexagon width={20} color='#ffffff' />
-					</ListItemIcon>
-					<ListItemText>Wins: {user.wins}</ListItemText>
-				</MenuItem>
-				<MenuItem disableRipple>
-					<ListItemIcon>
-						<IconHexagon width={20} color='#ffffff' />
-					</ListItemIcon>
-					<ListItemText>Losses: {user.losses}</ListItemText>
-				</MenuItem>
-				<MenuItem disableRipple>
-					<ListItemIcon>
-						<IconHexagon width={20} color='#ffffff' />
-					</ListItemIcon>
-					<ListItemText>Winrate: {user.winrate}%</ListItemText>
-				</MenuItem>
-				{/* <MenuItem onClick={handleOpenHistory} disableRipple>
-					<ListItemIcon>
-						<IconList width={20} color='#ffffff'/>
-					</ListItemIcon>
-					<ListItemText>Duel Logs</ListItemText>
-				</MenuItem> */}
-				<MenuItem onClick={handleOpenPasswordChange}>
-					<ListItemIcon>
-						<IconShieldLock width={20} color='#ffffff' />
-					</ListItemIcon>
-					<ListItemText>Change Password</ListItemText>
-				</MenuItem>
-				<MenuItem onClick={handleOpenCustomAvatar}>
-					<ListItemIcon>
-						<IconUserStar width={20} color='#ffffff' />
-					</ListItemIcon>
-					<ListItemText>Avatar</ListItemText>
-				</MenuItem>
+				{menuItems.map((item, index) => (
+					<MenuItem key={index} disableRipple onClick={item.onClick}>
+						{React.createElement(item.icon, { width: 20, color: '#ffffff' })}
+						<ListItemText>{item.text}</ListItemText>
+					</MenuItem>
+				))}
 				<Box mt={1} py={1} px={2}>
 					<Button
 						href='/'
