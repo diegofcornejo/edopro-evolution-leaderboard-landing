@@ -3,8 +3,9 @@ import { Fragment, useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
 import toast from 'react-hot-toast';
 import LetterAvatar from '../LetterAvatar';
+import UserAvatar from '../Avatar';
 
-const welcomeToast = (username) =>
+const welcomeToast = (user) =>
 	toast.custom((t) => (
 		<div
 			className={`${
@@ -14,10 +15,14 @@ const welcomeToast = (username) =>
 			<div className='flex-1 w-0 p-4'>
 				<div className='flex items-start'>
 					<div className='flex-shrink-0 pt-0.5'>
-						<LetterAvatar name={username} size={64} />
+						{user?.avatar ? (
+							<UserAvatar size={'48px'} avatarParts={user.avatar} />
+						) : (
+							<LetterAvatar name={user.username} size={48} borderColor='#ffffff' />
+						)}
 					</div>
 					<div className='ml-3 flex-1'>
-						<p className='text-xl font-medium text-gray-900'>Welcome {username}</p>
+						<p className='text-xl font-medium text-gray-900'>Welcome {user.username}</p>
 						<p className='mt-1 text-l text-gray-500'>{`Let's Duel!`}</p>
 					</div>
 				</div>
@@ -53,8 +58,7 @@ const Signin = ({ setIsLogged, setUser }) => {
 			setUser(res);
 			localStorage.setItem('token', res.token);
 			closeModal();
-			// toast.success(`Welcome ${res.username}`);
-			welcomeToast(res.username);
+			welcomeToast(res);
 		} else {
 			setIsLogged(false);
 			setError(true);
