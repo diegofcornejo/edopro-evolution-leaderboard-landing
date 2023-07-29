@@ -43,9 +43,9 @@ const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels }) => {
 								leaveFrom='opacity-100 scale-100'
 								leaveTo='opacity-0 scale-95'
 							>
-								<Dialog.Panel className='w-full max-w-6xl transform overflow-hidden rounded-2xl bg-navyblue border border-white text-left align-middle shadow-xl transition-all'>
+								<Dialog.Panel className='w-full max-w-7xl transform overflow-hidden rounded-2xl bg-navyblue border border-white text-left align-middle shadow-xl transition-all'>
 									<div className='flex min-h-full items-center justify-center py-2 px-4 sm:px-6 lg:px-8'>
-										<div className='w-full max-w-6xl space-y-8'>
+										<div className='w-full max-w-7xl space-y-8'>
 											<div className='relative table-b bg-navyblue p-4 overflow-x-auto'>
 												<h3 className='text-offwhite text-2xl'>
 													Duels ({duels.length})
