@@ -46,7 +46,7 @@ const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels }) => {
 								<Dialog.Panel className='w-full max-w-7xl transform overflow-hidden rounded-2xl bg-navyblue border border-white text-left align-middle shadow-xl transition-all'>
 									<div className='flex min-h-full items-center justify-center py-2 px-4 sm:px-6 lg:px-8'>
 										<div className='w-full max-w-7xl space-y-8'>
-											<div className='relative table-b bg-navyblue p-4 overflow-x-auto'>
+											<div className='relative table-b bg-navyblue p-4 overflow-x-auto' style={{height:'50rem'}}>
 												<h3 className='text-offwhite text-2xl'>
 													Duels ({duels.length})
 												</h3>
@@ -68,11 +68,11 @@ const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels }) => {
 															<th className='px-4 py-4 text-start font-normal'>
 																PLAYER 2
 															</th>
-															<th className='px-4 py-4 text-start font-normal'>
-																TURNS
-															</th>
-															<th className='px-4 py-4 text-start font-normal'>
+															<th className='px-4 py-4 text-center font-normal'>
 																RESULT
+															</th>
+															<th className='px-4 py-4 text-center font-normal'>
+																POINTS
 															</th>
 															<th className='px-4 py-4 font-normal'>
 																DATE
@@ -109,11 +109,8 @@ const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels }) => {
 																<td className='px-4 py-2 text-white'>
 																	{duel.players[1].name}
 																</td>
-																<td className='px-4 py-2 text-white'>
-																	{duel.turns}
-																</td>
 																<td
-																	className={`px-4 py-2 ${
+																	className={`px-4 py-2 text-center ${
 																		duel.players[0].winner
 																			? 'text-green'
 																			: 'text-red'
@@ -121,6 +118,9 @@ const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels }) => {
 																>
 																	{duel.players[0].score} -{' '}
 																	{duel.players[1].score}
+																</td>
+																<td className='px-4 py-2 text-white text-center'>
+																	{duel.players[0].points}
 																</td>
 																<td className='px-4 py-2 text-white'>
 																	{formatDate(duel.date)}

@@ -11,6 +11,16 @@ const getPlayerScore = (games) => {
 	return score;
 };
 
+const getPlayerPoints = (winner, games) => {
+	let wins = 0;
+	let losses = 0;
+	games.forEach((game) => {
+		game.result === 'winner' ? wins++ : losses++;
+	});
+	const points = winner ? wins + (wins - losses) : wins;
+	return points;
+}
+
 const handler = async (req, res) => {
 	if (req.method === 'GET') {
 		let decoded;
@@ -75,6 +85,7 @@ const handler = async (req, res) => {
 							team: player.team,
 							winner: player.winner,
 							score: getPlayerScore(player.games),
+							points: getPlayerPoints(player.winner, player.games),
 						};
 					});
 					return {
@@ -82,7 +93,7 @@ const handler = async (req, res) => {
 						date: duel.date,
 						players: orderPlayers(players),
 						ranked: duel.ranked,
-						turns: duel.turn,
+						// turns: duel.turn,
 						type: players.length > 2 ? 'Tag' : 'PvP',
 					};
 				});
