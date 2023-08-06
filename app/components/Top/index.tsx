@@ -6,10 +6,12 @@ import UserAvatar from '../Avatar';
 const Top = ({ leaderboard }) => {
 	// leaderboard.sort((a, b) => b.score - a.score);
 	let topThree = leaderboard.slice(0, 3);
-	topThree[0].rank = 1;
-	topThree[1].rank = 2;
-	topThree[2].rank = 3;
-	let leaders = [topThree[1], topThree[0], topThree[2]];
+	topThree = topThree.map((item, i) => {
+		return {
+			...item,
+			rank: i + 1,
+		};
+	});
 
 	return (
 		<div>
@@ -28,10 +30,9 @@ const Top = ({ leaderboard }) => {
 				</div>
 
 				<div className='grid md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-5 mt-32'>
-					{leaders.map((items, i) => (
-						<div className='card-b p-8' key={i}>
+					{topThree.map((items, i) => (
+						<div className={`card-b p-8 order-${i} ` + (i===1 ? 'lg:order-first' : '')} key={i}>
 							<div className='work-img-bg rounded-full flex justify-center absolute p-6'>
-								{/* {i === 1 && ( */}
 									<img
 										src={`/images/Top/${items.rank}.svg`}
 										alt={''}
