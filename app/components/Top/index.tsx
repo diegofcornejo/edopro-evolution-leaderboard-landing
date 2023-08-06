@@ -31,7 +31,7 @@ const Top = ({ leaderboard }) => {
 
 				<div className='grid md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-5 mt-32'>
 					{topThree.map((items, i) => (
-						<div className={`card-b p-8 order-${i} ` + (i===1 ? 'lg:order-first' : '')} key={i}>
+						<div className={`card-b p-8 order-${i} ` + (i===1 ? 'lg:order-first' : '') + (i===0 ? 'lg:-mt-8':'')} key={i}>
 							<div className='work-img-bg rounded-full flex justify-center absolute p-6'>
 									<img
 										src={`/images/Top/${items.rank}.svg`}
