@@ -31,23 +31,28 @@ const Top = ({ leaderboard }) => {
 
 				<div className='grid md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-5 mt-32'>
 					{topThree.map((items, i) => (
-						<div className={`card-b p-8 order-${i} ` + (i===1 ? 'lg:order-first' : '') + (i===0 ? 'lg:-mt-8':'')} key={i}>
+						<div
+							className={
+								`card-b p-8 order-${i} ` +
+								(i === 0 ? 'gold lg:-mt-8' : '') +
+								(i === 1 ? 'silver lg:order-first' : '') +
+								(i === 2 ? 'bronze' : '')
+							}
+							key={i}
+						>
 							<div className='work-img-bg rounded-full flex justify-center absolute p-6'>
-									<img
-										src={`/images/Top/${items.rank}.svg`}
-										alt={''}
-										width={32}
-										height={32}
-										className='rounded-full'
-										style={{ position: 'absolute', top: '0', right: '0' }}
-									/>
+								<img
+									src={`/images/Top/${items.rank}.svg`}
+									alt={''}
+									width={32}
+									height={32}
+									className='rounded-full'
+									style={{ position: 'absolute', top: '0', right: '0' }}
+								/>
 								{items.avatar ? (
 									<UserAvatar size={'50px'} avatarParts={items.avatar} />
 								) : (
-									<LetterAvatar
-										name={items.value}
-										size={50}
-									/>
+									<LetterAvatar name={items.value} size={50} />
 								)}
 							</div>
 							<div>

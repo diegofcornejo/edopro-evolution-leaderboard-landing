@@ -136,7 +136,20 @@ html:not([data-scroll="0"]) .navbar {
   border-radius: 20px;
   position: relative;
   transition: transform 430ms;
-  height: auto;
+  height: 20rem;
+	border: 3px solid;
+}
+
+.card-b.gold {
+	border-color: gold;
+}
+
+.card-b.silver{
+	border-color: silver;
+}
+
+.card-b.bronze{
+	border-color: #CD7F32;
 }
 
 /* .card-b:hover {
