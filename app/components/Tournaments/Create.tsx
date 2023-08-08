@@ -4,12 +4,9 @@ import toast from 'react-hot-toast';
 import { camelCaseToWords } from '../../../libs/helpers';
 import options from './options';
 
-const CreateTournament = ({ isCreateOpen, setIsCreateOpen }) => {
+const CreateTournament = ({ isCreateOpen, setIsCreateOpen, tournaments }) => {
 	const [tournamentOptions, setTournamentOptions] = useState({
 		name: '',
-		// type: '',
-		// status: '',
-		//get actual date
 		startDate: new Date().toISOString().slice(0, 10),
 		banlist: '',
 		mode: '',
@@ -26,22 +23,23 @@ const CreateTournament = ({ isCreateOpen, setIsCreateOpen }) => {
 
 	const handleCreateTournament = async (e) => {
 		e.preventDefault();
-		console.log(tournamentOptions);
-		// const token = localStorage.getItem('token');
-		// const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/avatar`, {
-		// 	method: 'POST',
-		// 	headers: {
-		// 		'Content-Type': 'application/json',
-		// 		Authorization: `Bearer ${token}`,
-		// 	},
-		// 	body: JSON.stringify({ avatar: avatarParts }),
-		// });
-		// const res = await response.json();
-		// if (response.ok) {
-		// 	toast.success('Avatar	saved ', { duration: 5000 });
-		// } else {
-		// 	toast.error(res.error, { duration: 5000 });
-		// }
+		const token = localStorage.getItem('token');
+		const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tournament`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+			body: JSON.stringify(tournamentOptions),
+		});
+		const res = await response.json();
+		if (response.ok) {
+			toast.success(res.message, { duration: 5000 });
+			tournaments.push(tournamentOptions);
+		} else {
+			toast.error(res.error, { duration: 5000 });
+		}
+		closeModal();
 	};
 
 	const closeModal = () => {
@@ -137,7 +135,6 @@ const CreateTournament = ({ isCreateOpen, setIsCreateOpen }) => {
 															<option value='1v1'>1v1</option>
 															<option value='2v2'>2v2</option>
 															<option value='3v3'>3v3</option>
-															<option value='4v4'>4v4</option>
 														</select>
 													</div>
 													<div>

@@ -4,7 +4,6 @@ import { useState } from 'react';
 import CreateTournament from './Create';
 
 const Table = ({ tournaments }) => {
-	// tournaments.splice(0, 3);
 	
 	const [isCreateOpen, setIsCreateOpen] = useState(false);
 
@@ -24,6 +23,7 @@ const Table = ({ tournaments }) => {
 						<CreateTournament
 							isCreateOpen={isCreateOpen}
 							setIsCreateOpen={setIsCreateOpen}
+							tournaments={tournaments}
 						/>
 					</div>
 					<table className='table-auto w-full mt-10'>
@@ -68,7 +68,7 @@ const Table = ({ tournaments }) => {
 										{items.status}
 									</td>
 									<td className='px-4 py-2 text-white'>
-										{items.start}
+										{items.startDate}
 									</td>
 									{/* <td className='px-4 py-2 text-center text-white'>
 										{items.end}
@@ -80,7 +80,7 @@ const Table = ({ tournaments }) => {
 										{items.mode}
 									</td>
 									<td className='px-4 py-2 text-center text-white'>
-										{items.bestof}
+										{items.bestOf}
 									</td>
 									{/* <td className='px-4 py-2 text-center text-white'>
 										{items.rules}
