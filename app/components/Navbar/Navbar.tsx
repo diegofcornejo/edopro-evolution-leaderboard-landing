@@ -19,8 +19,8 @@ interface NavigationItem {
 
 const navigation: NavigationItem[] = [
 	{ name: 'Home', href: '#home-section', current: false },
-	{ name: 'Top', href: '#topplayers-section', current: false },
-	{ name: 'Ranking', href: '#ranking-section', current: false },
+	// { name: 'Top', href: '#topplayers-section', current: false },
+	{ name: 'Ranking', href: '#topplayers-section', current: false },
 	{ name: 'Features', href: '#features-section', current: false },
 	{ name: 'Download', href: '#download-section', current: false },
 	{ name: 'Tournaments', href: '/tournaments', current: false },
