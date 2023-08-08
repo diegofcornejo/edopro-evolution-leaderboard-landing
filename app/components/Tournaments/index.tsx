@@ -31,7 +31,7 @@ const Table = ({ tournaments }) => {
 							<tr className='text-white bg-darkblue rounded-lg'>
 								<th className='px-4 py-4 text-start font-normal'></th>
 								<th className='px-4 py-4 text-start font-normal'>NAME</th>
-								<th className='px-4 py-4 text-start font-normal'>TYPE</th>
+								{/* <th className='px-4 py-4 text-start font-normal'>TYPE</th> */}
 								{/* <th className='px-4 py-4 font-normal'>CREATOR</th> */}
 								<th className='px-4 py-4 text-start font-normal'>STATUS</th>
 								<th className='px-4 py-4 text-start font-normal'>START</th>
@@ -49,9 +49,9 @@ const Table = ({ tournaments }) => {
 									<td className='px-4 py-2 text-white'>
 										{items.name}
 									</td>
-									<td className='px-4 py-2 text-white'>
+									{/* <td className='px-4 py-2 text-white'>
 										{items.type}
-									</td>
+									</td> */}
 									{/* <td className='px-4 py-2 text-center text-white flex items-center justify-start gap-5 '>
 										{items.avatar ? (
 											<UserAvatar size={'40px'} avatarParts={items.avatar} />

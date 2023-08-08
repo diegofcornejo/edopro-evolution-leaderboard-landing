@@ -1,22 +1,21 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState} from 'react';
+import { Fragment, useState } from 'react';
 import toast from 'react-hot-toast';
 import { camelCaseToWords } from '../../../libs/helpers';
 import options from './options';
 
 const CreateTournament = ({ isCreateOpen, setIsCreateOpen }) => {
-	
 	const [tournamentOptions, setTournamentOptions] = useState({
 		name: '',
-		type: '',
-		status: '',
-		start: '',
+		// type: '',
+		// status: '',
+		//get actual date
+		startDate: new Date().toISOString().slice(0, 10),
 		banlist: '',
 		mode: '',
 		bestOf: '',
-		rules: '',
+		rule: '',
 	});
-	
 
 	const handleChange = (option, value) => {
 		setTournamentOptions((prevParts) => ({
@@ -88,38 +87,167 @@ const CreateTournament = ({ isCreateOpen, setIsCreateOpen }) => {
 												className='mt-8 space-y-6'
 												onSubmit={handleCreateTournament}
 											>
-												<div className='-space-y-px rounded-md shadow-sm'>
-														<div>
+												<div className='space-y-2 rounded-md shadow-sm'>
+													<div>
 														<label
-															htmlFor='signup-username'
-															className='sr-only'
+															htmlFor='tournament-name'
+															className='text-white'
 														>
-															Username
+															Name
 														</label>
 														<input
-															id='signup-username'
-															name='username'
+															id='tournament-name'
+															name='tournament-name'
 															type='text'
 															value={tournamentOptions.name}
 															onChange={(e) => {
 																if (e.target.value.length <= 40) {
-																	handleChange('name', e.target.value);
+																	handleChange(
+																		'name',
+																		e.target.value
+																	);
 																}
 															}}
-															pattern='^\S+$'
-															title='Spaces are not allowed'
-															autoComplete='signup-username'
 															required
-															maxLength={14}
-															className='relative block w-full appearance-none rounded-none rounded-t-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
-															placeholder='Username'
+															maxLength={40}
+															className='relative block w-full appearance-none rounded-none border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-buttonblue focus:outline-none focus:ring-buttonblue sm:text-sm'
+															placeholder='Name'
 														/>
-														</div>
+													</div>
+													<div>
+														<label
+															htmlFor='tournament-mode'
+															className='text-white'
+														>
+															Duel Mode
+														</label>
+														<select
+															id='tournament-mode'
+															name='tournament-mode'
+															value={tournamentOptions.mode}
+															onChange={(e) =>
+																handleChange('mode', e.target.value)
+															}
+															required
+															className='relative block w-full appearance-none rounded-none border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-buttonblue focus:outline-none focus:ring-buttonblue sm:text-sm'
+														>
+															<option value='' disabled>
+																Select Duel Mode
+															</option>
+															<option value='1v1'>1v1</option>
+															<option value='2v2'>2v2</option>
+															<option value='3v3'>3v3</option>
+															<option value='4v4'>4v4</option>
+														</select>
+													</div>
+													<div>
+														<label
+															htmlFor='tournament-bestof'
+															className='text-white'
+														>
+															Best of
+														</label>
+														<select
+															id='tournament-bestof'
+															name='tournament-bestof'
+															value={tournamentOptions.bestOf}
+															onChange={(e) =>
+																handleChange(
+																	'bestOf',
+																	e.target.value
+																)
+															}
+															required
+															className='relative block w-full appearance-none rounded-none border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-buttonblue focus:outline-none focus:ring-buttonblue sm:text-sm'
+														>
+															<option value='' disabled>
+																Select Best of
+															</option>
+															<option value='1'>1</option>
+															<option value='3'>3</option>
+															<option value='5'>5</option>
+															<option value='7'>7</option>
+														</select>
+													</div>
+													<div>
+														<label
+															htmlFor='tournament-banlist'
+															className='text-white'
+														>
+															Banlist
+														</label>
+														<select
+															id='tournament-banlist'
+															name='tournament-banlist'
+															value={tournamentOptions.banlist}
+															onChange={(e) =>
+																handleChange(
+																	'banlist',
+																	e.target.value
+																)
+															}
+															required
+															className='relative block w-full appearance-none rounded-none border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-buttonblue focus:outline-none focus:ring-buttonblue sm:text-sm'
+														>
+															<option value='' disabled>
+																Select Banlist
+															</option>
+															<option value='TCG'>TCG</option>
+															<option value='OCG'>OCG</option>
+														</select>
+													</div>
+													<div>
+														<label
+															htmlFor='tournament-rule'
+															className='text-white'
+														>
+															Master Rule
+														</label>
+														<select
+															id='tournament-rule'
+															name='tournament-rule'
+															value={tournamentOptions.rule}
+															onChange={(e) =>
+																handleChange('rule', e.target.value)
+															}
+															required
+															className='relative block w-full appearance-none rounded-none border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-buttonblue focus:outline-none focus:ring-buttonblue sm:text-sm'
+														>
+															<option value='' disabled>
+																Select Rule
+															</option>
+															<option value='MR5'>MR5</option>
+															<option value='MR4'>MR4</option>
+															<option value='MR3'>MR3</option>
+														</select>
+													</div>
+													<div>
+														<label
+															htmlFor='tournament-start'
+															className='text-white'
+														>
+															Start Date
+														</label>
+														<input
+															id='tournament-start'
+															name='tournament-start'
+															type='date'
+															value={tournamentOptions.startDate}
+															onChange={(e) =>
+																handleChange(
+																	'startDate',
+																	e.target.value
+																)
+															}
+															required
+															className='relative block w-full appearance-none rounded-none border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-buttonblue focus:outline-none focus:ring-buttonblue sm:text-sm'
+														/>
+													</div>
 												</div>
 												<div>
 													<button
 														type='submit'
-														className='group relative flex w-full justify-center rounded-md border border-transparent bg-purple py-2 px-4 text-sm font-medium text-white hover:bg-buttonblue focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+														className='group relative flex w-full justify-center rounded-md border border-transparent bg-purple py-2 px-4 text-sm font-medium text-white hover:bg-buttonblue focus:outline-none focus:ring-2 focus:ring-buttonblue focus:ring-offset-2'
 													>
 														Save
 													</button>
