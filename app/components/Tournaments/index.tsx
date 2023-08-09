@@ -1,12 +1,17 @@
 'use client';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import CreateTournament from './Create';
 import toast from 'react-hot-toast';
 
 const Table = ({ tournaments }) => {
-	
+	const router = useRouter();
 	const [isCreateOpen, setIsCreateOpen] = useState(false);
+
+	const GoToTournament = (id) => () => {
+		router.push(`/tournaments/${id}`);
+	};
 
 	const handleCreate = () => {
 		const session = localStorage.getItem('session');
@@ -25,7 +30,10 @@ const Table = ({ tournaments }) => {
 				<div className='table-b bg-navyblue p-8 overflow-x-auto'>
 					<div className='flex justify-between'>
 						<h3 className='text-offwhite text-2xl'>Tournaments & Events</h3>
-						<button className='text-lg font-semibold py-2 px-4 navbutton text-white' onClick={handleCreate}>
+						<button
+							className='text-lg font-semibold py-2 px-4 navbutton text-white'
+							onClick={handleCreate}
+						>
 							New Tournament (Alpha)
 						</button>
 						<CreateTournament
@@ -52,11 +60,13 @@ const Table = ({ tournaments }) => {
 						</thead>
 						<tbody>
 							{tournaments.map((items, i) => (
-								<tr key={i} className='border-b border-b-darkblue cursor-pointer hover:bg-purple'>
+								<tr
+									key={i}
+									className='border-b border-b-darkblue cursor-pointer hover:bg-purple'
+									onClick={GoToTournament(items.id)}
+								>
 									<td className='px-4 py-2 text-center text-white'>{i + 1}</td>
-									<td className='px-4 py-2 text-white'>
-										{items.name}
-									</td>
+									<td className='px-4 py-2 text-white'>{items.name}</td>
 									{/* <td className='px-4 py-2 text-white'>
 										{items.type}
 									</td> */}
@@ -72,21 +82,13 @@ const Table = ({ tournaments }) => {
 										)}
 										{items.creator}
 									</td> */}
-									<td className='px-4 py-2 text-white'>
-										{items.status}
-									</td>
-									<td className='px-4 py-2 text-white'>
-										{items.startDate}
-									</td>
+									<td className='px-4 py-2 text-white'>{items.status}</td>
+									<td className='px-4 py-2 text-white'>{items.startDate}</td>
 									{/* <td className='px-4 py-2 text-center text-white'>
 										{items.end}
 									</td> */}
-									<td className='px-4 py-2 text-white'>
-										{items.banlist}
-									</td>
-									<td className='px-4 py-2 text-white'>
-										{items.mode}
-									</td>
+									<td className='px-4 py-2 text-white'>{items.banlist}</td>
+									<td className='px-4 py-2 text-white'>{items.mode}</td>
 									<td className='px-4 py-2 text-center text-white'>
 										{items.bestOf}
 									</td>

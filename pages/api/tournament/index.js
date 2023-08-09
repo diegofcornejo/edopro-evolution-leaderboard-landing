@@ -1,9 +1,14 @@
 import getAll from "./getAll";
 import create from "./create";
+import getOne from "./getOne";
 
 const handler = async (req, res) => {
 	if (req.method === 'GET') {
-		await getAll(req, res);
+		if(req.query.id){
+			await getOne(req, res);
+		}else{
+			await getAll(req, res);
+		}
 	}
 	else if (req.method === 'POST') {
 		await create(req, res);

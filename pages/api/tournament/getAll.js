@@ -8,6 +8,7 @@ const getAll = async (req, res) => {
 		const tournaments = [];
 		for (const key of keys) {
 			const tournament = await client.hGetAll(key);
+			tournament.id = key.split(':')[1];
 			tournaments.push(tournament);
 		}
 		res.status(200).json(tournaments);
