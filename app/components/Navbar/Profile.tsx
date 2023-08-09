@@ -25,7 +25,7 @@ import DuelLogs from '../DuelLogs';
 const Profile = ({ setIsLogged, user }) => {
 	const handleLogout = () => {
 		setIsLogged(false);
-		localStorage.removeItem('token');
+		localStorage.removeItem('session');
 	};
 	const [anchorEl2, setAnchorEl2] = useState(null);
 	const handleClick2 = (event: any) => {
@@ -50,7 +50,8 @@ const Profile = ({ setIsLogged, user }) => {
 	const [duels, setDuels] = useState([]);
 	const [isOpenDuelLogs, setIsOpenDuelLogs] = useState(false);
 	const handleOpenDuelLogs = async () => {
-		const token = localStorage.getItem('token');
+		const session = localStorage.getItem('session');
+		const token = session ? JSON.parse(session).token : '';
 		const res = await fetch('/api/user/duels', {
 		method: 'GET',
 		headers: {

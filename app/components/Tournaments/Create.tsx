@@ -1,8 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import toast from 'react-hot-toast';
-import { camelCaseToWords } from '../../../libs/helpers';
-import options from './options';
+// import { camelCaseToWords } from '../../../libs/helpers';
+// import options from './options';
 
 const CreateTournament = ({ isCreateOpen, setIsCreateOpen, tournaments }) => {
 	const [tournamentOptions, setTournamentOptions] = useState({
@@ -23,7 +23,9 @@ const CreateTournament = ({ isCreateOpen, setIsCreateOpen, tournaments }) => {
 
 	const handleCreateTournament = async (e) => {
 		e.preventDefault();
-		const token = localStorage.getItem('token');
+		const session = localStorage.getItem('session');
+		const token = session ? JSON.parse(session).token : '';
+		
 		const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tournament`, {
 			method: 'POST',
 			headers: {

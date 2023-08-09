@@ -15,7 +15,8 @@ const ChangePassword = ({ isOpenPasswordChange, setIsOpenPasswordChange, setIsLo
 
 	const handleChangePassword = async (e) => {
 		e.preventDefault();
-		const token = localStorage.getItem('token');
+		const session = localStorage.getItem('session');
+		const token = session ? JSON.parse(session).token : '';
 		const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/password`, {
 			method: 'POST',
 			headers: {
@@ -27,7 +28,7 @@ const ChangePassword = ({ isOpenPasswordChange, setIsOpenPasswordChange, setIsLo
 		const res = await response.json();
 		if (response.ok) {
 			closeModal();
-			localStorage.removeItem('token');
+			localStorage.removeItem('session');
 			setIsLogged(false);
 			toast.success('Password changed successfully, Please login again', { duration: 5000 });
 		} else {

@@ -39,7 +39,7 @@ function classNames(...classes: string[]) {
 const errorFetchingUserData = () => {
 	toast.error(`Error while fetching user data,
 		Please login again`);
-	localStorage.removeItem('token');
+	localStorage.removeItem('session');
 };
 
 const Navbar = () => {
@@ -48,7 +48,8 @@ const Navbar = () => {
 	const [user, setUser] = useState(null);
 
 	if (typeof window !== 'undefined') {
-		const token = localStorage.getItem('token');
+		const session = localStorage.getItem('session');
+		const token = session ? JSON.parse(session).token : '';
 		if (token && !user) {
 			fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/rank`, {
 				method: 'POST',

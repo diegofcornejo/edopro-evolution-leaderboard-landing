@@ -20,7 +20,8 @@ const CustomAvatar = ({ isOpenCustomAvatar, setIsOpenCustomAvatar, avatar }) => 
 
 	const handleSaveAvatar = async (e) => {
 		e.preventDefault();
-		const token = localStorage.getItem('token');
+		const session = localStorage.getItem('session');
+		const token = session ? JSON.parse(session).token : '';
 		const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/avatar`, {
 			method: 'POST',
 			headers: {

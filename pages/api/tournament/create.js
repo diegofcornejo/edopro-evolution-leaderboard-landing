@@ -14,6 +14,11 @@ const create = async (req, res) => {
 		return;
 	}
 
+	if(decoded.role !== 'ADMIN'){
+		res.status(403).json({ error: 'Forbidden' });
+		return;
+	}
+
 	const { name, startDate, banlist, mode, bestOf, rule} = req.body;
 	const tournamentId = crypto.randomUUID();
 	

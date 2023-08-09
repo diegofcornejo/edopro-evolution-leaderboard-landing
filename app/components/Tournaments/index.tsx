@@ -2,12 +2,20 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import CreateTournament from './Create';
+import toast from 'react-hot-toast';
 
 const Table = ({ tournaments }) => {
 	
 	const [isCreateOpen, setIsCreateOpen] = useState(false);
 
 	const handleCreate = () => {
+		const session = localStorage.getItem('session');
+		const role = session ? JSON.parse(session).role : '';
+		if (role !== 'ADMIN') {
+			toast.error('You are not authorized to create a tournament', { duration: 5000 });
+			return;
+			//TODO: Show suscription modal
+		}
 		setIsCreateOpen(true);
 	};
 
@@ -18,7 +26,7 @@ const Table = ({ tournaments }) => {
 					<div className='flex justify-between'>
 						<h3 className='text-offwhite text-2xl'>Tournaments & Events</h3>
 						<button className='text-lg font-semibold py-2 px-4 navbutton text-white' onClick={handleCreate}>
-							New Tournament
+							New Tournament (Alpha)
 						</button>
 						<CreateTournament
 							isCreateOpen={isCreateOpen}
