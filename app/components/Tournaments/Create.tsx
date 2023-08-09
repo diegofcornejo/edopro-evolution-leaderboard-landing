@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import toast from 'react-hot-toast';
 // import { camelCaseToWords } from '../../../libs/helpers';
-// import options from './options';
+import options from './options';
 
 const CreateTournament = ({ isCreateOpen, setIsCreateOpen, tournaments }) => {
 	const [tournamentOptions, setTournamentOptions] = useState({
@@ -134,9 +134,11 @@ const CreateTournament = ({ isCreateOpen, setIsCreateOpen, tournaments }) => {
 															<option value='' disabled>
 																Select Duel Mode
 															</option>
-															<option value='1v1'>1v1</option>
-															<option value='2v2'>2v2</option>
-															<option value='3v3'>3v3</option>
+															{options.mode.map((mode) => (
+																<option key={mode.value} value={mode.value}>
+																	{mode.label}
+																</option>
+															))}
 														</select>
 													</div>
 													<div>
@@ -162,10 +164,14 @@ const CreateTournament = ({ isCreateOpen, setIsCreateOpen, tournaments }) => {
 															<option value='' disabled>
 																Select Best of
 															</option>
-															<option value='1'>1</option>
-															<option value='3'>3</option>
-															<option value='5'>5</option>
-															<option value='7'>7</option>
+															{options.bestOf.map((bestOf) => (
+																<option
+																	key={bestOf.value}
+																	value={bestOf.value}
+																>
+																	{bestOf.label}
+																</option>
+															))}
 														</select>
 													</div>
 													<div>
@@ -191,8 +197,14 @@ const CreateTournament = ({ isCreateOpen, setIsCreateOpen, tournaments }) => {
 															<option value='' disabled>
 																Select Banlist
 															</option>
-															<option value='TCG'>TCG</option>
-															<option value='OCG'>OCG</option>
+															{options.banlist.map((banlist) => (
+																<option
+																	key={banlist.value}
+																	value={banlist.value}
+																>
+																	{banlist.label}
+																</option>
+															))}
 														</select>
 													</div>
 													<div>
@@ -215,9 +227,11 @@ const CreateTournament = ({ isCreateOpen, setIsCreateOpen, tournaments }) => {
 															<option value='' disabled>
 																Select Rule
 															</option>
-															<option value='MR5'>MR5</option>
-															<option value='MR4'>MR4</option>
-															<option value='MR3'>MR3</option>
+															{options.rule.map((rule) => (
+																<option key={rule.value} value={rule.value}>
+																	{rule.label}
+																</option>
+															))}
 														</select>
 													</div>
 													<div>
