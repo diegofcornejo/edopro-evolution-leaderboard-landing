@@ -17,7 +17,6 @@ const getLeaderBoard = async () => {
 
 export default async function Home() {
 	const leaderboard = await getLeaderBoard();
-	console.log(leaderboard);
 	return (
 		<main>
 			<Banner />
