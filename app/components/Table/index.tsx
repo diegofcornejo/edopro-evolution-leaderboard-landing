@@ -5,7 +5,7 @@ import UserAvatar from '../Avatar';
 
 const Table = ({ ranking }) => {
 	const lastUpdated = new Date(ranking.lastUpdate);
-	let leaderboard = ranking.data;
+	const leaderboard = ranking.data;
 	leaderboard.splice(0, 3);
 	console.log("🚀 ~ file: index.tsx:10 ~ Table ~ leaderboard:", leaderboard)
 	
