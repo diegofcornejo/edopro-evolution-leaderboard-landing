@@ -9,7 +9,9 @@ const handler = async (req, res) => {
 
 			client = await createRedisClient();
 
-			const top = JSON.parse(await client.get('ranking')).leaderboard;
+			const ranking = JSON.parse(await client.get('ranking'));
+			const top = ranking.leaderboard;
+			const lastUpdate = ranking.lastUpdate;
 
 			//get avatars for top players
 			const data = await Promise.all(top.map(async (player) => {
@@ -20,7 +22,7 @@ const handler = async (req, res) => {
 				};
 			}));
 
-			res.status(200).json(data);
+			res.status(200).json({ data, lastUpdate });
 		} catch (error) {
 			console.error('Error during processing:', error);
 			res.status(500).json({ error: 'Internal Server Error' });

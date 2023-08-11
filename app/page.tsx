@@ -22,7 +22,7 @@ export default async function Home() {
 			<Banner />
 			{/* <Companies /> */}
 			<Top leaderboard={leaderboard}/>
-			<Table leaderboard={leaderboard} />
+			<Table ranking={leaderboard} />
 			<Features />
 			<Download />
 			{/* <Trade /> */}

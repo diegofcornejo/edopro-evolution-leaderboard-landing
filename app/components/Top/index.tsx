@@ -5,7 +5,7 @@ import UserAvatar from '../Avatar';
 
 const Top = ({ leaderboard }) => {
 	// leaderboard.sort((a, b) => b.score - a.score);
-	let topThree = leaderboard.slice(0, 3);
+	let topThree = leaderboard.data.slice(0, 3);
 	topThree = topThree.map((item, i) => {
 		return {
 			...item,
