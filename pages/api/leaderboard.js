@@ -9,33 +9,7 @@ const handler = async (req, res) => {
 
 			client = await createRedisClient();
 
-			let points = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:points', '-inf', '+inf');
-			let wins = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:wins', '-inf', '+inf');
-			let losses = await client.ZRANGEBYSCORE_WITHSCORES('leaderboard:losses', '-inf', '+inf');
-
-			const leaderboard = points.map(point => {
-				const player = {
-					value: point.value,
-					score: point.score,
-					wins: 0,
-					losses: 0,
-					winrate: 0,
-				};
-
-				const foundWin = wins.find(win => win.value === player.value);
-				const foundLoss = losses.find(loss => loss.value === player.value);
-
-				player.wins = foundWin ? foundWin.score : 0;
-				player.losses = foundLoss ? foundLoss.score : 0;
-				player.winrate = parseFloat(((player.wins / (player.wins + player.losses)) * 100).toFixed(2));
-
-				return player;
-			});
-
-			// const sortedLeaderboard = leaderboard.sort((a, b) => b.score - a.score);
-			const reverseLeaderBoard = leaderboard.reverse();
-
-			const top = reverseLeaderBoard.slice(0, 20);
+			const top = JSON.parse(await client.get('ranking')).leaderboard;
 
 			//get avatars for top players
 			const data = await Promise.all(top.map(async (player) => {
