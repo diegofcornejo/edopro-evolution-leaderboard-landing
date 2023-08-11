@@ -2,7 +2,7 @@ import createRedisClient from '../../../libs/redisUtils';
 
 const generate = async (req, res) => {
 
-	if (req.method === 'GET') {
+	if (req.method === 'POST') {
 
 		if (req.query.key !== process.env.CRON_JOB_SECRET) {
 			res.status(401).json({ error: 'Unauthorized' });
