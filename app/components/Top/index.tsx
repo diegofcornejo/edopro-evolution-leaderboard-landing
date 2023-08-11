@@ -5,13 +5,13 @@ import UserAvatar from '../Avatar';
 
 const Top = ({ leaderboard }) => {
 	// leaderboard.sort((a, b) => b.score - a.score);
-	let topThree = leaderboard.slice(0, 3);
-	topThree = topThree.map((item, i) => {
-		return {
-			...item,
-			rank: i + 1,
-		};
-	});
+	let topThree = leaderboard.data.slice(0, 3);
+	// topThree = topThree.map((item, i) => {
+	// 	return {
+	// 		...item,
+	// 		rank: i + 1,
+	// 	};
+	// });
 
 	return (
 		<div>
@@ -42,7 +42,7 @@ const Top = ({ leaderboard }) => {
 						>
 							<div className='work-img-bg rounded-full flex justify-center absolute p-6'>
 								<img
-									src={`/images/Top/${items.rank}.svg`}
+									src={`/images/Top/${items.position}.svg`}
 									alt={''}
 									width={32}
 									height={32}
@@ -64,7 +64,7 @@ const Top = ({ leaderboard }) => {
 								/>
 							</div>
 							<h3 className='text-2xl text-offwhite font-semibold text-center mt-8'>
-								#{items.rank} {items.value}
+								#{items.position} {items.value}
 							</h3>
 							<p className='text-base font-normal text-bluish text-center mt-2'>
 								Points: {items.score}

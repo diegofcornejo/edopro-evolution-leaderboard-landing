@@ -19,10 +19,11 @@ interface NavigationItem {
 
 const navigation: NavigationItem[] = [
 	{ name: 'Home', href: '#home-section', current: false },
-	{ name: 'Top', href: '#topplayers-section', current: false },
-	{ name: 'Ranking', href: '#ranking-section', current: false },
+	// { name: 'Top', href: '#topplayers-section', current: false },
+	{ name: 'Ranking', href: '#topplayers-section', current: false },
 	{ name: 'Features', href: '#features-section', current: false },
 	{ name: 'Download', href: '#download-section', current: false },
+	{ name: 'Tournaments', href: '/tournaments', current: false },
 	{
 		name: 'Github',
 		href: 'https://github.com/diangogav/EDOpro-server-ts',
@@ -38,7 +39,7 @@ function classNames(...classes: string[]) {
 const errorFetchingUserData = () => {
 	toast.error(`Error while fetching user data,
 		Please login again`);
-	localStorage.removeItem('token');
+	localStorage.removeItem('session');
 };
 
 const Navbar = () => {
@@ -47,7 +48,8 @@ const Navbar = () => {
 	const [user, setUser] = useState(null);
 
 	if (typeof window !== 'undefined') {
-		const token = localStorage.getItem('token');
+		const session = localStorage.getItem('session');
+		const token = session ? JSON.parse(session).token : '';
 		if (token && !user) {
 			fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/rank`, {
 				method: 'POST',

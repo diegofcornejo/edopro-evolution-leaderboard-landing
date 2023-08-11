@@ -27,7 +27,7 @@ async function sendEmail(emailData) {
 
   try {
     await sgMail.send(message);
-    console.log('Correo electrónico enviado correctamente.');
+    console.log('Email sent');
   } catch (error) {
     console.error('SendGrid Client Error', error);
   }

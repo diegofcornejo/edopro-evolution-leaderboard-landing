@@ -27,7 +27,6 @@ const handler = async (req, res) => {
 			}
 
 			const saveAvatar = await client.hSet(key, 'avatar', JSON.stringify(avatar));
-			console.log("🚀 ~ file: avatar.js:31 ~ handler ~ saveAvatar:", saveAvatar)
 			if (saveAvatar != 0 && saveAvatar != 1) {
 				res.status(401).json({ error: 'Avatar save failed' });
 				return;

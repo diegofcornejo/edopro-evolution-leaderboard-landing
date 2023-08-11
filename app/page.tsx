@@ -17,13 +17,12 @@ const getLeaderBoard = async () => {
 
 export default async function Home() {
 	const leaderboard = await getLeaderBoard();
-	console.log(leaderboard);
 	return (
 		<main>
 			<Banner />
 			{/* <Companies /> */}
 			<Top leaderboard={leaderboard}/>
-			<Table leaderboard={leaderboard} />
+			<Table ranking={leaderboard} />
 			<Features />
 			<Download />
 			{/* <Trade /> */}
