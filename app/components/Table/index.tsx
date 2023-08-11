@@ -26,14 +26,14 @@ const Table = ({ ranking }) => {
 								<th className='px-4 py-4 font-normal'>WINRATE</th>
 								<th className='px-4 py-4 font-normal flex items-center'>
 								<img
-										src='/images/Table/down.svg'
-										alt='down'
+										src='/images/Table/up.svg'
+										alt='up'
 										width={16}
 										height={16}
 									/>
 									<img
-										src='/images/Table/up.svg'
-										alt='up'
+										src='/images/Table/down.svg'
+										alt='down'
 										width={16}
 										height={16}
 									/>
