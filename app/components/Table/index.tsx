@@ -7,6 +7,8 @@ const Table = ({ ranking }) => {
 	const lastUpdated = new Date(ranking.lastUpdate);
 	let leaderboard = ranking.data;
 	leaderboard.splice(0, 3);
+	console.log("🚀 ~ file: index.tsx:10 ~ Table ~ leaderboard:", leaderboard)
+	
 	return (
 		<>
 			<div className='mx-auto max-w-7xl px-6' id='ranking-section'>
@@ -43,7 +45,7 @@ const Table = ({ ranking }) => {
 						<tbody>
 							{leaderboard.map((items, i) => (
 								<tr key={i} className='border-b border-b-darkblue'>
-									<td className='px-4 py-2 text-center text-white'>{i + 4}</td>
+									<td className='px-4 py-2 text-center text-white'>{items.position}</td>
 									<td className='px-4 py-2 text-center text-white flex items-center justify-start gap-5 '>
 										{items.avatar ? (
 											<UserAvatar size={'40px'} avatarParts={items.avatar} />
