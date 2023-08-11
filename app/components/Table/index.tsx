@@ -86,7 +86,7 @@ const Table = ({ ranking }) => {
 										) : (
 											''
 										)}
-										{items.difference != 0 ? `( ${items.difference} )` : ''}
+										<span className="text-xs">{items.difference != 0 ? `${items.difference}` : ''}</span>
 										{items.new ? (
 											<img
 												src='/images/Table/new.png'

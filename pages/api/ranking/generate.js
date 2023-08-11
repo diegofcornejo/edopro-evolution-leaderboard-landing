@@ -55,7 +55,10 @@ const generate = async (req, res) => {
 			for (const player of top) {
 				const found = actualRanking.leaderboard.find(p => p.value === player.value);
 
-				player.difference = 0;
+				// player.difference = 0;
+				if(found){
+					player.difference = found.difference;
+				}
 
 				if (!found) {
 					player.new = true;
@@ -65,7 +68,7 @@ const generate = async (req, res) => {
 					player.difference = found.position - player.position;
 					changed = true;
 				} else if (found.score !== player.score) {
-					player.difference = found.difference;
+					// player.difference = found.difference;
 					if (found.new) {
 						player.new = true;
 					}
