@@ -11,17 +11,20 @@ const options = {
 		{label: '7', value: '7'}
 	],
 	banlist : [
-		{label: "JTP (Original)", value: "JTP"},
-		{label: "2023.06 TCG", value: "2023.06"},
-		{label: "2005.4 GOAT", value: "2023.06 TCG"},
-		{label: "2023.7 OCG", value: "2023.7 OCG"},
-		{label: "2023.07.01 Rush Prereleases", value: "2023.07.01 Rush Prereleases"},
-		{label: "2023.07.01 Rush Duel", value: "2023.07.01 Rush Duel"},
-		{label: "2023.04 Speed Duel", value: "2023.04 Speed Duel"},
-		{label: "2023.06 Traditional", value: "2023.06 Traditional"},
-		{label: "2023.7 World", value: "2023.7 World"},
-		{label: "Custom", value: "Custom"},
+		{label: "2023.06 TCG", value: "569148100"},
+		{label: "2023.7 OCG", value: "2102573805"},
+		{label: "2005.4 GOAT", value: "1087646174"},
+		{label: "2023.07.01 Rush Duel", value: "-54630734"},
+		{label: "2023.07.01 Rush Prereleases", value: "-1496041131"},
+		{label: "2023.04 Speed Duel", value: "902051764"},
+		{label: "2023.06 Traditional", value: "1868866258"},
+		{label: "2023.7 World", value: "2024240593"},
+		{label: "==================================", value: ""},
+		{label: "JTP (Original)", value: "-788692997"},
+		{label: "Evolution", value: "438594076"},
+		{label: "GX Evolution", value: "788495398"},
 		{label: "N/A", value: "NA"}
+		// {label: "Custom", value: "Custom"},
 	],
 	rule: [
 		{label: "Master Rule 1", value: "MR1"},
@@ -29,8 +32,8 @@ const options = {
 		{label: "Master Rule 3", value: "MR3"},
 		{label: "Master Rule 4", value: "MR4"},
 		{label: "Master Rules 2020", value: "MR2020"},
-		{label: "Speed Duel", value: "Speed Duel"},
-		{label: "Rush Duel", value: "Rush Duel"},
+		{label: "Speed Duel", value: "SPEED"},
+		{label: "Rush Duel", value: "RUSH"},
 		{label: "GOAT", value: "GOAT"}
 	],
 }
