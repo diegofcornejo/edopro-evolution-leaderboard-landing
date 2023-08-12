@@ -159,6 +159,25 @@ html:not([data-scroll="0"]) .navbar {
   height: 360px;
 } */
 
+
+.live-icon {
+	width: 16px;
+	height: 16px;
+	background-color: red;
+	border-radius: 50%;
+	opacity: 0;
+	animation: liveFade 2s infinite;
+}
+
+@keyframes liveFade {
+	0%, 100% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+}
+
 .hides {
   display: none;
 }
