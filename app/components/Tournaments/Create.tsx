@@ -6,6 +6,7 @@ import options from './options';
 
 const CreateTournament = ({ isCreateOpen, setIsCreateOpen, tournaments }) => {
 	const [tournamentOptions, setTournamentOptions] = useState({
+		id: '',
 		name: '',
 		startDate: new Date().toISOString().slice(0, 10),
 		banlist: '',
@@ -37,6 +38,7 @@ const CreateTournament = ({ isCreateOpen, setIsCreateOpen, tournaments }) => {
 		const res = await response.json();
 		if (response.ok) {
 			toast.success(res.message, { duration: 5000 });
+			tournamentOptions.id = res.tournamentId;
 			tournaments.push(tournamentOptions);
 		} else {
 			toast.error(res.error, { duration: 5000 });

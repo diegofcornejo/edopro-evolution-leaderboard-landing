@@ -36,7 +36,7 @@ const create = async (req, res) => {
 		};
 		const create = await client.hSet(`tournament:${tournamentId}`, tournament);
 		if(create === 7){ //This is the number of fields that we are setting
-			res.status(200).json({message: 'Tournament created'});
+			res.status(200).json({message: 'Tournament created', tournamentId});
 		}else{
 			res.status(500).json({ error: 'Tournament not created' });
 			return;
