@@ -1,5 +1,7 @@
 import createRedisClient from '../../../libs/redisUtils';
 
+ const ranking = require('./ranking.json');
+
 const getOne = async (req, res) => {
 	const id = req.query.id;
 	let client;
@@ -7,6 +9,7 @@ const getOne = async (req, res) => {
 		client = await createRedisClient();
 		const key = `tournament:${id}`;
 		const tournament = await client.hGetAll(key);
+		tournament.ranking = ranking;
 		res.status(200).json(tournament);
 	} catch (error) {
 		console.error('Error during processing:', error);
