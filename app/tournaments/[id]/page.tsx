@@ -1,13 +1,14 @@
 'use client';
 
 import { Toaster } from 'react-hot-toast';
+import Banner from '@/app/components/Banner/Tournament';
+import Table from '@/app/components/Table';
 
 const getTournament = async (id) => {
 	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tournament/?id=${id}`, {
 		cache: 'no-store',
 	});
 	const data = await res.json();
-
 	return data;
 };
 
@@ -19,16 +20,8 @@ export default async function Home({ params }: { params: { id: string } }) {
 
 	return (
 		<main>
-				<div className='grid h-screen place-items-center text-white'>
-					<h2>{tournament.id}</h2>
-					<h1>{tournament.name}</h1>
-					<h2>{tournament.banlist}</h2>
-					<h2>{tournament.bestOf}</h2>
-					<h2>{tournament.mode}</h2>
-					<h2>{tournament.owner}</h2>
-					<h2>{tournament.rule}</h2>
-					<h2>{tournament.startDate}</h2>
-				</div>
+				<Banner tournament={tournament} />
+				<Table ranking={tournament.ranking} />
 				<Toaster position='bottom-center' reverseOrder={false} />
 
 		</main>

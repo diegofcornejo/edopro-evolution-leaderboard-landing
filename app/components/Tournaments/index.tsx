@@ -29,12 +29,12 @@ const Table = ({ tournaments }) => {
 			<div className='mx-auto max-w-7xl px-6' id='ranking-section'>
 				<div className='table-b bg-navyblue p-8 overflow-x-auto'>
 					<div className='flex justify-between'>
-						<h3 className='text-offwhite text-2xl'>Tournaments & Events</h3>
+						<h3 className='text-offwhite text-2xl'>Tournaments</h3>
 						<button
 							className='text-lg font-semibold py-2 px-4 navbutton text-white'
 							onClick={handleCreate}
 						>
-							New Tournament (Alpha)
+							New Tournament (Beta)
 						</button>
 						<CreateTournament
 							isCreateOpen={isCreateOpen}

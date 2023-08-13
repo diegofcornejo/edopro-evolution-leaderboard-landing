@@ -1,0 +1,284 @@
+{
+	"data": [
+			{
+					"value": "Novaxxx69",
+					"score": 204,
+					"wins": 37,
+					"losses": 33,
+					"winrate": 52.86,
+					"position": 1,
+					"difference": 0,
+					"avatar": null
+			},
+			{
+					"value": "Vergil-LsK",
+					"score": 153,
+					"wins": 25,
+					"losses": 26,
+					"winrate": 49.02,
+					"position": 2,
+					"difference": 1,
+					"avatar": null
+			},
+			{
+					"value": "JinzoJGaming",
+					"score": 148,
+					"wins": 29,
+					"losses": 16,
+					"winrate": 64.44,
+					"position": 3,
+					"difference": -1,
+					"avatar": {
+							"skinColor": "Brown",
+							"topType": "ShortHairDreads01",
+							"hatColor": "PastelBlue",
+							"hairColor": "Black",
+							"facialHairType": "BeardMajestic",
+							"clotheColor": "Black",
+							"graphicType": "Bat",
+							"eyeType": "Close",
+							"eyebrowType": "UnibrowNatural",
+							"mouthType": "Serious",
+							"accessoriesType": "Sunglasses",
+							"facialHairColor": "Black",
+							"clotheType": "BlazerShirt"
+					}
+			},
+			{
+					"value": "BATALLIOM",
+					"score": 119,
+					"wins": 22,
+					"losses": 10,
+					"winrate": 68.75,
+					"position": 4,
+					"difference": 2,
+					"avatar": null
+			},
+			{
+					"value": "shinomorirl",
+					"score": 115,
+					"wins": 22,
+					"losses": 22,
+					"winrate": 50,
+					"position": 5,
+					"difference": -1,
+					"avatar": null
+			},
+			{
+					"value": "Avenger",
+					"score": 115,
+					"wins": 28,
+					"losses": 10,
+					"winrate": 73.68,
+					"position": 6,
+					"difference": -1,
+					"avatar": {
+							"clotheType": "ShirtVNeck",
+							"facialHairType": "BeardLight",
+							"facialHairColor": "Red",
+							"topType": "WinterHat1",
+							"clotheColor": "Red"
+					}
+			},
+			{
+					"value": "CalimanxUx",
+					"score": 91,
+					"wins": 13,
+					"losses": 29,
+					"winrate": 30.95,
+					"position": 7,
+					"difference": 1,
+					"avatar": null
+			},
+			{
+					"value": "Doncangrejo",
+					"score": 83,
+					"wins": 15,
+					"losses": 10,
+					"winrate": 60,
+					"position": 8,
+					"difference": 1,
+					"avatar": null
+			},
+			{
+					"value": "AsT",
+					"score": 81,
+					"wins": 17,
+					"losses": 11,
+					"winrate": 60.71,
+					"position": 9,
+					"difference": -1,
+					"avatar": {
+							"topType": "ShortHairDreads01",
+							"accessoriesType": "Blank",
+							"hatColor": "Gray01",
+							"hairColor": "SilverGray",
+							"clotheType": "BlazerShirt",
+							"clotheColor": "White",
+							"eyeType": "Default",
+							"mouthType": "Default",
+							"skinColor": "Light"
+					}
+			},
+			{
+					"value": "nigromante64",
+					"score": 80,
+					"wins": 16,
+					"losses": 14,
+					"winrate": 53.33,
+					"position": 10,
+					"difference": 1,
+					"avatar": {
+							"topType": "Hat",
+							"accessoriesType": "Blank",
+							"hairColor": "Brown",
+							"hatColor": "Pink",
+							"facialHairType": "BeardLight",
+							"facialHairColor": "Black",
+							"eyeType": "Wink"
+					}
+			},
+			{
+					"value": "Termo-DAK",
+					"score": 79,
+					"wins": 14,
+					"losses": 17,
+					"winrate": 45.16,
+					"position": 11,
+					"difference": -1,
+					"avatar": {
+							"topType": "WinterHat1",
+							"accessoriesType": "Kurt",
+							"hairColor": "BrownDark",
+							"facialHairType": "BeardLight",
+							"clotheType": "BlazerSweater",
+							"clotheColor": "PastelRed",
+							"graphicType": "Cumbia",
+							"eyebrowType": "UpDown",
+							"mouthType": "Twinkle",
+							"skinColor": "Pale"
+					}
+			},
+			{
+					"value": "Matavenados",
+					"score": 61,
+					"wins": 10,
+					"losses": 6,
+					"winrate": 62.5,
+					"position": 12,
+					"difference": -1,
+					"avatar": {
+							"topType": "ShortHairDreads01",
+							"accessoriesType": "Blank",
+							"graphicType": "Cumbia",
+							"skinColor": "Yellow",
+							"mouthType": "Disbelief",
+							"clotheColor": "PastelRed",
+							"facialHairColor": "Blonde"
+					}
+			},
+			{
+					"value": "Komplex",
+					"score": 56,
+					"wins": 10,
+					"losses": 7,
+					"winrate": 58.82,
+					"position": 13,
+					"difference": -1,
+					"avatar": null
+			},
+			{
+					"value": "&Jhon&",
+					"score": 53,
+					"wins": 9,
+					"losses": 7,
+					"winrate": 56.25,
+					"position": 14,
+					"difference": 2,
+					"avatar": {
+							"topType": "Hat",
+							"accessoriesType": "Kurt",
+							"facialHairType": "BeardMajestic",
+							"hatColor": "Blue01"
+					}
+			},
+			{
+					"value": "IA",
+					"score": 51,
+					"wins": 9,
+					"losses": 17,
+					"winrate": 34.62,
+					"position": 15,
+					"difference": -1,
+					"avatar": null
+			},
+			{
+					"value": "Lyserg",
+					"score": 46,
+					"wins": 8,
+					"losses": 8,
+					"winrate": 50,
+					"position": 16,
+					"difference": -1,
+					"avatar": null
+			},
+			{
+					"value": "Mr_Jimbo",
+					"score": 32,
+					"wins": 6,
+					"losses": 5,
+					"winrate": 54.55,
+					"position": 17,
+					"difference": 4,
+					"avatar": null
+			},
+			{
+					"value": "Bardock",
+					"score": 32,
+					"wins": 5,
+					"losses": 8,
+					"winrate": 38.46,
+					"position": 18,
+					"difference": -1,
+					"avatar": {
+							"topType": "ShortHairDreads02",
+							"accessoriesType": "Blank",
+							"hatColor": "Blue02"
+					}
+			},
+			{
+					"value": "GranSeto",
+					"score": 30,
+					"wins": 8,
+					"losses": 0,
+					"winrate": 100,
+					"position": 19,
+					"difference": -1,
+					"avatar": null
+			},
+			{
+					"value": "EvilHunterJASC",
+					"score": 30,
+					"wins": 6,
+					"losses": 5,
+					"winrate": 54.55,
+					"position": 20,
+					"difference": -1,
+					"avatar": {
+							"topType": "LongHairCurly",
+							"accessoriesType": "Wayfarers",
+							"clotheType": "Hoodie",
+							"hairColor": "Black",
+							"hatColor": "PastelRed",
+							"facialHairType": "Blank",
+							"facialHairColor": "BlondeGolden",
+							"clotheColor": "PastelYellow",
+							"graphicType": "Deer",
+							"eyebrowType": "UpDown",
+							"mouthType": "Smile",
+							"skinColor": "Light"
+					}
+			}
+	],
+	"lastUpdate": "2023-08-13T01:40:02.711Z"
+}
