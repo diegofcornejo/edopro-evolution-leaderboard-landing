@@ -17,16 +17,23 @@ const Join = async (req, res) => {
 		let client;
 		try {
 			client = await createRedisClient();
-			const key = `tournament:${tournamentId}:players`;
+			const key = `tournament:${tournamentId}`;
 			const { username } = decoded;
 
-			const alreadyJoined = await client.lRange(key, 0, -1);
-			if (alreadyJoined.includes(username)) {
-				res.status(400).json({ error: 'User already joined' });
+			// Check if user is already in tournament
+			const exists = await client.zScore(`${key}:leaderboard:points`, username);
+			if (exists) {
+				res.status(400).json({ error: 'Already in tournament' });
 				return;
 			}
 
-			await client.lPush(key, username);
+			let [avatar] = await Promise.all([
+				client.hmGet(key, ['avatar']),
+				await client.zAdd(`${key}:leaderboard:points`, { score: 0, value: username }),
+				await client.zAdd(`${key}:leaderboard:wins`, { score: 0, value: username }),
+				await client.zAdd(`${key}:leaderboard:losses`, { score: 0, value: username })
+			]);
+
 
 			const data = {
 				"value": username,
@@ -36,7 +43,7 @@ const Join = async (req, res) => {
 				"winrate": 0,
 				"position": 0,
 				"difference": 0,
-				"avatar": null
+				"avatar": avatar[0] ? JSON.parse(avatar[0]) : null
 			};
 
 			res.status(200).json({ message: 'Joined successfully', data});

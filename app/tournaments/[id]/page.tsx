@@ -25,7 +25,7 @@ export default async function Home({ params }: { params: { id: string } }) {
 	const tournament = await getTournament(id);
 	tournament.id = id;
 	// tournament.joined = checkUser(tournament.ranking.data);
-	tournament.joined = true;
+	tournament.joined = false;
 
 	return (
 		<main>
