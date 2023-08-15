@@ -35,7 +35,7 @@ const Join = async (req, res) => {
 			]);
 
 
-			const data = {
+			const player = {
 				"value": username,
 				"score": 0,
 				"wins": 0,
@@ -46,7 +46,7 @@ const Join = async (req, res) => {
 				"avatar": avatar[0] ? JSON.parse(avatar[0]) : null
 			};
 
-			res.status(200).json({ message: 'Joined successfully', data});
+			res.status(200).json({ message: 'Joined successfully', player});
 		} catch (error) {
 			console.error('Error during processing:', error);
 			res.status(500).json({ error: 'Internal Server Error' });

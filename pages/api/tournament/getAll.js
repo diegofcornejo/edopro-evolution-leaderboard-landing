@@ -5,7 +5,8 @@ const getAll = async (req, res) => {
 	try {
 		client = await createRedisClient();
 		let keys = await client.keys('tournament:*');
-		keys = keys.filter((key) => !key.endsWith('players'));
+		//Remove leaderboard keys
+		keys = keys.filter((key) => !key.includes('leaderboard'));
 		const tournaments = [];
 		for (const key of keys) {
 			const tournament = await client.hGetAll(key);

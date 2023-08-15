@@ -1,9 +1,11 @@
+"use client";
+import { useRouter } from 'next/navigation';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import toast from 'react-hot-toast';
 
 const JoinTournament = ({ isJoinOpen, setIsJoinOpen, tournament }) => {
-	
+	const router = useRouter();
 	const handleJoinTournament = async (e) => {
 		e.preventDefault();
 		const session = localStorage.getItem('session');
@@ -22,7 +24,7 @@ const JoinTournament = ({ isJoinOpen, setIsJoinOpen, tournament }) => {
 		const res = await response.json();
 		if (response.ok) {
 			toast.success(res.message, { duration: 5000 });
-			tournament.ranking.data.push(res.player);
+			router.refresh();
 		} else {
 			toast.error(res.error, { duration: 5000 });
 		}
