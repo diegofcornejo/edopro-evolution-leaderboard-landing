@@ -22,7 +22,7 @@ const Join = async (req, res) => {
 
 			// Check if user is already in tournament
 			const exists = await client.zScore(`${key}:leaderboard:points`, username);
-			if (exists) {
+			if (exists !== null) {
 				res.status(400).json({ error: 'Already in tournament' });
 				return;
 			}

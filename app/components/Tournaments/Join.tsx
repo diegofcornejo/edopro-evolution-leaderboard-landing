@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 
 const JoinTournament = ({ isJoinOpen, setIsJoinOpen, tournament }) => {
 	const router = useRouter();
+	
 	const handleJoinTournament = async (e) => {
 		e.preventDefault();
 		const session = localStorage.getItem('session');

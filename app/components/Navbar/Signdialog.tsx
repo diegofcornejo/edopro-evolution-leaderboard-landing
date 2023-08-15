@@ -73,6 +73,7 @@ const Signin = ({ setIsLogged, setUser }) => {
 						type='button'
 						className='block lg:flex justify-end text-l py-2 px-4 lg:px-4 navbutton text-white'
 						onClick={openModal}
+						id='login-button'
 					>
 						Login
 					</button>

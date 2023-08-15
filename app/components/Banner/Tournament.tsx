@@ -6,8 +6,19 @@ import JoinTournament from '../Tournaments/Join';
 
 const Banner = ({tournament}) => {
 	const [isJoinOpen, setIsJoinOpen] = useState(false);
+
+	const session = localStorage.getItem('session');
+	const username = session ? JSON.parse(session).username : '';
+
+	tournament.joined = tournament.ranking.data.find((player) => player.value === username);
+	
 	const handleOpenJoin = () => {
-		if(tournament.joined){
+		if(!username){
+			toast.error('You need to login to join this tournament', { duration: 5000 });
+			const loginButton = document.getElementById('login-button');
+			if(loginButton) loginButton.click();
+			return;
+		}else if(tournament.joined){
 			toast.success('You have already joined this tournament', { duration: 5000 });
 			return;
 		}
