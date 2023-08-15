@@ -56,7 +56,7 @@ const Signin = ({ setIsLogged, setUser }) => {
 		if (response.ok) {
 			setIsLogged(true);
 			setUser(res);
-			localStorage.setItem('session', JSON.stringify({token: res.token, role: res.role}));
+			localStorage.setItem('session', JSON.stringify({token: res.token, role: res.role, username: res.username}));
 			closeModal();
 			welcomeToast(res);
 		} else {

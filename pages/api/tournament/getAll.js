@@ -4,7 +4,8 @@ const getAll = async (req, res) => {
 	let client;
 	try {
 		client = await createRedisClient();
-		const keys = await client.keys('tournament:*');
+		let keys = await client.keys('tournament:*');
+		keys = keys.filter((key) => !key.endsWith('players'));
 		const tournaments = [];
 		for (const key of keys) {
 			const tournament = await client.hGetAll(key);

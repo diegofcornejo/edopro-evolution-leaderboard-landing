@@ -1,8 +1,18 @@
 'use client';
+import { useState } from 'react';
 import Image from 'next/image';
+import toast from 'react-hot-toast';
+import JoinTournament from '../Tournaments/Join';
 
 const Banner = ({tournament}) => {
-
+	const [isJoinOpen, setIsJoinOpen] = useState(false);
+	const handleOpenJoin = () => {
+		if(tournament.joined){
+			toast.success('You have already joined this tournament', { duration: 5000 });
+			return;
+		}
+		setIsJoinOpen(true);
+	};
 	return (
 		<div className='bg-image relative' id='home-section'>
 			<div className='arrowOne'></div>
@@ -24,9 +34,10 @@ const Banner = ({tournament}) => {
 								 <span className="font-bold">Owner:</span> {tournament.owner}
 							</p>
 							<div className='flex align-middle justify-center md:justify-start'>
-									<button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 navbutton mr-6'>
-										Join
+									<button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 navbutton mr-6' onClick={handleOpenJoin}>
+										{tournament.joined ? 'Joined' : 'Join'}
 									</button>
+									<JoinTournament isJoinOpen={isJoinOpen} setIsJoinOpen={setIsJoinOpen} tournament={tournament}/>
 									<button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 navbutton mr-6'>
 										Create Room
 									</button>
