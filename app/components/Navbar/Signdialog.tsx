@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
@@ -31,6 +32,7 @@ const welcomeToast = (user) =>
 	));
 
 const Signin = ({ setIsLogged, setUser }) => {
+	const router = useRouter();
 	let [isOpen, setIsOpen] = useState(false);
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
@@ -59,6 +61,7 @@ const Signin = ({ setIsLogged, setUser }) => {
 			localStorage.setItem('session', JSON.stringify({token: res.token, role: res.role, username: res.username}));
 			closeModal();
 			welcomeToast(res);
+			router.refresh();
 		} else {
 			setIsLogged(false);
 			setError(true);
