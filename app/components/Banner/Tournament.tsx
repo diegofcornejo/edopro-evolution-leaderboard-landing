@@ -37,6 +37,7 @@ const Banner = ({tournament}) => {
 								{tournament.name}
 							</h1>
 							<p className='text-white md:text-lg font-normal mb-10 md:text-start text-center'>
+								 <span className="font-bold">Type:</span> {tournament.type}<br />
 								 <span className="font-bold">Banlist:</span> {tournament.banlist}<br />
 								 <span className="font-bold">Best of:</span> {tournament.bestOf}<br />
 								 <span className="font-bold">Mode:</span> {tournament.mode} vs {tournament.mode}<br />

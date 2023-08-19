@@ -13,6 +13,7 @@ const CreateTournament = ({ isCreateOpen, setIsCreateOpen, tournaments }) => {
 		mode: '',
 		bestOf: '',
 		rule: '',
+		type: ''
 	});
 
 	const handleChange = (option, value) => {
@@ -115,6 +116,33 @@ const CreateTournament = ({ isCreateOpen, setIsCreateOpen, tournaments }) => {
 															className='relative block w-full appearance-none rounded-none border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-buttonblue focus:outline-none focus:ring-buttonblue sm:text-sm'
 															placeholder='Name'
 														/>
+													</div>
+													<div>
+														<label
+															htmlFor='tournament-type'
+															className='text-white'
+														>
+															Tournament Type
+														</label>
+														<select
+															id='tournament-type'
+															name='tournament-type'
+															value={tournamentOptions.type}
+															onChange={(e) =>
+																handleChange('type', e.target.value)
+															}
+															required
+															className='relative block w-full appearance-none rounded-none border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-buttonblue focus:outline-none focus:ring-buttonblue sm:text-sm'
+														>
+															<option value='' disabled>
+																Select Tournament Type
+															</option>
+															{options.type.map((type) => (
+																<option key={type.value} value={type.value}>
+																	{type.label}
+																</option>
+															))}
+														</select>
 													</div>
 													<div>
 														<label

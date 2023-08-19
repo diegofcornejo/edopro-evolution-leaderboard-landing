@@ -47,6 +47,7 @@ const Table = ({ tournaments }) => {
 							<tr className='text-white bg-darkblue rounded-lg'>
 								<th className='px-4 py-4 text-start font-normal'></th>
 								<th className='px-4 py-4 text-start font-normal'>NAME</th>
+								<th className='px-4 py-4 font-normal'>TYPE</th>
 								<th className='px-4 py-4 font-normal'>MODE</th>
 								<th className='px-4 py-4 font-normal'>BESTOF</th>
 								<th className='px-4 py-4 text-start font-normal'>BANLIST</th>
@@ -64,6 +65,9 @@ const Table = ({ tournaments }) => {
 								>
 									<td className='px-4 py-2 text-center text-white'>{i + 1}</td>
 									<td className='px-4 py-2 text-white'>{items.name}</td>
+									<td className='px-4 py-2 text-center text-white'>
+										{items.type}
+									</td>
 									<td className='px-4 py-2 text-center text-white'>
 										{items.mode} v {items.mode}
 									</td>

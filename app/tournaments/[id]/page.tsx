@@ -1,6 +1,8 @@
 import { Toaster } from 'react-hot-toast';
 import Banner from '@/app/components/Banner/Tournament';
 import Table from '@/app/components/Table';
+import SingleElimination from '@/app/components/Brackets';
+import { Tab } from '@headlessui/react';
 
 const getTournament = async (id) => {
 	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tournament/?id=${id}`, {
@@ -17,11 +19,21 @@ export default async function Home({ params }: { params: { id: string } }) {
 	const tournament = await getTournament(id);
 	tournament.id = id;
 
+	const Viewer = () => {
+		if (tournament.type === 'single') {
+			return <SingleElimination />;
+		}else if (tournament.type === 'league') {
+			return <Table ranking={tournament.ranking} />;
+		}else {
+			return <div>Unknown tournament type</div>;
+		}
+	}
+
 	return (
 		<main>
-				<Banner tournament={tournament} />
-				<Table ranking={tournament.ranking} />
-				<Toaster position='bottom-center' reverseOrder={false} />
+			<Banner tournament={tournament} />
+			<Viewer />
+			<Toaster position='bottom-center' reverseOrder={false} />
 		</main>
 	);
 }
