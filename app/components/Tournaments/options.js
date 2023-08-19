@@ -1,4 +1,8 @@
 const options = {
+	type: [
+		{label: 'Single Elimination', value: 'single'},
+		{label: 'League', value: 'league'},
+	],
   mode : [
 		{label: '1 v 1', value: '1'},
 		{label: '2 v 2', value: '2'},

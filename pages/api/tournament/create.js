@@ -19,7 +19,7 @@ const create = async (req, res) => {
 		return;
 	}
 
-	const { name, startDate, banlist, mode, bestOf, rule} = req.body;
+	const { name, startDate, banlist, mode, bestOf, rule, type} = req.body;
 	const tournamentId = crypto.randomUUID();
 	
 	let client;
@@ -27,6 +27,7 @@ const create = async (req, res) => {
 		client = await createRedisClient();
 		const tournament = {
 			name,
+			type,
 			startDate,
 			banlist,
 			mode,
@@ -35,7 +36,7 @@ const create = async (req, res) => {
 			owner: decoded.username,
 		};
 		const create = await client.hSet(`tournament:${tournamentId}`, tournament);
-		if(create === 7){ //This is the number of fields that we are setting
+		if(create === 8){ //This is the number of fields that we are setting
 			res.status(200).json({message: 'Tournament created', tournamentId});
 		}else{
 			res.status(500).json({ error: 'Tournament not created' });
