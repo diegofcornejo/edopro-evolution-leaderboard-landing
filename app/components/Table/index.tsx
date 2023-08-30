@@ -1,12 +1,44 @@
 'use client';
+
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import Image from 'next/image';
 import LetterAvatar from '../LetterAvatar';
 import UserAvatar from '../Avatar';
+import DuelLogs from '../DuelLogs';
 
 const Table = ({ ranking }) => {
 	const lastUpdated = new Date(ranking.lastUpdate);
 	const leaderboard = ranking.data;
-	
+
+	const [duels, setDuels] = useState([]);
+	const [isOpenDuelLogs, setIsOpenDuelLogs] = useState(false);
+	const handleOpenDuelLogs = async (username) => {
+		const session = localStorage.getItem('session');
+		const token = session ? JSON.parse(session).token : '';
+		if (!token) {
+			toast.error('Log in to see duel logs', { duration: 5000 });
+			return;
+		}
+		const res = await fetch(`/api/user/duels?username=${username}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+		});
+		if (res.ok) {
+			const duels = await res.json();
+			setDuels(duels);
+			setIsOpenDuelLogs(true);
+
+			// setAnchorEl2(null);
+			toast.success('Duel logs fetched successfully');
+		} else {
+			toast.error('Error while fetching duel logs');
+		}
+	};
+
 	return (
 		<>
 			<div className='mx-auto max-w-7xl px-6' id='ranking-section'>
@@ -25,7 +57,7 @@ const Table = ({ ranking }) => {
 								<th className='px-4 py-4 font-normal'>LOSSES</th>
 								<th className='px-4 py-4 font-normal'>WINRATE</th>
 								<th className='px-4 py-4 font-normal flex items-center'>
-								<img
+									<img
 										src='/images/Table/up.svg'
 										alt='up'
 										width={16}
@@ -42,8 +74,14 @@ const Table = ({ ranking }) => {
 						</thead>
 						<tbody>
 							{leaderboard.map((items, i) => (
-								<tr key={i} className='border-b border-b-darkblue'>
-									<td className='px-4 py-2 text-center text-white'>{items.position}</td>
+								<tr
+									key={i}
+									className='border-b border-b-darkblue cursor-pointer hover:bg-purple'
+									onClick={() => handleOpenDuelLogs(items.value)}
+								>
+									<td className='px-4 py-2 text-center text-white'>
+										{items.position}
+									</td>
 									<td className='px-4 py-2 text-center text-white flex items-center justify-start gap-5 '>
 										{items.avatar ? (
 											<UserAvatar size={'40px'} avatarParts={items.avatar} />
@@ -86,7 +124,9 @@ const Table = ({ ranking }) => {
 										) : (
 											''
 										)}
-										<span className="text-xs">{items.difference != 0 ? `${items.difference}` : ''}</span>
+										<span className='text-xs'>
+											{items.difference != 0 ? `${items.difference}` : ''}
+										</span>
 										{items.new ? (
 											<img
 												src='/images/Table/new.png'
@@ -104,6 +144,13 @@ const Table = ({ ranking }) => {
 					</table>
 				</div>
 			</div>
+			{isOpenDuelLogs && (
+				<DuelLogs
+					isOpenDuelLogs={isOpenDuelLogs}
+					setIsOpenDuelLogs={setIsOpenDuelLogs}
+					duels={duels}
+				/>
+			)}
 			<Image
 				src={'/images/Table/Footer.svg'}
 				alt='ellipse'

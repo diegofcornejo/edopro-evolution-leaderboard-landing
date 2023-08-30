@@ -36,7 +36,7 @@ const handler = async (req, res) => {
 
 		try {
 			client = await createRedisClient();
-			const { username } = decoded;
+			const username = req.query.username ?? decoded.username;
 			const key = `user:${username}`;
 			const usernameExists = await client.exists(key);
 

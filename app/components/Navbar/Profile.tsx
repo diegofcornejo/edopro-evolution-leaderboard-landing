@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { Box, Menu, Button, IconButton, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
@@ -19,7 +19,7 @@ import CustomAvatar from '../AvatarGenerator';
 import DuelLogs from '../DuelLogs';
 
 // const handleOpenHistory = async () => {
-	
+
 // };
 
 const Profile = ({ setIsLogged, user }) => {
@@ -53,21 +53,21 @@ const Profile = ({ setIsLogged, user }) => {
 		const session = localStorage.getItem('session');
 		const token = session ? JSON.parse(session).token : '';
 		const res = await fetch('/api/user/duels', {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-			Authorization: `Bearer ${token}`,
-		},
-	});
-	if (res.ok) {
-		const duels = await res.json();
-		setDuels(duels);
-		setIsOpenDuelLogs(true);
-		setAnchorEl2(null);
-		toast.success('Duel logs fetched successfully');
-	} else {
-		toast.error('Error while fetching duel logs');
-	}
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+		});
+		if (res.ok) {
+			const duels = await res.json();
+			setDuels(duels);
+			setIsOpenDuelLogs(true);
+			setAnchorEl2(null);
+			toast.success('Duel logs fetched successfully');
+		} else {
+			toast.error('Error while fetching duel logs');
+		}
 	};
 
 	const AvatarComponent = user?.avatar ? (
@@ -196,7 +196,6 @@ const Profile = ({ setIsLogged, user }) => {
 					duels={duels}
 				/>
 			)}
-
 		</Box>
 	);
 };
