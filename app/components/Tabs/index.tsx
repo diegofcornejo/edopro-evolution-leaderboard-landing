@@ -1,0 +1,44 @@
+'use client';
+
+// import React, { useState } from 'react';
+import { Tab } from '@headlessui/react';
+import Table from '../Table';
+
+function classNames(...classes) {
+	return classes.filter(Boolean).join(' ');
+}
+
+export default function Tabs({ rankings }) {
+	return (
+		<>
+			<div className='relative mx-auto max-w-7xl px-6'>
+				<Tab.Group>
+					<Tab.List className='flex space-x-1 rounded-xl bg-buttonblue/20 p-1'>
+						{rankings.map((ranking) => (
+							<Tab
+								key={ranking.name}
+								className={({ selected }) =>
+									classNames(
+										'w-full rounded-lg py-2.5 text-sm font-medium text-white',
+										selected
+											? 'bg-white/[0.24] shadow'
+											: 'bg-white/[0.03] hover:bg-white/[0.12]'
+									)
+								}
+							>
+								{ranking.name}
+							</Tab>
+						))}
+					</Tab.List>
+					<Tab.Panels className=''>
+						{rankings.map((ranking) => (
+							<Tab.Panel key={ranking.name} className={classNames('')}>
+								<Table ranking={ranking.data} title={ranking.title} className="mx-auto max-w-7xl"/>
+							</Tab.Panel>
+						))}
+					</Tab.Panels>
+				</Tab.Group>
+			</div>
+		</>
+	);
+}

@@ -16,7 +16,7 @@ export default class Live extends Component<any> {
 			speed: 10000,
 			autoplaySpeed: 0,
 			cssEase: 'linear',
-			centerMode: true,
+			centerMode: false,
 			responsive: [
 				{
 					breakpoint: 1024,
