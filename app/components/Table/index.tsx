@@ -7,7 +7,7 @@ import LetterAvatar from '../LetterAvatar';
 import UserAvatar from '../Avatar';
 import DuelLogs from '../DuelLogs';
 
-const Table = ({ ranking }) => {
+const Table = ({ ranking, title = 'Ranking', className="mx-auto max-w-7xl px-6" }) => {
 	const lastUpdated = new Date(ranking.lastUpdate);
 	const leaderboard = ranking.data;
 
@@ -41,9 +41,9 @@ const Table = ({ ranking }) => {
 
 	return (
 		<>
-			<div className='mx-auto max-w-7xl px-6' id='ranking-section'>
+			<div className={className} id='ranking-section'>
 				<div className='table-b bg-navyblue p-8 overflow-x-auto'>
-					<h3 className='text-offwhite text-2xl'>Ranking (Top 20)</h3>
+					<h3 className='text-offwhite text-2xl'>{title}</h3>
 					<p className='text-bluish text-sm font-normal leading-8'>
 						Last updated on {lastUpdated.toLocaleString()}
 					</p>

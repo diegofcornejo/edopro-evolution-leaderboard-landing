@@ -1,4 +1,4 @@
-import createRedisClient from '../../libs/redisUtils';
+import createRedisClient from '../../../libs/redisUtils';
 
 const handler = async (req, res) => {
 	if (req.method === 'GET') {
