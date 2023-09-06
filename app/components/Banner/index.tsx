@@ -3,6 +3,7 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import ModalVideo from 'react-modal-video';
 import Link from 'next/link';
+import { ShimmerButton } from '@/app/components/magicui/ShimmerButton';
 
 const Banner = () => {
 	const [isOpen, setOpen] = useState(false);
@@ -27,13 +28,14 @@ const Banner = () => {
 								Welcome to <br /> Evolution Server
 							</h1>
 							<p className='text-white md:text-lg font-normal mb-10 md:text-start text-center'>
-								Join a vibrant community of passionate players <br /> whether you are
-								a novice starting in Monster Duel <br /> or an experienced duelist
-								seeking new challenges. <br /> This is the perfect place for you.
+								Join a vibrant community of passionate players <br /> whether you
+								are a novice starting in Monster Duel <br /> or an experienced
+								duelist seeking new challenges. <br /> This is the perfect place for
+								you.
 							</p>
 							<div className='flex align-middle justify-center md:justify-start'>
 								<Link href='https://discord.gg/bgjddgWkWk' target='_blank'>
-									<button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 navbutton mr-6'>
+									{/* <button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 navbutton mr-6'>
 										<Image
 											src={'/images/Banner/discord.svg'}
 											alt=''
@@ -46,11 +48,27 @@ const Banner = () => {
 											}}
 										></Image>
 										Join to Discord
-									</button>
+									</button> */}
+									<ShimmerButton>
+										<Image
+											src={'/images/Banner/discord.svg'}
+											alt=''
+											width={40}
+											height={40}
+											style={{
+												display: 'inline-block',
+												verticalAlign: 'middle',
+												paddingRight: '0.5rem',
+											}}
+										></Image>
+										<span className='whitespace-pre-wrap bg-gradient-to-b from-black from-30% to-gray-300/80 bg-clip-text text-center text-sm font-semibold leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 dark:text-transparent lg:text-2xl'>
+											Join to Discord
+										</span>
+									</ShimmerButton>
 								</Link>
 								<button
 									onClick={() => setOpen(true)}
-									className='bg-transparent flex justify-center items-center text-white'
+									className='bg-transparent flex justify-center items-center text-white pl-2'
 								>
 									<Image
 										src={'/images/Banner/playbutton.svg'}

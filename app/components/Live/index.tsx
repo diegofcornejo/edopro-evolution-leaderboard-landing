@@ -1,95 +1,106 @@
-'use client';
-import React, { Component } from 'react';
-import Slider from 'react-slick';
+import Marquee from '@/app/components/magicui/Marquee';
+import { ReactNode } from 'react';
 import LetterAvatar from '../LetterAvatar';
 
-// CAROUSEL SETTINGS
-export default class Live extends Component<any> {
-	render() {
-		const settings = {
-			dots: false,
-			infinite: true,
-			slidesToShow: 3,
-			slidesToScroll: 3,
-			arrows: false,
-			autoplay: true,
-			speed: 10000,
-			autoplaySpeed: 0,
-			cssEase: 'linear',
-			centerMode: false,
-			responsive: [
-				{
-					breakpoint: 1024,
-					settings: {
-						slidesToShow: 4,
-						slidesToScroll: 1,
-						infinite: true,
-						dots: false,
-					},
-				},
-				{
-					breakpoint: 700,
-					settings: {
-						slidesToShow: 2,
-						slidesToScroll: 1,
-						infinite: true,
-						dots: false,
-					},
-				},
-				{
-					breakpoint: 500,
-					settings: {
-						slidesToShow: 1,
-						slidesToScroll: 1,
-						infinite: true,
-						dots: false,
-					},
-				},
+const Player = (props: any) => {
+	return (
+		<div className='flex flex-col items-center'>
+			<div className='flex items-center justify-center'>
+				<LetterAvatar name={props.name} size={32} fontSize={'0.75rem'} />
+			</div>
+			<p className='text-sm font-sm text-white-900'>{props.name}</p>
+		</div>
+	);
+};
+
+const RoomCard = ({
+	roomid,
+	users,
+	roomnotes,
+	size,
+}: {
+	roomid: number;
+	users: [...any];
+	roomnotes: string;
+	size?: string;
+}) => {
+	return (
+		<a
+			target='_blank'
+			rel='noopener noreferrer'
+			className={`relative ${
+				size === 'large'
+					? 'min-w-[250px] border-yellow-300 hover:border-yellow-200'
+					: 'min-w-[50px] border-slate-900 hover:border-slate-900/75'
+			} flex justify-center items-center overflow-hidden rounded-xl border bg-slate-800/50 w-full py-4 px-12 transition hover:bg-slate-800/75 hover:shadow-lg group`}
+		>
+			<div className='flex flex-row items-center justify-center w-full h-auto gap-2 text-white transition group-hover:scale-110'>
+				<Player key={users[0].pos} name={users[0].name} />
+				<span className='px-2'>vs</span>
+				<Player key={users[1].pos} name={users[1].name} />
+			</div>
+		</a>
+	);
+};
+
+const Live = ({ rooms }) => {
+	// rooms = rooms.filter((room: any) => room.users.length === 2);
+	rooms = [
+		{
+			roomid: 4228,
+			users: [
+				{ name: 'Jrmaton1', pos: 0 },
+				{ name: 'boogeyman', pos: 1 },
 			],
-		};
-
-		let { rooms } = this.props;
-
-		const Player = (props: any) => {
-			return (
-				<div className='flex flex-col items-center'>
-					<div className='flex items-center justify-center'>
-						<LetterAvatar name={props.name} size={32} fontSize={'0.75rem'} />
-					</div>
-					<p className='text-sm font-sm text-gray-900'>{props.name}</p>
-				</div>
-			);
-		};
-
-		//Show only rooms with 2 players
-		rooms = this.props.rooms.filter((room: any) => room.users.length === 2);
-
-		if (rooms.length === 0) return <></>;
-
-		return (
-			<div className='text-center bg-lightpink'>
-				<div className='mx-auto max-w-2xl py-2 px-4s sm:px-6 lg:max-w-7xl lg:px-8'>
-					<div>
-						<div className='flex gap-2'>
-							<div className='live-icon mb-4'></div>
-							<span className='text-sm text-white'>Live</span>
-						</div>
-						<Slider {...settings}>
-							{rooms.map((item, i) => (
-								<div key={i} className='card-live'>
-									<div className='flex justify-center text-white gap-4'>
-										<Player name={item.users[0].name} />
-										<div>
-											<p className='text-sm font-sm text-gray-900'>vs</p>
-										</div>
-										<Player name={item.users[1].name} />
-									</div>
-								</div>
-							))}
-						</Slider>
-					</div>
+		},
+		{
+			roomid: 4228,
+			users: [
+				{ name: 'Jrmaton2', pos: 0 },
+				{ name: 'boogeyman', pos: 1 },
+			],
+		},
+		{
+			roomid: 4228,
+			users: [
+				{ name: 'Jrmaton3', pos: 0 },
+				{ name: 'boogeyman', pos: 1 },
+			],
+		},
+		{
+			roomid: 4228,
+			users: [
+				{ name: 'Jrmaton4', pos: 0 },
+				{ name: 'boogeyman', pos: 1 },
+			],
+		},
+		{
+			roomid: 4228,
+			users: [
+				{ name: 'Jrmaton5', pos: 0 },
+				{ name: 'boogeyman', pos: 1 },
+			],
+		},
+	];
+	return (
+		<section className='flex flex-col flex-wrap items-center justify-center'>
+			<div className='flex gap-2'>
+				<div className='live-icon mb-4'></div>
+				<span className='text-sm text-white'>Live</span>
+			</div>
+			<div className='relative flex flex-col items-center justify-center w-full h-full gap-4 overflow-hidden rounded-lg bg-background'>
+				<div className='relative flex flex-col w-full overflow-hidden gap-y-4'>
+					<Marquee pauseOnHover className='[--duration:30s]'>
+						{rooms.map((room) => {
+							return <RoomCard key={room.roomid} {...room} />;
+						})}
+					</Marquee>
+					<div className='absolute inset-y-0 left-0 w-40 pointer-events-none from-[#000214] to-transparent bg-gradient-to-r '></div>
+					<div className='absolute inset-y-0 right-0 w-1/3 pointer-events-none bg-gradient-to-l from-[#000214]'></div>
 				</div>
 			</div>
-		);
-	}
-}
+		</section>
+	);
+};
+
+export default Live;
