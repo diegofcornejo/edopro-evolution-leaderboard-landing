@@ -2,7 +2,7 @@ import { Toaster } from 'react-hot-toast';
 import Banner from './components/Banner/index';
 import Live from './components/Live/index';
 import Top from './components/Top/index';
-import Table from './components/Table/index';
+// import Table from './components/Table/index';
 import Features from './components/Features/index';
 import Download from './components/Download/index';
 import Faq from './components/Faq/index';
