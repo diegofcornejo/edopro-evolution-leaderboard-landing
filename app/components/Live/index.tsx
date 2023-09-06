@@ -44,44 +44,44 @@ const RoomCard = ({
 };
 
 const Live = ({ rooms }) => {
-	// rooms = rooms.filter((room: any) => room.users.length === 2);
-	rooms = [
-		{
-			roomid: 4228,
-			users: [
-				{ name: 'Jrmaton1', pos: 0 },
-				{ name: 'boogeyman', pos: 1 },
-			],
-		},
-		{
-			roomid: 4228,
-			users: [
-				{ name: 'Jrmaton2', pos: 0 },
-				{ name: 'boogeyman', pos: 1 },
-			],
-		},
-		{
-			roomid: 4228,
-			users: [
-				{ name: 'Jrmaton3', pos: 0 },
-				{ name: 'boogeyman', pos: 1 },
-			],
-		},
-		{
-			roomid: 4228,
-			users: [
-				{ name: 'Jrmaton4', pos: 0 },
-				{ name: 'boogeyman', pos: 1 },
-			],
-		},
-		{
-			roomid: 4228,
-			users: [
-				{ name: 'Jrmaton5', pos: 0 },
-				{ name: 'boogeyman', pos: 1 },
-			],
-		},
-	];
+	rooms = rooms.filter((room: any) => room.users.length === 2);
+	// rooms = [
+	// 	{
+	// 		roomid: 4228,
+	// 		users: [
+	// 			{ name: 'Jrmaton1', pos: 0 },
+	// 			{ name: 'boogeyman', pos: 1 },
+	// 		],
+	// 	},
+	// 	{
+	// 		roomid: 4228,
+	// 		users: [
+	// 			{ name: 'Jrmaton2', pos: 0 },
+	// 			{ name: 'boogeyman', pos: 1 },
+	// 		],
+	// 	},
+	// 	{
+	// 		roomid: 4228,
+	// 		users: [
+	// 			{ name: 'Jrmaton3', pos: 0 },
+	// 			{ name: 'boogeyman', pos: 1 },
+	// 		],
+	// 	},
+	// 	{
+	// 		roomid: 4228,
+	// 		users: [
+	// 			{ name: 'Jrmaton4', pos: 0 },
+	// 			{ name: 'boogeyman', pos: 1 },
+	// 		],
+	// 	},
+	// 	{
+	// 		roomid: 4228,
+	// 		users: [
+	// 			{ name: 'Jrmaton5', pos: 0 },
+	// 			{ name: 'boogeyman', pos: 1 },
+	// 		],
+	// 	},
+	// ];
 	return (
 		<section className='flex flex-col flex-wrap items-center justify-center'>
 			<div className='flex gap-2'>
