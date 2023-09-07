@@ -61,7 +61,7 @@ const Banner = () => {
 												paddingRight: '0.5rem',
 											}}
 										></Image>
-										<span className='whitespace-pre-wrap bg-gradient-to-b from-black from-30% to-gray-300/80 bg-clip-text text-center text-sm font-semibold leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 dark:text-transparent lg:text-2xl'>
+										<span className='whitespace-pre-wrap bg-gradient-to-b from-black from-30% to-gray-300/80 bg-clip-text text-center text-lg font-semibold leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 dark:text-transparent lg:text-2xl'>
 											Join to Discord
 										</span>
 									</ShimmerButton>
