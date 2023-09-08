@@ -44,9 +44,8 @@ const RoomCard = ({
 };
 
 const Live = ({ rooms }) => {
-
 	rooms = rooms.filter((room: any) => room.users.length === 2);
-	
+
 	return (
 		<section className='flex flex-col flex-wrap items-center justify-center'>
 			<div className='flex gap-2'>
@@ -55,11 +54,20 @@ const Live = ({ rooms }) => {
 			</div>
 			<div className='relative flex flex-col items-center justify-center w-full h-full gap-4 overflow-hidden rounded-lg bg-background'>
 				<div className='relative flex flex-col w-full overflow-hidden gap-y-4'>
-					<Marquee pauseOnHover className='[--duration:30s]'>
-						{rooms.map((room) => {
-							return <RoomCard key={room.roomid} {...room} />;
-						})}
-					</Marquee>
+					{rooms.length < 4 ? (
+						<>
+							{rooms.map((room) => {
+								return <RoomCard key={room.roomid} {...room} />;
+							})}
+						</>
+					) : (
+						<Marquee pauseOnHover className='[--duration:30s]'>
+							{rooms.map((room) => {
+								return <RoomCard key={room.roomid} {...room} />;
+							})}
+						</Marquee>
+					)}
+
 					<div className='absolute inset-y-0 left-0 w-40 pointer-events-none from-[#000214] to-transparent bg-gradient-to-r '></div>
 					<div className='absolute inset-y-0 right-0 w-1/3 pointer-events-none bg-gradient-to-l from-[#000214]'></div>
 				</div>
