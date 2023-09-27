@@ -1,6 +1,3 @@
-import createRedisClient from '../../../../libs/redisUtils';
-import { generateJwt } from '../../../../libs/jwtUtils';
-
 const handler = async (req, res) => {
 	if (req.method === 'GET') {
 		const { code } = req.query;
