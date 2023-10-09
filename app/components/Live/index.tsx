@@ -53,7 +53,7 @@ const Live = ({ rooms }) => {
 				<span className='text-sm text-white'>Live</span>
 			</div>
 			<div className='relative flex flex-col items-center justify-center w-full h-full gap-4 overflow-hidden rounded-lg bg-background'>
-				<div className={`relative ${rooms.length < 4 ? 'flex-col' : 'flex-row gap-x-4'} flex w-full overflow-hidden gap-y-4`}>
+				<div className={`relative ${rooms.length < 4 ? 'flex-row gap-x-4' : 'flex-col'} flex w-full overflow-hidden gap-y-4`}>
 					{rooms.length < 4 ? (
 						<>
 							{rooms.map((room) => {
