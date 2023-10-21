@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { Box, Menu, Button, IconButton, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
@@ -17,16 +17,15 @@ import {
 import ChangePassword from './ChangePassword';
 import CustomAvatar from '../AvatarGenerator';
 import DuelLogs from '../DuelLogs';
+import { AuthContext } from '@/context/auth/AuthContext';
 
 // const handleOpenHistory = async () => {
 
 // };
 
 const Profile = ({ setIsLogged, user }) => {
-	const handleLogout = () => {
-		setIsLogged(false);
-		localStorage.removeItem('session');
-	};
+	const { logout } = useContext(AuthContext);
+
 	const [anchorEl2, setAnchorEl2] = useState(null);
 	const handleClick2 = (event: any) => {
 		setAnchorEl2(event.currentTarget);
@@ -168,7 +167,7 @@ const Profile = ({ setIsLogged, user }) => {
 						variant='outlined'
 						color='info'
 						component={Link}
-						onClick={() => handleLogout()}
+						onClick={() => logout()}
 						fullWidth
 					>
 						Logout

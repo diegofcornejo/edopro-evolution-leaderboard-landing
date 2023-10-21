@@ -1,13 +1,13 @@
 import { Disclosure } from '@headlessui/react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
-import toast from 'react-hot-toast';
 import Drawer from './Drawer';
 import Drawerdata from './Drawerdata';
 import Signdialog from './Signdialog';
 import Registerdialog from './Registerdialog';
 import Profile from './Profile';
+import { AuthContext } from '@/context/auth/AuthContext';
 // import Contactusform from './Contactus';
 
 interface NavigationItem {
@@ -36,42 +36,9 @@ function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ');
 }
 
-const errorFetchingUserData = () => {
-	toast.error(`Error while fetching user data,
-		Please login again`);
-	localStorage.removeItem('session');
-};
-
 const Navbar = () => {
+	const { user, isLoggedIn } = useContext( AuthContext );
 	const [isOpen, setIsOpen] = useState(false);
-	const [isLogged, setIsLogged] = useState(false);
-	const [user, setUser] = useState(null);
-
-	if (typeof window !== 'undefined') {
-		const session = localStorage.getItem('session');
-		const token = session ? JSON.parse(session).token : '';
-		if (token && !user) {
-			fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/user/rank`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					'Authorization': `Bearer ${token}`,
-				},
-			})
-				.then((res) => res.json())
-				.then((data) => {
-					if (data.username) {
-						setUser(data);
-						setIsLogged(true);
-					} else {
-						errorFetchingUserData();
-					}
-				})
-				.catch((err) => {
-					errorFetchingUserData();
-				});
-		}
-	}
 
 	return (
 		<Disclosure as='nav' className='navbar'>
@@ -119,13 +86,13 @@ const Navbar = () => {
 							{/* <button className='hidden lg:flex justify-end text-xl font-semibold py-4 px-6 lg:px-12 navbutton text-white'>
 								Login
 							</button> */}
-							{!isLogged && (
+							{!isLoggedIn && (
 								<>
 									<Registerdialog />
-									<Signdialog setIsLogged={setIsLogged} setUser={setUser} />
+									<Signdialog />
 								</>
 							)}
-							{isLogged && <Profile setIsLogged={setIsLogged} user={user} />}
+							{isLoggedIn && <Profile setIsLogged={isLoggedIn} user={user} />}
 							{/* <Contactusform /> */}
 						</div>
 

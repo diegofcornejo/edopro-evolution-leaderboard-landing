@@ -3,6 +3,9 @@ import '@/node_modules/react-modal-video/scss/modal-video.scss';
 import Navbar from './components/Navbar/index';
 import Footer from './components/Footer/index';
 import Script from 'next/script'
+import { SessionProvider } from "next-auth/react"
+import Providers from './Providers';
+import { AuthProvider } from '@/context/auth/AuthProvider';
 
 export const metadata = {
 	title: 'Evolution - EDOPro Server',
@@ -28,9 +31,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Script>
 			</head>
 			<body>
-				<Navbar />
-				{children}
-				<Footer />
+				<Providers>
+					<AuthProvider>
+						<Navbar />
+						{children}
+						<Footer />
+					</AuthProvider>
+				</Providers>
 			</body>
 		</html>
 	);

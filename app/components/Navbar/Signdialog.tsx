@@ -1,12 +1,13 @@
 import { useRouter } from 'next/navigation';
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
 import toast from 'react-hot-toast';
 import LetterAvatar from '../LetterAvatar';
 import UserAvatar from '../Avatar';
 import { ShimmerButton } from '../magicui/ShimmerButton';
 import Image from 'next/image';
+import { signIn } from 'next-auth/react';
 
 const welcomeToast = (user) =>
 	toast.custom((t) => (
@@ -33,7 +34,7 @@ const welcomeToast = (user) =>
 		</div>
 	));
 
-const Signin = ({ setIsLogged, setUser }) => {
+const Signin = () => {
 	const router = useRouter();
 	let [isOpen, setIsOpen] = useState(false);
 	const [username, setUsername] = useState('');
@@ -51,45 +52,35 @@ const Signin = ({ setIsLogged, setUser }) => {
 
 	const handleSignin = async (e) => {
 		e.preventDefault();
-		const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signin`, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ username, password }),
-		});
-		const res = await response.json();
-		if (response.ok) {
-			setIsLogged(true);
-			setUser(res);
-			localStorage.setItem('session', JSON.stringify({token: res.token, role: res.role, username: res.username}));
-			closeModal();
-			welcomeToast(res);
-			router.refresh();
-		} else {
-			setIsLogged(false);
+		const response = await signIn('credentials', { username, password, redirect: false });
+		if(!response?.ok) {
 			setError(true);
-			setMessage(res.error);
+			setMessage("Credenciales inválidas");
+			return;
 		}
-	};
 
-	const handleDiscordSignin = async (e) => {
-		e.preventDefault();
-		alert('Signin with discord is not yet implemented');
-		//Add discord signup logic here
-		// setMessage('');
-		// setError(false);
-		// const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/discord`, {
+		closeModal();
+
+		// const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/signin`, {
 		// 	method: 'POST',
 		// 	headers: { 'Content-Type': 'application/json' },
-		// 	body: JSON.stringify({ username, email }),
+		// 	body: JSON.stringify({ username, password }),
 		// });
 		// const res = await response.json();
 		// if (response.ok) {
-		// 	setMessage(res.message);
+		// 	setIsLogged(true);
+		// 	setUser(res);
+		// 	localStorage.setItem('session', JSON.stringify({token: res.token, role: res.role, username: res.username}));
+		// 	closeModal();
+		// 	welcomeToast(res);
+		// 	router.refresh();
 		// } else {
+		// 	setIsLogged(false);
 		// 	setError(true);
 		// 	setMessage(res.error);
 		// }
-	}
+	};
+
 	return (
 		<>
 			<div className='relative min-lg:absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
@@ -147,7 +138,7 @@ const Signin = ({ setIsLogged, setUser }) => {
 											</div>
 											<ShimmerButton
 												className='w-full'
-												onClick={handleDiscordSignin}
+												onClick={() => signIn('discord')}
 											>
 												<Image
 													src={'/images/Banner/discord.svg'}
