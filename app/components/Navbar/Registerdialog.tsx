@@ -1,6 +1,8 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
+import { ShimmerButton } from '@/app/components/magicui/ShimmerButton';
+import Image from 'next/image';
 
 const Register = () => {
 	let [isOpen, setIsOpen] = useState(false);
@@ -43,6 +45,26 @@ const Register = () => {
 			setError(true);
 			setMessage(res.error);
 		}
+	};
+
+	const handleDiscordSignup = async (e) => {
+		e.preventDefault();
+		alert('Signup with discord is not yet implemented');
+		//Add discord signup logic here
+		// setMessage('');
+		// setError(false);
+		// const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/discord`, {
+		// 	method: 'POST',
+		// 	headers: { 'Content-Type': 'application/json' },
+		// 	body: JSON.stringify({ username, email }),
+		// });
+		// const res = await response.json();
+		// if (response.ok) {
+		// 	setMessage(res.message);
+		// } else {
+		// 	setError(true);
+		// 	setMessage(res.error);
+		// }
 	};
 
 	return (
@@ -92,9 +114,28 @@ const Register = () => {
 													alt='Your Company'
 												/>
 												<h2 className='mt-6 text-center text-xl tracking-tight text-white'>
-													Register your account
+													Signup
 												</h2>
 											</div>
+											<ShimmerButton
+												className='w-full'
+												onClick={handleDiscordSignup}
+											>
+												<Image
+													src={'/images/Banner/discord.svg'}
+													alt=''
+													width={40}
+													height={40}
+													style={{
+														display: 'inline-block',
+														verticalAlign: 'middle',
+														paddingRight: '0.5rem',
+													}}
+												></Image>
+												<span className='whitespace-pre-wrap bg-gradient-to-b from-black from-30% to-gray-300/80 bg-clip-text text-center text-lg font-semibold leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 dark:text-transparent lg:text-xl'>
+													Signup with Discord
+												</span>
+											</ShimmerButton>
 											<form
 												className='mt-8 space-y-6'
 												onSubmit={handleSignup}

@@ -5,6 +5,8 @@ import { LockClosedIcon } from '@heroicons/react/20/solid';
 import toast from 'react-hot-toast';
 import LetterAvatar from '../LetterAvatar';
 import UserAvatar from '../Avatar';
+import { ShimmerButton } from '../magicui/ShimmerButton';
+import Image from 'next/image';
 
 const welcomeToast = (user) =>
 	toast.custom((t) => (
@@ -68,6 +70,26 @@ const Signin = ({ setIsLogged, setUser }) => {
 			setMessage(res.error);
 		}
 	};
+
+	const handleDiscordSignin = async (e) => {
+		e.preventDefault();
+		alert('Signin with discord is not yet implemented');
+		//Add discord signup logic here
+		// setMessage('');
+		// setError(false);
+		// const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/discord`, {
+		// 	method: 'POST',
+		// 	headers: { 'Content-Type': 'application/json' },
+		// 	body: JSON.stringify({ username, email }),
+		// });
+		// const res = await response.json();
+		// if (response.ok) {
+		// 	setMessage(res.message);
+		// } else {
+		// 	setError(true);
+		// 	setMessage(res.error);
+		// }
+	}
 	return (
 		<>
 			<div className='relative min-lg:absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
@@ -118,11 +140,33 @@ const Signin = ({ setIsLogged, setUser }) => {
 													alt='Your Company'
 												/>
 												<h2 className='mt-6 text-center text-xl tracking-tight text-white'>
-													Sign in to your account
+													Signin to your account
 													{/* <br/>
 													<p className='text-red text-xs '>(For testing purposes, you can use any username)</p> */}
 												</h2>
 											</div>
+											<ShimmerButton
+												className='w-full'
+												onClick={handleDiscordSignin}
+											>
+												<Image
+													src={'/images/Banner/discord.svg'}
+													alt=''
+													width={40}
+													height={40}
+													style={{
+														display: 'inline-block',
+														verticalAlign: 'middle',
+														paddingRight: '0.5rem',
+													}}
+												></Image>
+												<span className='whitespace-pre-wrap bg-gradient-to-b from-black from-30% to-gray-300/80 bg-clip-text text-center text-lg font-semibold leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 dark:text-transparent lg:text-xl'>
+													Signin with Discord
+												</span>
+											</ShimmerButton>
+											<h2 className='mt-6 text-center text-sm tracking-tight text-white'>
+													or Signin with your username and password
+												</h2>
 											<form
 												className='mt-8 space-y-6'
 												onSubmit={handleSignin}
