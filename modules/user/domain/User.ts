@@ -67,7 +67,7 @@ export class User {
 			losses: this.generalStats.losses,
 			winrate: this.generalStats.winrate,
       username: this.username,
-      avatar: JSON.parse(this.avatar),
+      avatar: this.avatar ? JSON.parse(this.avatar): null,
     };
   }
 }
