@@ -1,22 +1,21 @@
 import createRedisClient from '../../../libs/redisUtils';
 import { verifyJwt } from '../../../libs/jwtUtils';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../auth/[...nextauth]';
 
 const handler = async (req, res) => {
 	if (req.method === 'POST') {
 
-		let decoded;
-		// Verify jwt
-		try {
-			decoded = verifyJwt(req);
-		} catch (error) {
+		const session = await getServerSession(req, res, authOptions)
+
+		if(!session) {
 			res.status(401).json({ error: 'Unauthorized' });
-			return;
 		}
 
 		let client;
 		try {
 			client = await createRedisClient();
-			const { username } = decoded;
+			const { username } = session?.user;
 			const { avatar } = req.body;
 			const key = `user:${username}`;
 			const usernameExists = await client.exists(key);

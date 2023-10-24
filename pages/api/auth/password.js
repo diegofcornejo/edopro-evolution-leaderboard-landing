@@ -4,19 +4,16 @@ import sendEmail from '../../../libs/sendGridUtils';
 
 const handler = async (req, res) => {
 	if (req.method === 'POST') {
+		const session = await getServerSession(req, res, authOptions)
 
-		let decoded;
-    try {
-      decoded = verifyJwt(req);
-    } catch (error) {
-      res.status(401).json({ error: 'Unauthorized' });
-      return;
-    }
+		if(!session) {
+			res.status(401).json({ error: 'Unauthorized' });
+		}
 
 		let client;
 		try {
 		  client = await createRedisClient();
-			const { username } = decoded;
+			const { username } = session?.user;
 			const { password, newPassword } = req.body;
 			const key = `user:${username}`;
 			const usernameExists = await client.exists(key);

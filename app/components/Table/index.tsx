@@ -14,17 +14,11 @@ const Table = ({ ranking, title = 'Ranking', className="mx-auto max-w-7xl px-6" 
 	const [duels, setDuels] = useState([]);
 	const [isOpenDuelLogs, setIsOpenDuelLogs] = useState(false);
 	const handleOpenDuelLogs = async (username) => {
-		const session = localStorage.getItem('session');
-		const token = session ? JSON.parse(session).token : '';
-		if (!token) {
-			toast.error('Log in to see duel logs', { duration: 5000 });
-			return;
-		}
+
 		const res = await fetch(`/api/user/duels?username=${username}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Bearer ${token}`,
 			},
 		});
 		if (res.ok) {

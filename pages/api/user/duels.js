@@ -1,5 +1,7 @@
 import createRedisClient from '../../../libs/redisUtils';
 import { verifyJwt } from '../../../libs/jwtUtils';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../auth/[...nextauth]';
 
 const getPlayerScore = (games) => {
 	let score = 0;
@@ -23,20 +25,17 @@ const getPlayerPoints = (winner, games) => {
 
 const handler = async (req, res) => {
 	if (req.method === 'GET') {
-		let decoded;
-		// Verify jwt
-		try {
-			decoded = verifyJwt(req);
-		} catch (error) {
+		const session = await getServerSession(req, res, authOptions)
+
+		if(!session) {
 			res.status(401).json({ error: 'Unauthorized' });
-			return;
 		}
 
 		let client;
 
 		try {
 			client = await createRedisClient();
-			const username = req.query.username ?? decoded.username;
+			const username = req.query.username ?? session?.user?.username;
 			const key = `user:${username}`;
 			const usernameExists = await client.exists(key);
 
