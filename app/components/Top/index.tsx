@@ -5,7 +5,7 @@ import UserAvatar from '../Avatar';
 
 const Top = ({ leaderboard }) => {
 	// leaderboard.sort((a, b) => b.score - a.score);
-	let topThree = leaderboard.data.slice(0, 3);
+	let topThree = leaderboard.data?.slice(0, 3);
 	// topThree = topThree.map((item, i) => {
 	// 	return {
 	// 		...item,
@@ -30,7 +30,7 @@ const Top = ({ leaderboard }) => {
 				</div>
 
 				<div className='grid md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-5 mt-32'>
-					{topThree.map((items, i) => (
+					{topThree?.map((items, i) => (
 						<div
 							className={
 								`card-b p-8 order-${i} ` +
