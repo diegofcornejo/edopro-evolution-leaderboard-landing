@@ -11,16 +11,16 @@ import Tabs from './components/Tabs/index';
 // import Companies from './components/Companies/index';
 // import getLeaderBoard from './api/leaderboard';
 
-const getLeaderBoard = async () => {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/leaderboard`,{ cache: 'no-store' });
-	const data = await res.json();
-	return data;
-}
+const getLeaderBoard = async (banlistname?: string) => {
+	if(!banlistname) {
+		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/leaderboard`,{ cache: 'no-store' });
+		const data = await res.json();
+		return { data: data.leaderboard, lastUpdated: data.lastUpdated };
+	}
 
-const getThunderLeaderBoard = async () => {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/leaderboard/thunder`,{ cache: 'no-store' });
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/leaderboard?banlistname=${banlistname}`,{ cache: 'no-store' });
 	const data = await res.json();
-	return data;
+	return { data: data.leaderboard, lastUpdated: data.lastUpdated };
 }
 
 const getRooms = async () => {
@@ -32,7 +32,9 @@ const getRooms = async () => {
 export default async function Home() {
 	const rooms = await getRooms();
 	const leaderboard = await getLeaderBoard();
-	const thunderLeaderboard = await getThunderLeaderBoard();
+	const evolution = await getLeaderBoard('Evolution');
+	const edison = await getLeaderBoard('Edison(PreErrata)');
+	const tcg = await getLeaderBoard('2023.09 TCG');
 	const mockLeaderBoard = {
 		"data": [],
 		"lastUpdated": new Date().toISOString()
@@ -44,26 +46,19 @@ export default async function Home() {
 			data: leaderboard,
 		},
 		{
-			name: 'Thunder',
-			title: 'Thunder Ranking',
-			data: thunderLeaderboard,
+			name: 'Evolution',
+			title: 'Evolution',
+			data: evolution,
 		},
-		,
 		{
 			name: 'Edison',
-			title: 'Edison (Soon)',
-			data: mockLeaderBoard,
+			title: 'Edison',
+			data: edison,
 		},
 		{
-			name: 'JTP',
-			title: 'JTP (Soon)',
-			data: mockLeaderBoard,
-		},
-		,
-		{
-			name: 'GX',
-			title: 'GX (Soon)',
-			data: mockLeaderBoard,
+			name: '2023.09 TCG',
+			title: '2023.09 TCG',
+			data: tcg,
 		}
 	];
 	return (

@@ -9,7 +9,7 @@ import DuelLogs from '../DuelLogs';
 
 const Table = ({ ranking, title = 'Ranking', className="mx-auto max-w-7xl px-6" }) => {
 	const lastUpdated = new Date(ranking.lastUpdate);
-	const leaderboard = ranking.data;
+	const leaderboard = ranking.data ?? [];
 
 	const [duels, setDuels] = useState([]);
 	const [isOpenDuelLogs, setIsOpenDuelLogs] = useState(false);
