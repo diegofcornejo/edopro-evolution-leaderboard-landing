@@ -1,6 +1,10 @@
+'use client'
+
 import Marquee from '@/app/components/magicui/Marquee';
-import { ReactNode } from 'react';
+import { ReactNode, useContext } from 'react';
 import LetterAvatar from '../LetterAvatar';
+import { RoomsContext } from '@/context/rooms/RoomsContext';
+import { RealTimeRoom } from '@/modules/room/domain/RealTimeRoom';
 
 const Player = (props: any) => {
 	return (
@@ -13,17 +17,7 @@ const Player = (props: any) => {
 	);
 };
 
-const RoomCard = ({
-	roomid,
-	users,
-	roomnotes,
-	size,
-}: {
-	roomid: number;
-	users: [...any];
-	roomnotes: string;
-	size?: string;
-}) => {
+const RoomCard = ({ players }: RealTimeRoom, size?: string) => {
 	return (
 		<a
 			target='_blank'
@@ -35,16 +29,16 @@ const RoomCard = ({
 			} flex justify-center items-center overflow-hidden rounded-xl border bg-slate-800/50 w-full py-4 px-12 transition hover:bg-slate-800/75 hover:shadow-lg group`}
 		>
 			<div className='flex flex-row items-center justify-center w-full h-auto gap-2 text-white transition group-hover:scale-110'>
-				<Player key={users[0].pos} name={users[0].name} />
+				<Player key={players[0].position} name={players[0].username} />
 				<span className='px-2'>vs</span>
-				<Player key={users[1].pos} name={users[1].name} />
+				<Player key={players[1].position} name={players[1].username} />
 			</div>
 		</a>
 	);
 };
 
-const Live = ({ rooms }) => {
-	rooms = rooms.filter((room: any) => room.users.length === 2);
+const Live = () => {
+	const { rooms } = useContext( RoomsContext );
 
 	return (
 		<section className='flex flex-col flex-wrap items-center justify-center'>
@@ -57,13 +51,13 @@ const Live = ({ rooms }) => {
 					{rooms.length < 4 ? (
 						<>
 							{rooms.map((room) => {
-								return <RoomCard key={room.roomid} {...room} />;
+								return <RoomCard key={room.id} {...room} />;
 							})}
 						</>
 					) : (
 						<Marquee pauseOnHover className='[--duration:30s]'>
 							{rooms.map((room) => {
-								return <RoomCard key={room.roomid} {...room} />;
+								return <RoomCard key={room.id} {...room} />;
 							})}
 						</Marquee>
 					)}
