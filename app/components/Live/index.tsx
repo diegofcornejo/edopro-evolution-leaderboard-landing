@@ -18,19 +18,25 @@ const RoomCard = ({ players, turn, bestOf, banlist }: RealTimeRoom, size?: strin
 		>
 			<div className='flex flex-col items-center justify-center w-full h-auto gap-4 text-white transition group-hover:scale-110'>
 				<div className='flex flex-row gap-10'>
-					<p> { players[0].lps } </p>
-					<p> { turn } </p>
-					<p> { players[1].lps } </p>
+					<p> {players[0].lps} </p>
+					<p> {turn} </p>
+					<p> {players[1].lps} </p>
 				</div>
 				<div className='flex items-center justify-center gap-5'>
-					<LetterAvatar name={players[0].username} size={32} fontSize={'0.75rem'} />
-					<p> { players[0].score } </p>
-					<p> VS </p>
-					<p> { players[1].score } </p>
-					<LetterAvatar name={players[1].username} size={32} fontSize={'0.75rem'} />
+					<div className='flex flex-col items-center gap-2'>
+						<LetterAvatar name={players[0].username} size={40} fontSize={'0.75rem'} />
+						<p className='text-xs'>{players[0].username}</p>
+					</div>
+					<p> {players[0].score} </p>
+					<p className="text-xs"> VS </p>
+					<p> {players[1].score} </p>
+					<div className='flex flex-col items-center gap-2'>
+						<LetterAvatar name={players[1].username} size={40} fontSize={'0.75rem'} />
+						<p className='text-xs'>{players[1].username}</p>
+					</div>
 				</div>
 				<div className='flex items-center justify-center'>
-					<p className='text-sm font-sm text-white-900 overflow-ellipsis whitespace-nowrap max-w-xs'> Best of { bestOf } | { banlist.name } </p>
+					<p className='text-sm text-white-900 overflow-ellipsis whitespace-nowrap max-w-xs'> Best of {bestOf} | {banlist.name} </p>
 				</div>
 			</div>
 		</a>

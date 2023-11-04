@@ -19,7 +19,7 @@ const Banner = () => {
 				onClose={() => setOpen(false)}
 			/>
 
-			<div className='mx-auto max-w-7xl pt-16 lg:pt-20 sm:pb-12 px-6'>
+			<div className='mx-auto max-w-7xl pt-16 lg:pt-20 px-6'>
 				<div className='height-work'>
 					<div className='grid grid-cols-1 lg:grid-cols-12 my-16'>
 						<div className='arrowTwo'></div>
