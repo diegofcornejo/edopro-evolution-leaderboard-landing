@@ -6,39 +6,39 @@ import LetterAvatar from '../LetterAvatar';
 import { RoomsContext } from '@/context/rooms/RoomsContext';
 import { RealTimeRoom } from '@/modules/room/domain/RealTimeRoom';
 
-const Player = (props: any) => {
-	return (
-		<div className='flex flex-col items-center'>
-			<div className='flex items-center justify-center'>
-				<LetterAvatar name={props.name} size={32} fontSize={'0.75rem'} />
-			</div>
-			<p className='text-sm font-sm text-white-900'>{props.name}</p>
-		</div>
-	);
-};
-
-const RoomCard = ({ players }: RealTimeRoom, size?: string) => {
+const RoomCard = ({ players, turn, bestOf, banlist }: RealTimeRoom, size?: string) => {
 	return (
 		<a
 			target='_blank'
 			rel='noopener noreferrer'
-			className={`relative ${
-				size === 'large'
-					? 'min-w-[250px] border-yellow-300 hover:border-yellow-200'
-					: 'min-w-[50px] border-slate-900 hover:border-slate-900/75'
-			} flex justify-center items-center overflow-hidden rounded-xl border bg-slate-800/50 w-full py-4 px-12 transition hover:bg-slate-800/75 hover:shadow-lg group`}
+			className={`relative ${size === 'large'
+				? 'min-w-[250px] border-yellow-300 hover:border-yellow-200'
+				: 'min-w-[50px] border-slate-900 hover:border-slate-900/75'
+				} flex justify-center items-center overflow-hidden rounded-xl border bg-slate-800/50 w-full py-4 px-12 transition hover:bg-slate-800/75 hover:shadow-lg group`}
 		>
-			<div className='flex flex-row items-center justify-center w-full h-auto gap-2 text-white transition group-hover:scale-110'>
-				<Player key={players[0].position} name={players[0].username} />
-				<span className='px-2'>vs</span>
-				<Player key={players[1].position} name={players[1].username} />
+			<div className='flex flex-col items-center justify-center w-full h-auto gap-4 text-white transition group-hover:scale-110'>
+				<div className='flex flex-row gap-10'>
+					<p> { players[0].lps } </p>
+					<p> { turn } </p>
+					<p> { players[1].lps } </p>
+				</div>
+				<div className='flex items-center justify-center gap-5'>
+					<LetterAvatar name={players[0].username} size={32} fontSize={'0.75rem'} />
+					<p> { players[0].score } </p>
+					<p> VS </p>
+					<p> { players[1].score } </p>
+					<LetterAvatar name={players[1].username} size={32} fontSize={'0.75rem'} />
+				</div>
+				<div className='flex items-center justify-center'>
+					<p className='text-sm font-sm text-white-900 overflow-ellipsis whitespace-nowrap max-w-xs'> Best of { bestOf } | { banlist.name } </p>
+				</div>
 			</div>
 		</a>
 	);
 };
 
 const Live = () => {
-	const { rooms } = useContext( RoomsContext );
+	const { rooms } = useContext(RoomsContext);
 
 	return (
 		<section className='flex flex-col flex-wrap items-center justify-center'>
