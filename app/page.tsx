@@ -65,7 +65,7 @@ export default async function Home() {
 		<main>
 			<Banner />
 			{/* <Companies /> */}
-			<Live rooms={rooms}/>
+			<Live />
 			<Top leaderboard={leaderboard}/>
 			<Tabs rankings={rankings}/>
 			{/* <Table ranking={leaderboard} title='Ranking (Top 20)'/>

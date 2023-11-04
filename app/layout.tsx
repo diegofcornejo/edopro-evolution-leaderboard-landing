@@ -6,6 +6,7 @@ import Script from 'next/script'
 import { SessionProvider } from "next-auth/react"
 import Providers from './Providers';
 import { AuthProvider } from '@/context/auth/AuthProvider';
+import { RoomsProvider } from '@/context/rooms/RoomsProvider';
 
 export const metadata = {
 	title: 'Evolution - EDOPro Server',
@@ -33,9 +34,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			<body>
 				<Providers>
 					<AuthProvider>
+						<RoomsProvider>
 						<Navbar />
 						{children}
 						<Footer />
+						</RoomsProvider>
 					</AuthProvider>
 				</Providers>
 			</body>
