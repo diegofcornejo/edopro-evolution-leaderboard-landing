@@ -22,7 +22,7 @@ interface Props {
 export const RoomsProvider: FC<Props> = ({ children }: Props) => {
 	const [state, dispatch] = useReducer(roomsReducer, ROOMS_INITIAL_STATE)
 	useEffect(() => {
-		const socket = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL);
+		const socket = new WebSocket(process.env.NEXT_PUBLIC_WEBSOCKET_URL!);
 
 		socket.addEventListener('open', () => {
 			console.log('WebSocket connected');
