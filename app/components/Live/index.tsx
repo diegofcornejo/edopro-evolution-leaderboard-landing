@@ -1,10 +1,11 @@
 'use client'
 
 import Marquee from '@/app/components/magicui/Marquee';
-import { ReactNode, useContext } from 'react';
+import { ReactNode, useContext, useState } from 'react';
 import LetterAvatar from '../LetterAvatar';
 import { RoomsContext } from '@/context/rooms/RoomsContext';
 import { RealTimeRoom } from '@/modules/room/domain/RealTimeRoom';
+import LiveRoomsTable from '../LiveRoomsTable';
 
 const RoomCard = ({ players, turn, bestOf, banlist }: RealTimeRoom, size?: string) => {
 	return (
@@ -43,11 +44,18 @@ const RoomCard = ({ players, turn, bestOf, banlist }: RealTimeRoom, size?: strin
 	);
 };
 
+
+
 const Live = () => {
+
+	const [isOpenLiveRoomsTable, setIsOpenLiveRoomsTable] = useState(false);
+	const handleOpenLiveRooms = () => {
+		setIsOpenLiveRoomsTable(true);
+	}
 	const { rooms } = useContext(RoomsContext);
 
 	return (
-		<section className='flex flex-col flex-wrap items-center justify-center'>
+		<section className='flex flex-col flex-wrap items-center justify-center cursor-pointer' onClick={() => handleOpenLiveRooms()}>
 			<div className='flex gap-2'>
 				<div className='live-icon mb-4'></div>
 				<span className='text-sm text-white'>Live</span>
@@ -72,6 +80,13 @@ const Live = () => {
 					<div className='absolute inset-y-0 right-0 w-1/3 pointer-events-none bg-gradient-to-l from-[#000214]'></div>
 				</div>
 			</div>
+			{isOpenLiveRoomsTable && (
+				<LiveRoomsTable
+					isOpenLiveRoomsTable={isOpenLiveRoomsTable}
+					setIsOpenLiveRoomsTable={setIsOpenLiveRoomsTable}
+					rooms={rooms}
+				/>
+			)}
 		</section>
 	);
 };
