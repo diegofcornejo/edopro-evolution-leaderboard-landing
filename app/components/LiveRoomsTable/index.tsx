@@ -72,6 +72,9 @@ const LiveRoomsTable = ({ isOpenLiveRoomsTable, setIsOpenLiveRoomsTable, rooms }
 															<th className='px-4 py-4 font-normal text-center'>
 																PLAYER 2
 															</th>
+															<th className='px-4 py-4 font-normal'>
+																NOTES
+															</th>
 														</tr>
 													</thead>
 													<tbody>
@@ -95,6 +98,9 @@ const LiveRoomsTable = ({ isOpenLiveRoomsTable, setIsOpenLiveRoomsTable, rooms }
 																</td>
 																<td className='px-4 py-2 text-white text-center'>
 																	{room.players[1].username}
+																</td>
+																<td className='px-4 py-2 text-white text-start'>
+																	{room.notes}
 																</td>
 															</tr>
 														))}

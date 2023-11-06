@@ -2,6 +2,7 @@ export interface RealTimeRoom {
 	id: number;
 	turn: number;
 	bestOf: number;
+	notes: string;
 	banlist: {
 		name: string;
 	};

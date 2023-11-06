@@ -7,7 +7,8 @@ import { RoomsContext } from '@/context/rooms/RoomsContext';
 import { RealTimeRoom } from '@/modules/room/domain/RealTimeRoom';
 import LiveRoomsTable from '../LiveRoomsTable';
 
-const RoomCard = ({ players, turn, bestOf, banlist }: RealTimeRoom, size?: string) => {
+const RoomCard = ({ players, turn, bestOf, banlist, notes }: RealTimeRoom, size?: string) => {
+	const ranked = notes.includes('(Ranked)');
 	return (
 		<a
 			target='_blank'
@@ -36,8 +37,9 @@ const RoomCard = ({ players, turn, bestOf, banlist }: RealTimeRoom, size?: strin
 						<p className='text-xs'>{players[1].username}</p>
 					</div>
 				</div>
-				<div className='flex items-center justify-center'>
-					<p className='text-sm text-white-900 overflow-ellipsis whitespace-nowrap max-w-xs'> Best of {bestOf} | {banlist.name} </p>
+				<div className='flex items-center justify-center gap-2'>
+					<p className='text-sm text-white-900 overflow-ellipsis whitespace-nowrap max-w-xs'> Best of {bestOf} | {banlist.name}</p>
+					{ranked &&<img src={'/images/Top/1.svg'} width={16}></img>}
 				</div>
 			</div>
 		</a>
