@@ -23,14 +23,14 @@ const getLeaderBoard = async (banlistname?: string) => {
 	return { data: data.leaderboard, lastUpdated: data.lastUpdated };
 }
 
-const getRooms = async () => {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/rooms`,{ cache: 'no-store' });
-	const data = await res.json();
-	return data;
-}
+// const getRooms = async () => {
+// 	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/rooms`,{ cache: 'no-store' });
+// 	const data = await res.json();
+// 	return data;
+// }
 
 export default async function Home() {
-	const rooms = await getRooms();
+	// const rooms = await getRooms();
 	const leaderboard = await getLeaderBoard();
 	const evolution = await getLeaderBoard('Evolution');
 	const edison = await getLeaderBoard('Edison(PreErrata)');
