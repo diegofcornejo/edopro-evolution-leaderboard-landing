@@ -7,8 +7,8 @@ import LetterAvatar from '../LetterAvatar';
 import UserAvatar from '../Avatar';
 import DuelLogs from '../DuelLogs';
 
-const Table = ({ ranking, title = 'Ranking', className="mx-auto max-w-7xl px-6" }) => {
-	const lastUpdated = new Date(ranking.lastUpdate);
+const Table = ({ ranking, title = 'Ranking', className = "mx-auto max-w-7xl px-6" }) => {
+	const lastUpdated = new Date(ranking.lastUpdated);
 	const leaderboard = ranking.data ?? [];
 
 	const [duels, setDuels] = useState([]);
