@@ -67,11 +67,11 @@ async function renameRankings() {
 // Execute the season restart process
 (async () => {
 	try {
-		//1. delete players duels of current season --> generated dinamically from every duel
+		//1. delete players duels of current season --> generated dynamically from every duel
 		await deleteDuels();
-		//2. delete leardeboard keys of current season --> generated dinamically from every duel
+		//2. delete leardeboard keys of current season --> generated dynamically from every duel
 		await deleteLeaderboard();
-		//3. rename rankings keys of current season  --> generated dinamically from qstash
+		//3. rename rankings keys of current season  --> generated dynamically from qstash
 		await renameRankings();
 		//4. Increment season
 		await client.incr('season');
