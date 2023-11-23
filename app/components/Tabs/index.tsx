@@ -33,7 +33,7 @@ export default function Tabs({ rankings }) {
 					<Tab.Panels className=''>
 						{rankings.map((ranking) => (
 							<Tab.Panel key={ranking.name} className={classNames('')}>
-								<Table ranking={ranking.data} title={ranking.title} className="mx-auto max-w-7xl"/>
+								<Table ranking={ranking.data} title={ranking.title} banlistname={ranking.banlistname} className="mx-auto max-w-7xl" />
 							</Tab.Panel>
 						))}
 					</Tab.Panels>
