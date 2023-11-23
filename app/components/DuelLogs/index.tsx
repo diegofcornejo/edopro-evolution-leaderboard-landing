@@ -1,15 +1,15 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment} from 'react';
+import { Fragment } from 'react';
 
 const formatDate = (date) => {
-  const newDate = new Date(date);
-  const day = newDate.getDate().toString().padStart(2, '0');
-  const month = (newDate.getMonth() + 1).toString().padStart(2, '0');
-  const year = newDate.getFullYear();
-  const hours = newDate.getHours().toString().padStart(2, '0');
-  const minutes = newDate.getMinutes().toString().padStart(2, '0');
-  const seconds = newDate.getSeconds().toString().padStart(2, '0');
-  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+	const newDate = new Date(date);
+	const day = newDate.getDate().toString().padStart(2, '0');
+	const month = (newDate.getMonth() + 1).toString().padStart(2, '0');
+	const year = newDate.getFullYear();
+	const hours = newDate.getHours().toString().padStart(2, '0');
+	const minutes = newDate.getMinutes().toString().padStart(2, '0');
+	const seconds = newDate.getSeconds().toString().padStart(2, '0');
+	return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 };
 const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels }) => {
 	const closeModal = () => {
@@ -46,7 +46,7 @@ const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels }) => {
 								<Dialog.Panel className='w-full max-w-7xl transform overflow-hidden rounded-2xl bg-navyblue border border-white text-left align-middle shadow-xl transition-all'>
 									<div className='flex min-h-full items-center justify-center py-2 px-4 sm:px-6 lg:px-8'>
 										<div className='w-full max-w-7xl space-y-8'>
-											<div className='relative table-b bg-navyblue p-4 overflow-x-auto' style={{height:'50rem'}}>
+											<div className='relative table-b bg-navyblue p-4 overflow-x-auto' style={{ height: '50rem' }}>
 												<h3 className='text-offwhite text-2xl'>
 													Duels ({duels.length})
 												</h3>
@@ -110,17 +110,16 @@ const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels }) => {
 																	{duel.players[1].name}
 																</td>
 																<td
-																	className={`px-4 py-2 text-center ${
-																		duel.players[0].winner
-																			? 'text-green'
-																			: 'text-red'
-																	}`}
+																	className={`px-4 py-2 text-center ${duel.players[0].winner
+																		? 'text-green'
+																		: 'text-red'
+																		}`}
 																>
 																	{duel.players[0].score} -{' '}
 																	{duel.players[1].score}
 																</td>
 																<td className='px-4 py-2 text-white text-center'>
-																	{duel.players[0].points}
+																	{duel.players[0].points && duel.players[0].points['Global']}
 																</td>
 																<td className='px-4 py-2 text-white'>
 																	{formatDate(duel.date)}

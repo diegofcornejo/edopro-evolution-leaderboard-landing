@@ -7,7 +7,7 @@ import LetterAvatar from '../LetterAvatar';
 import UserAvatar from '../Avatar';
 import DuelLogs from '../DuelLogs';
 
-const Table = ({ ranking, title = 'Ranking', className = "mx-auto max-w-7xl px-6" }) => {
+const Table = ({ ranking, title = 'Ranking', banlistname, className = "mx-auto max-w-7xl px-6" }) => {
 	const lastUpdated = new Date(ranking.lastUpdated);
 	const leaderboard = ranking.data ?? [];
 
@@ -15,7 +15,7 @@ const Table = ({ ranking, title = 'Ranking', className = "mx-auto max-w-7xl px-6
 	const [isOpenDuelLogs, setIsOpenDuelLogs] = useState(false);
 	const handleOpenDuelLogs = async (username) => {
 
-		const res = await fetch(`/api/user/duels?username=${username}`, {
+		const res = await fetch(`/api/user/duels?username=${username}&banlistname=${banlistname}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',

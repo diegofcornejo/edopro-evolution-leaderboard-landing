@@ -12,13 +12,13 @@ import Tabs from './components/Tabs/index';
 // import getLeaderBoard from './api/leaderboard';
 
 const getLeaderBoard = async (banlistname?: string) => {
-	if(!banlistname) {
-		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/leaderboard`,{ cache: 'no-store' });
+	if (!banlistname) {
+		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/leaderboard`, { cache: 'no-store' });
 		const data = await res.json();
 		return { data: data.leaderboard, lastUpdated: data.lastUpdated };
 	}
 
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/leaderboard?banlistname=${banlistname}`,{ cache: 'no-store' });
+	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/leaderboard?banlistname=${banlistname}`, { cache: 'no-store' });
 	const data = await res.json();
 	return { data: data.leaderboard, lastUpdated: data.lastUpdated };
 }
@@ -44,21 +44,25 @@ export default async function Home() {
 			name: 'General',
 			title: 'Ranking (Top 20)',
 			data: leaderboard,
+			banlistname: 'Global'
 		},
 		{
 			name: 'Evolution',
 			title: 'Evolution',
 			data: evolution,
+			banlistname: 'Evolution'
 		},
 		{
 			name: 'Edison',
 			title: 'Edison',
 			data: edison,
+			banlistname: 'Edison(PreErrata)'
 		},
 		{
 			name: '2023.09 TCG',
 			title: '2023.09 TCG',
 			data: tcg,
+			banlistname: '2023.09 TCG'
 		}
 	];
 	return (
@@ -66,15 +70,15 @@ export default async function Home() {
 			<Banner />
 			{/* <Companies /> */}
 			<Live />
-			<Top leaderboard={leaderboard}/>
-			<Tabs rankings={rankings}/>
+			<Top leaderboard={leaderboard} />
+			<Tabs rankings={rankings} />
 			{/* <Table ranking={leaderboard} title='Ranking (Top 20)'/>
 			<Table ranking={thunderLeaderboard} title='Thunder Ranking' /> */}
 			<Features />
 			<Download />
 			{/* <Trade /> */}
 			<Faq />
-			<Toaster position="bottom-center" reverseOrder={false}/>
+			<Toaster position="bottom-center" reverseOrder={false} />
 		</main>
 	);
 }
