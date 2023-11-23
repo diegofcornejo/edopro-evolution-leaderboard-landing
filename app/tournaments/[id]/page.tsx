@@ -21,9 +21,9 @@ export default async function Home({ params }: { params: { id: string } }) {
 	const Viewer = () => {
 		if (tournament.type === 'single') {
 			return <SingleElimination />;
-		}else if (tournament.type === 'league') {
-			return <Table ranking={tournament.ranking}/>;
-		}else {
+		} else if (tournament.type === 'league') {
+			return <Table ranking={tournament.ranking} banlistname='' />;
+		} else {
 			return <div>Unknown tournament type</div>;
 		}
 	}

@@ -14,7 +14,7 @@ const navigation: NavigationItem[] = [
 	{ name: 'Ranking', href: '#topplayers-section', current: false },
 	{ name: 'Features', href: '#features-section', current: false },
 	{ name: 'Download', href: '#download-section', current: false },
-	{ name: 'Tournaments', href: '/tournaments', current: false },
+	// { name: 'Tournaments', href: '/tournaments', current: false },
 	{
 		name: 'Github',
 		href: 'https://github.com/diangogav/EDOpro-server-ts',
