@@ -1,6 +1,8 @@
 import createRedisClient from '../../../libs/redisUtils';
 import { verifyJwt } from '../../../libs/jwtUtils';
 import sendEmail from '../../../libs/sendGridUtils';
+import { getServerSession } from 'next-auth';
+import { authOptions } from './[...nextauth]';
 
 const handler = async (req, res) => {
 	if (req.method === 'POST') {

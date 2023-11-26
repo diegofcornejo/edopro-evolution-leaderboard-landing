@@ -119,7 +119,7 @@ const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels }) => {
 																	{duel.players[1].score}
 																</td>
 																<td className='px-4 py-2 text-white text-center'>
-																	{duel.players[0].points && duel.players[0].points['Global']}
+																	{duel.players[0].points && duel.players[0].points[duel.banlistName]}
 																</td>
 																<td className='px-4 py-2 text-white'>
 																	{formatDate(duel.date)}
