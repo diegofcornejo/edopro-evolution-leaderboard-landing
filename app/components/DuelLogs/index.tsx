@@ -11,7 +11,7 @@ const formatDate = (date) => {
 	const seconds = newDate.getSeconds().toString().padStart(2, '0');
 	return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 };
-const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels }) => {
+const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels, banlistname }) => {
 	const closeModal = () => {
 		setIsOpenDuelLogs(false);
 	};
@@ -119,7 +119,7 @@ const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels }) => {
 																	{duel.players[1].score}
 																</td>
 																<td className='px-4 py-2 text-white text-center'>
-																	{duel.players[0].points && duel.players[0].points[duel.banlistName]}
+																	{duel.players[0].points && duel.players[0].points[banlistname]}
 																</td>
 																<td className='px-4 py-2 text-white'>
 																	{formatDate(duel.date)}
