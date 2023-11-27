@@ -193,6 +193,7 @@ const Profile = ({ setIsLogged, user }) => {
 					isOpenDuelLogs={isOpenDuelLogs}
 					setIsOpenDuelLogs={setIsOpenDuelLogs}
 					duels={duels}
+					banlistname="Global"
 				/>
 			)}
 		</Box>

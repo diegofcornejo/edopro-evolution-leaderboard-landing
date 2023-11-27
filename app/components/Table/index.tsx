@@ -143,6 +143,7 @@ const Table = ({ ranking, title = 'Ranking', banlistname, className = "mx-auto m
 					isOpenDuelLogs={isOpenDuelLogs}
 					setIsOpenDuelLogs={setIsOpenDuelLogs}
 					duels={duels}
+					banlistname={banlistname}
 				/>
 			)}
 			<Image
