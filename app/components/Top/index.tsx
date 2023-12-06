@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import LetterAvatar from '../LetterAvatar';
 import UserAvatar from '../Avatar';
+import Snowfall from 'react-snowfall';
 
 const Top = ({ leaderboard }) => {
 	// leaderboard.sort((a, b) => b.score - a.score);
@@ -15,6 +16,7 @@ const Top = ({ leaderboard }) => {
 
 	return (
 		<div>
+			<Snowfall />
 			<div className='mx-auto max-w-7xl mt-16 px-6 mb-20 relative' id='topplayers-section'>
 				<div className='radial-bgone hidden lg:block'></div>
 				<div className='text-center mb-14'>
