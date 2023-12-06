@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import ModalVideo from 'react-modal-video';
 import Link from 'next/link';
 import { ShimmerButton } from '@/app/components/magicui/ShimmerButton';
+import Snowfall from 'react-snowfall';
 
 const Banner = () => {
 	const [isOpen, setOpen] = useState(false);
@@ -18,6 +19,7 @@ const Banner = () => {
 				videoId='p75116MjEoY'
 				onClose={() => setOpen(false)}
 			/>
+			<Snowfall />
 
 			<div className='mx-auto max-w-7xl pt-16 lg:pt-20 px-6'>
 				<div className='height-work'>
@@ -87,7 +89,7 @@ const Banner = () => {
 							<div className='arrowFive'></div>
 							{/* <Image src="/images/Banner/banner.png" alt="nothing" width={1013} height={760} /> */}
 							<Image
-								src='/images/Banner/banner_evolution.png'
+								src='/images/Banner/banner_evolution_xmas.png'
 								alt='nothing'
 								width={640}
 								height={200}
