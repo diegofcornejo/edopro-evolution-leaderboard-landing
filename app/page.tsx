@@ -1,4 +1,5 @@
 import { Toaster } from 'react-hot-toast';
+import Image from 'next/image'
 import Banner from './components/Banner/index';
 import Live from './components/Live/index';
 import Top from './components/Top/index';
@@ -68,10 +69,16 @@ export default async function Home() {
 	return (
 		<main>
 			<a href="https://www.buymeacoffee.com/randomtechguy" target="_blank">
-				<img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" 
+				{/* <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" 
 					alt="Buy Me A Coffee" 
-					style={{height: "60px !important", width: "217px !important", position: "fixed", bottom: 10, right: 10, zIndex: 99999}}>
-				</img>
+					style="height: 60px !important, width: 217px !important, position: fixed, bottom: 10, right: 10, zIndex: 99999">
+				</img> */}
+				<Image src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+					alt="Buy Me A Coffee"
+					width={217}
+					height={60}
+					style={{ position: 'fixed', bottom: 10, right: 10, zIndex: 99999 }}
+				/>
 			</a>
 			<Banner />
 			{/* <Companies /> */}
