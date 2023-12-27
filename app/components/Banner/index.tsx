@@ -1,13 +1,15 @@
 'use client';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ModalVideo from 'react-modal-video';
 import Link from 'next/link';
 import { ShimmerButton } from '@/app/components/magicui/ShimmerButton';
-import Snowfall from 'react-snowfall';
+// import Snowfall from 'react-snowfall';
+import { Fireworks, FireworksHandlers } from '@fireworks-js/react'
 
 const Banner = () => {
 	const [isOpen, setOpen] = useState(false);
+	const ref = useRef<FireworksHandlers>(null)
 
 	return (
 		<div className='bg-image relative' id='home-section'>
@@ -19,7 +21,19 @@ const Banner = () => {
 				videoId='p75116MjEoY'
 				onClose={() => setOpen(false)}
 			/>
-			<Snowfall />
+			{/* <Snowfall /> */}
+			<Fireworks
+				ref={ref}
+				options={{ opacity: 0.5, gravity: 2, explosion: 15, acceleration: 1 }}
+				style={{
+					top: 0,
+					left: 0,
+					width: '100%',
+					height: '100%',
+					position: 'fixed',
+					background: ''
+				}}
+			/>
 
 			<div className='mx-auto max-w-7xl pt-16 lg:pt-20 px-6'>
 				<div className='height-work'>
