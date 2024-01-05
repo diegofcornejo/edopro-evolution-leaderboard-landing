@@ -5,11 +5,11 @@ import ModalVideo from 'react-modal-video';
 import Link from 'next/link';
 import { ShimmerButton } from '@/app/components/magicui/ShimmerButton';
 // import Snowfall from 'react-snowfall';
-import { Fireworks, FireworksHandlers } from '@fireworks-js/react'
+// import { Fireworks, FireworksHandlers } from '@fireworks-js/react'
 
 const Banner = () => {
 	const [isOpen, setOpen] = useState(false);
-	const ref = useRef<FireworksHandlers>(null)
+	// const ref = useRef<FireworksHandlers>(null)
 
 	return (
 		<div className='bg-image relative' id='home-section'>
@@ -22,7 +22,7 @@ const Banner = () => {
 				onClose={() => setOpen(false)}
 			/>
 			{/* <Snowfall /> */}
-			<Fireworks
+			{/* <Fireworks
 				ref={ref}
 				options={{ opacity: 0.5, gravity: 2, explosion: 15, acceleration: 1 }}
 				style={{
@@ -33,7 +33,7 @@ const Banner = () => {
 					position: 'fixed',
 					background: ''
 				}}
-			/>
+			/> */}
 
 			<div className='mx-auto max-w-7xl pt-16 lg:pt-20 px-6'>
 				<div className='height-work'>
