@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import ModalVideo from 'react-modal-video';
 import Link from 'next/link';
 import { ShimmerButton } from '@/app/components/magicui/ShimmerButton';
@@ -103,7 +103,7 @@ const Banner = () => {
 							<div className='arrowFive'></div>
 							{/* <Image src="/images/Banner/banner.png" alt="nothing" width={1013} height={760} /> */}
 							<Image
-								src='/images/Banner/banner_evolution_xmas.png'
+								src='/images/Banner/banner_evolution.png'
 								alt='nothing'
 								width={640}
 								height={200}
