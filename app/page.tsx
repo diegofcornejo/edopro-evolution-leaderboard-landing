@@ -60,10 +60,10 @@ export default async function Home() {
 			banlistname: 'Edison(PreErrata)'
 		},
 		{
-			name: '2024.01 TCGG',
-			title: '2024.01 TCGG',
+			name: '2024.01 TCG',
+			title: '2024.01 TCG',
 			data: tcg,
-			banlistname: '2024.01 TCGG'
+			banlistname: '2024.01 TCG'
 		}
 	];
 	return (
