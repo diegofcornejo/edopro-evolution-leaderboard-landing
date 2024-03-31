@@ -32,9 +32,9 @@ const getLeaderBoard = async (banlistname?: string) => {
 export default async function Home() {
 	// const rooms = await getRooms();
 	const leaderboard = await getLeaderBoard();
-	const evolution = await getLeaderBoard('Evolution');
+	const evolution = await getLeaderBoard('Evolution S6');
 	const edison = await getLeaderBoard('Edison(PreErrata)');
-	const tcg = await getLeaderBoard('2023.09 TCG');
+	const tcg = await getLeaderBoard('2024.01 TCG');
 	const mockLeaderBoard = {
 		"data": [],
 		"lastUpdated": new Date().toISOString()
@@ -47,10 +47,10 @@ export default async function Home() {
 			banlistname: 'Global'
 		},
 		{
-			name: 'Evolution',
-			title: 'Evolution',
+			name: 'Evolution S6',
+			title: 'Evolution S6',
 			data: evolution,
-			banlistname: 'Evolution'
+			banlistname: 'Evolution S6'
 		},
 		{
 			name: 'Edison',
@@ -59,10 +59,10 @@ export default async function Home() {
 			banlistname: 'Edison(PreErrata)'
 		},
 		{
-			name: '2023.09 TCG',
-			title: '2023.09 TCG',
+			name: '2024.01 TCGG',
+			title: '2024.01 TCGG',
 			data: tcg,
-			banlistname: '2023.09 TCG'
+			banlistname: '2024.01 TCGG'
 		}
 	];
 	return (
