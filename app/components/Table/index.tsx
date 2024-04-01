@@ -47,6 +47,7 @@ const Table = ({ ranking, title = 'Ranking', banlistname, className = "mx-auto m
 								<th className='px-4 py-4 font-normal'>RANK</th>
 								<th className='px-4 py-4 text-start font-normal'>USERNAME</th>
 								<th className='px-4 py-4 font-normal'>POINTS</th>
+								<th className='px-4 py-4 font-normal'>GAMES</th>
 								<th className='px-4 py-4 font-normal'>WINS</th>
 								<th className='px-4 py-4 font-normal'>LOSSES</th>
 								<th className='px-4 py-4 font-normal'>WINRATE</th>
@@ -90,6 +91,9 @@ const Table = ({ ranking, title = 'Ranking', banlistname, className = "mx-auto m
 									</td>
 									<td className='px-4 py-2 text-center text-white'>
 										{items.score.toLocaleString()}
+									</td>
+									<td className='px-4 py-2 text-center text-white'>
+										{items.wins + items.losses}
 									</td>
 									<td className='px-4 py-2 text-center text-green'>
 										{items.wins.toLocaleString()}
