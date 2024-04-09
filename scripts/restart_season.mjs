@@ -55,7 +55,9 @@ async function renameRankings() {
 	const season = await client.get('season');
 	const keys = await client.keys('ranking*');
 
-	for (const key of keys) {
+	const filteredKeys = keys.filter(key => key.includes('season') === false)
+
+	for (const key of filteredKeys) {
 		console.log("🚀 ~ Rename ranking:", key)
 		const newKey = key.replace('ranking', `ranking:season:${season}`);
 		await client.rename(key, newKey);

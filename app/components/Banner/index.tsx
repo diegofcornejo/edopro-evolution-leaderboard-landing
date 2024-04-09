@@ -41,7 +41,7 @@ const Banner = () => {
 						<div className='arrowTwo'></div>
 						<div className='col-span-7'>
 							<h1 className='text-4xl lg:text-7xl font-bold mb-5 text-white md:4px md:text-start text-center'>
-								Evolution Server <br /> <span className='text-yellow-300 lg:text-8xl'>Season 2</span>
+								Evolution Server <br /> <span className='text-yellow-300 lg:text-8xl'>Season 3</span>
 							</h1>
 							<p className='text-white md:text-lg font-normal mb-10 md:text-start text-center'>
 								Join a vibrant community of passionate players <br /> whether you

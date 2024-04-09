@@ -9,7 +9,7 @@ import { AuthProvider } from '@/context/auth/AuthProvider';
 import { RoomsProvider } from '@/context/rooms/RoomsProvider';
 
 export const metadata = {
-	title: 'Evolution Server - Season 2',
+	title: 'Evolution Server - Season 3',
 	description: 'Leaderboard for Evolution EDOPro Server',
 	icons: {
 		icon: '/logo.svg',
