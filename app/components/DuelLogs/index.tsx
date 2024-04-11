@@ -59,6 +59,9 @@ const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels, banlistname }) => 
 															<th className='px-4 py-4 font-normal'>
 																TYPE
 															</th>
+															<th className='px-4 py-4 font-normal'>
+																BANLIST
+															</th>
 															<th className='px-4 py-4 text-start font-normal'>
 																PLAYER 1
 															</th>
@@ -101,6 +104,9 @@ const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels, banlistname }) => 
 																</td>
 																<td className='px-4 py-2 text-white'>
 																	{duel.type}
+																</td>
+																<td className='px-4 py-2 text-white'>
+																	{duel.banlistName}
 																</td>
 																<td className='px-4 py-2 text-white'>
 																	{duel.players[0].name}
