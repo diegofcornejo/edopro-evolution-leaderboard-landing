@@ -88,6 +88,29 @@ const Table = ({ ranking, title = 'Ranking', banlistname, className = "mx-auto m
 											/>
 										)}
 										{items.value}
+										{items.winrate > 74 ? (
+											<img
+												src='/images/Table/pro.webp'
+												alt='pro'
+												width={18}
+												height={18}
+												title='Pro Player'
+											/>
+										) : (
+											''
+										)}
+										{items.winrate == 100 ? (
+											<img
+												src='/images/Table/invictus.webp'
+												alt='invictus'
+												width={18}
+												height={18}
+												title='Invictus'
+											/>
+										) : (
+											''
+										)}
+
 									</td>
 									<td className='px-4 py-2 text-center text-white'>
 										{items.score.toLocaleString()}
