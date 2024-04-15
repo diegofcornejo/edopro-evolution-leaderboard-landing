@@ -36,6 +36,8 @@ export default async function Home() {
 	const evolution = await getLeaderBoard('Evolution S6');
 	const edison = await getLeaderBoard('Edison(PreErrata)');
 	const tcg = await getLeaderBoard('2024.01 TCG');
+	const tcg2 = await getLeaderBoard('2024.04 TCG');
+	const jtp = await getLeaderBoard('JTP (Original)');
 	const mockLeaderBoard = {
 		"data": [],
 		"lastUpdated": new Date().toISOString()
@@ -64,6 +66,18 @@ export default async function Home() {
 			title: '2024.01 TCG',
 			data: tcg,
 			banlistname: '2024.01 TCG'
+		},
+		{
+			name: '2024.04 TCG',
+			title: '2024.04 TCG',
+			data: tcg2,
+			banlistname: '2024.04 TCG'
+		},
+		{
+			name: 'JTP (Original)',
+			title: 'JTP (Original)',
+			data: jtp,
+			banlistname: 'JTP (Original)'
 		}
 	];
 	return (
