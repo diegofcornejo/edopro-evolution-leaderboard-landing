@@ -77,9 +77,33 @@ const Top = ({ leaderboard }) => {
 							<p className='text-base font-normal text-bluish text-center mt-2 text-red'>
 								Losses: {items.losses}
 							</p>
-							<p className='text-base font-normal text-bluish text-center mt-2 mb-8'>
+							<p className='text-base font-normal text-bluish text-center mt-2 mb-2'>
 								Winrate: {items.winrate}%
 							</p>
+							<div className='flex justify-center gap-2'>
+								{items.winrate > 74 ? (
+									<img
+										src='/images/Table/pro.webp'
+										alt='pro'
+										width={18}
+										height={18}
+										title='Pro Player'
+									/>
+								) : (
+									''
+								)}
+								{items.winrate == 100 ? (
+									<img
+										src='/images/Table/invictus.webp'
+										alt='invictus'
+										width={18}
+										height={18}
+										title='Invictus'
+									/>
+								) : (
+									''
+								)}
+							</div>
 						</div>
 					))}
 				</div>
