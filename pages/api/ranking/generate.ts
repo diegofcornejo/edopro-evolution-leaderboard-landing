@@ -15,6 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		await leaderboardUpdater.run('2024.01 TCG');
 		await leaderboardUpdater.run('2024.04 TCG');
 		await leaderboardUpdater.run('JTP (Original)');
+		await leaderboardUpdater.run('2005.4 GOAT');
 		return res.status(200).json({});
 	} else {
 		res.status(405).json({ error: 'Method not allowed' });

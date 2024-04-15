@@ -38,6 +38,7 @@ export default async function Home() {
 	const tcg = await getLeaderBoard('2024.01 TCG');
 	const tcg2 = await getLeaderBoard('2024.04 TCG');
 	const jtp = await getLeaderBoard('JTP (Original)');
+	const goat = await getLeaderBoard('2005.4 GOAT');
 	const mockLeaderBoard = {
 		"data": [],
 		"lastUpdated": new Date().toISOString()
@@ -78,6 +79,12 @@ export default async function Home() {
 			title: 'JTP (Original)',
 			data: jtp,
 			banlistname: 'JTP (Original)'
+		},
+		{
+			name: '2005.4 GOAT',
+			title: '2005.4 GOAT',
+			data: goat,
+			banlistname: '2005.4 GOAT'
 		}
 	];
 	return (
