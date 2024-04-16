@@ -81,7 +81,7 @@ const Top = ({ leaderboard }) => {
 								Winrate: {items.winrate}%
 							</p>
 							<div className='flex justify-center gap-2'>
-								{items.winrate > 74 ? (
+								{items.winrate >= 75 ? (
 									<img
 										src='/images/Table/pro.webp'
 										alt='pro'

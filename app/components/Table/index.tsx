@@ -88,7 +88,7 @@ const Table = ({ ranking, title = 'Ranking', banlistname, className = "mx-auto m
 											/>
 										)}
 										{items.value}
-										{items.winrate > 74 ? (
+										{items.winrate >= 75 ? (
 											<img
 												src='/images/Table/pro.webp'
 												alt='pro'
