@@ -1,19 +1,30 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 import LetterAvatar from '../LetterAvatar';
 import UserAvatar from '../Avatar';
 import DuelLogs from '../DuelLogs';
+import { AuthContext } from '@/context/auth/AuthContext';
 
 const Table = ({ ranking, title = 'Ranking', banlistname, className = "mx-auto max-w-7xl px-6" }) => {
+
+	const { isLoggedIn } = useContext(AuthContext);
+
 	const lastUpdated = new Date(ranking.lastUpdated);
 	const leaderboard = ranking.data ?? [];
 
 	const [duels, setDuels] = useState([]);
 	const [isOpenDuelLogs, setIsOpenDuelLogs] = useState(false);
 	const handleOpenDuelLogs = async (username) => {
+
+		if (!isLoggedIn) {
+			toast.error('You need to login to view duels history', { duration: 5000 });
+			const loginButton = document.getElementById('login-button');
+			if (loginButton) loginButton.click();
+			return;
+		}
 
 		const res = await fetch(`/api/user/duels?username=${username}&banlistname=${banlistname}`, {
 			method: 'GET',

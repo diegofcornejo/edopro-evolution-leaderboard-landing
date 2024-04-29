@@ -1,21 +1,28 @@
 'use client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import CreateTournament from './Create';
 import toast from 'react-hot-toast';
+import { AuthContext } from '@/context/auth/AuthContext';
 
 const Table = ({ tournaments }) => {
 	const router = useRouter();
 	const [isCreateOpen, setIsCreateOpen] = useState(false);
-
+	const { user, isLoggedIn } = useContext(AuthContext);
 	const GoToTournament = (id) => () => {
 		router.push(`/tournaments/${id}`);
 	};
 
 	const handleCreate = () => {
-		const session = localStorage.getItem('session');
-		const role = session ? JSON.parse(session).role : '';
+		if (!isLoggedIn) {
+			toast.error('You need to login to create a tournament', { duration: 5000 });
+			const loginButton = document.getElementById('login-button');
+			if (loginButton) loginButton.click();
+			return;
+		}
+		const role = user?.role;
+
 		if (role !== 'ADMIN') {
 			toast.error('You are not authorized to create a tournament', { duration: 5000 });
 			return;
@@ -34,7 +41,7 @@ const Table = ({ tournaments }) => {
 							className='text-lg font-semibold py-2 px-4 navbutton text-white'
 							onClick={handleCreate}
 						>
-							New Tournament (Beta)
+							New Tournament
 						</button>
 						<CreateTournament
 							isCreateOpen={isCreateOpen}

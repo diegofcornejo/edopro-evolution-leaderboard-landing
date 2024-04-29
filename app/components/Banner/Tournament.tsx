@@ -1,27 +1,30 @@
 'use client';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import JoinTournament from '../Tournaments/Join';
+import { AuthContext } from '@/context/auth/AuthContext';
 
 const Banner = ({tournament}) => {
 	const [isJoinOpen, setIsJoinOpen] = useState(false);
 
-	const session = localStorage.getItem('session');
-	const username = session ? JSON.parse(session).username : '';
+	const { user, isLoggedIn } = useContext(AuthContext);
 
-	tournament.joined = tournament.ranking.data.find((player) => player.value === username);
+	tournament.joined = tournament.ranking.data.find((player) => player.value === user);
 	
 	const handleOpenJoin = () => {
-		if(!username){
+		if(!isLoggedIn){
 			toast.error('You need to login to join this tournament', { duration: 5000 });
 			const loginButton = document.getElementById('login-button');
 			if(loginButton) loginButton.click();
 			return;
-		}else if(tournament.joined){
+		}
+		
+		if(tournament.joined){
 			toast.success('You have already joined this tournament', { duration: 5000 });
 			return;
 		}
+
 		setIsJoinOpen(true);
 	};
 	return (
