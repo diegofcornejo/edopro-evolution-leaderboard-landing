@@ -6,10 +6,8 @@ import Link from 'next/link';
 import { ShimmerButton } from '@/app/components/magicui/ShimmerButton';
 // import Snowfall from 'react-snowfall';
 // import { Fireworks, FireworksHandlers } from '@fireworks-js/react'
+import Sound from "react-sound";
 import P5jsContainer, {starWarsSketch} from "@/app/components/StarWarsSketch";
-
-const swTitle = 'Welcome to Evolution Server';
-const swSummary = 'Join a vibrant community of passionate players whether you are a novice starting in Monster Duel or an experienced duelist seeking new challenges.';
 
 const Banner = () => {
 	const [isOpen, setOpen] = useState(false);
@@ -25,6 +23,14 @@ const Banner = () => {
 				videoId='p75116MjEoY'
 				onClose={() => setOpen(false)}
 			/>
+			<Sound
+				url="star-wars-intro-music.mp3"
+				playStatus={Sound.status.PLAYING}
+				playFromPosition={0}
+				volume={50}
+				loop={false}
+			/>
+
 			{/* <Snowfall /> */}
 			{/* <Fireworks
 				ref={ref}
@@ -38,7 +44,7 @@ const Banner = () => {
 					background: ''
 				}}
 			/> */}
-			<P5jsContainer sketch={starWarsSketch} timeout={30000}/>
+			<P5jsContainer sketch={starWarsSketch} timeout={40000}/>
 
 			<div className='mx-auto max-w-7xl pt-16 lg:pt-20 px-6'>
 				<div className='height-work'>

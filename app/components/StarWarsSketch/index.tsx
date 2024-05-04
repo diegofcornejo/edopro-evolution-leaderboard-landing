@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import p5Types from "p5";
-import Sound from "react-sound";
 
 type P5jsContainerRef = HTMLDivElement;
 type P5jsSketch = (p: p5Types, parentRef: P5jsContainerRef) => void;
@@ -16,7 +15,7 @@ const P5jsContainer: P5jsContainer = ({ sketch, timeout }) => {
 		setIsMounted(true);
 		const timeout = setTimeout(() => {
 			setIsMounted(false);
-			Sound.status.STOPPED;
+			// Sound.status.STOPPED;
 		}, UNMOUNT_TIMEOUT);
 
 		return () => clearTimeout(timeout);
@@ -49,17 +48,7 @@ const P5jsContainer: P5jsContainer = ({ sketch, timeout }) => {
 		};
 	}, [isMounted, sketch]);
 
-	return (
-		<div ref={parentRef}>
-			<Sound
-				url="star-wars-intro-music.mp3"
-				playStatus={Sound.status.PLAYING}
-				playFromPosition={0}
-				autoLoad={true}
-				volume={30}
-				loop={false}
-			/>
-		</div>);
+	return <div ref={parentRef}></div>;
 };
 
 export default P5jsContainer;
