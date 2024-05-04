@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang='en'>
 			<head>
 				<Script src="https://las-analytics.vercel.app/script.js" data-website-id="d49d0638-0710-4b43-91c8-e887c1afb079"/>
-				<Script type="text/javascript" id="clarity-script">
+				{/* <Script type="text/javascript" id="clarity-script">
           {`
             (function(c,l,a,r,i,t,y){
               c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
             })(window,document,"clarity","script","iukdbfryb2");
           `}
-        </Script>
+        </Script> */}
 			</head>
 			<body>
 				<Providers>
