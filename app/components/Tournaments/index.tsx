@@ -40,6 +40,7 @@ const Table = ({ tournaments }) => {
 						<button
 							className='text-lg font-semibold py-2 px-4 navbutton text-white'
 							onClick={handleCreate}
+							disabled
 						>
 							New Tournament
 						</button>
@@ -59,7 +60,7 @@ const Table = ({ tournaments }) => {
 								<th className='px-4 py-4 font-normal'>BESTOF</th>
 								<th className='px-4 py-4 text-start font-normal'>BANLIST</th>
 								<th className='px-4 py-4 text-start font-normal'>MASTER RULE</th>
-								{/* <th className='px-4 py-4 text-start font-normal'>STATUS</th> */}
+								<th className='px-4 py-4 text-start font-normal'>STATUS</th>
 								<th className='px-4 py-4 text-start font-normal'>START</th>
 							</tr>
 						</thead>
@@ -83,7 +84,7 @@ const Table = ({ tournaments }) => {
 									</td>
 									<td className='px-4 py-2 text-white'>{items.banlist}</td>
 									<td className='px-4 py-2 text-white'>{items.rule}</td>
-									{/* <td className='px-4 py-2 text-white'>{items.status}</td> */}
+									<td className='px-4 py-2 text-white'>{items.status}</td>
 									<td className='px-4 py-2 text-white'>{items.startDate}</td>
 								</tr>
 							))}

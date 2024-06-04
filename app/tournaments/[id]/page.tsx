@@ -31,7 +31,7 @@ export default async function Home({ params }: { params: { id: string } }) {
 	return (
 		<main>
 			<Banner tournament={tournament} />
-			<Viewer />
+			{/* <Viewer /> */}
 			<Toaster position='bottom-center' reverseOrder={false} />
 		</main>
 	);

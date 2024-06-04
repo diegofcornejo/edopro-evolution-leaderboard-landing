@@ -1,6 +1,7 @@
 'use client';
 import { useContext, useState } from 'react';
 import Image from 'next/image';
+import Link from "next/link"
 import toast from 'react-hot-toast';
 import JoinTournament from '../Tournaments/Join';
 import { AuthContext } from '@/context/auth/AuthContext';
@@ -42,18 +43,19 @@ const Banner = ({tournament}) => {
 							<p className='text-white md:text-lg font-normal mb-10 md:text-start text-center'>
 								 <span className="font-bold">Type:</span> {tournament.type}<br />
 								 <span className="font-bold">Banlist:</span> {tournament.banlist}<br />
-								 <span className="font-bold">Best of:</span> {tournament.bestOf}<br />
-								 <span className="font-bold">Mode:</span> {tournament.mode} vs {tournament.mode}<br />
 								 <span className="font-bold">Rule:</span> {tournament.rule}<br />
+								 <span className="font-bold">Mode:</span> {tournament.mode} vs {tournament.mode}<br />
+								 <span className="font-bold">Best of:</span> {tournament.bestOf}<br />
 								 <span className="font-bold">Start Date:</span> {tournament.startDate}<br />
-								 <span className="font-bold">Owner:</span> {tournament.owner}
+								 <span className="font-bold">Owner:</span> {tournament.owner}<br />
+								 <span className="font-bold">Link:</span> <Link href={tournament.url} target='_blank'>{tournament.url}</Link>
 							</p>
 							<div className='flex align-middle justify-center md:justify-start'>
-									<button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 navbutton mr-6' onClick={handleOpenJoin}>
+									<button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 navbutton mr-6' onClick={handleOpenJoin} disabled>
 										{tournament.joined ? 'Joined' : 'Join'}
 									</button>
 									<JoinTournament isJoinOpen={isJoinOpen} setIsJoinOpen={setIsJoinOpen} tournament={tournament}/>
-									<button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 navbutton mr-6'>
+									<button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 navbutton mr-6' disabled>
 										Create Room
 									</button>
 							</div>
