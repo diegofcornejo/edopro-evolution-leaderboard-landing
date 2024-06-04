@@ -50,7 +50,7 @@ const Banner = ({tournament}) => {
 								 <span className="font-bold">Owner:</span> {tournament.owner}<br />
 								 <span className="font-bold">Link:</span> <Link href={tournament.url} target='_blank'>{tournament.url}</Link>
 							</p>
-							<div className='flex align-middle justify-center md:justify-start'>
+							{/* <div className='flex align-middle justify-center md:justify-start'>
 									<button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 navbutton mr-6' onClick={handleOpenJoin} disabled>
 										{tournament.joined ? 'Joined' : 'Join'}
 									</button>
@@ -58,7 +58,7 @@ const Banner = ({tournament}) => {
 									<button className='text-xl font-semibold text-white py-4 px-6 lg:px-12 navbutton mr-6' disabled>
 										Create Room
 									</button>
-							</div>
+							</div> */}
 						</div>
 
 						<div className='col-span-4 lg:-m-48'>
