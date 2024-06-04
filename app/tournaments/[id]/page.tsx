@@ -18,6 +18,22 @@ export default async function Home({ params }: { params: { id: string } }) {
 	const tournament = await getTournament(id);
 	tournament.id = id;
 
+	const ChallongeIframe = (url) => {
+		const iframeUrl = `${url}/module`;
+		return (
+				<div className='mx-auto max-w-7xl'>
+					<iframe
+						src={iframeUrl}
+						width="100%"
+						height="650"
+						frameBorder="0"
+						scrolling="auto"
+						title="Challonge Iframe"
+					></iframe>
+				</div>
+		);
+	};
+
 	const Viewer = () => {
 		if (tournament.type === 'single') {
 			return <SingleElimination />;
@@ -32,6 +48,7 @@ export default async function Home({ params }: { params: { id: string } }) {
 		<main>
 			<Banner tournament={tournament} />
 			{/* <Viewer /> */}
+			{ChallongeIframe(tournament.url)}
 			<Toaster position='bottom-center' reverseOrder={false} />
 		</main>
 	);
