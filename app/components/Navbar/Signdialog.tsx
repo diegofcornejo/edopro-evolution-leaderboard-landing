@@ -12,9 +12,8 @@ import { signIn } from 'next-auth/react';
 const welcomeToast = (user) =>
 	toast.custom((t) => (
 		<div
-			className={`${
-				t.visible ? 'animate-enter' : 'animate-leave'
-			} max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+			className={`${t.visible ? 'animate-enter' : 'animate-leave'
+				} max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
 		>
 			<div className='flex-1 w-0 p-4'>
 				<div className='flex items-start'>
@@ -37,7 +36,9 @@ const welcomeToast = (user) =>
 const Signin = () => {
 	const router = useRouter();
 	let [isOpen, setIsOpen] = useState(false);
+	let [isPasswordRecovery, setIsPasswordRecovery] = useState(false);
 	const [username, setUsername] = useState('');
+	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [message, setMessage] = useState('');
 	const [error, setError] = useState(false);
@@ -50,10 +51,16 @@ const Signin = () => {
 		setIsOpen(true);
 	};
 
+	const switchForm = () => {
+		setIsPasswordRecovery(!isPasswordRecovery);
+	};
+
+
+
 	const handleSignin = async (e) => {
 		e.preventDefault();
 		const response = await signIn('credentials', { username, password, redirect: false });
-		if(!response?.ok) {
+		if (!response?.ok) {
 			setError(true);
 			setMessage("Credenciales inválidas");
 			return;
@@ -80,6 +87,185 @@ const Signin = () => {
 		// 	setMessage(res.error);
 		// }
 	};
+
+	const handlePasswordRecovery = async (e) => {
+		e.preventDefault();
+		const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/recover`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ email }),
+		});
+		const res = await response.json();
+		if (response.ok) {
+			setError(false);
+			setMessage(res.message);
+		} else {
+			setError(true);
+			setMessage(res.error);
+		}
+	};
+
+	const LoginForm = () => {
+		return (
+			<form
+				className='mt-8 space-y-6'
+				onSubmit={handleSignin}
+			>
+				<input
+					type='hidden'
+					name='remember'
+					defaultValue='true'
+				/>
+				<div className='-space-y-px rounded-md shadow-sm'>
+					<div>
+						<label
+							htmlFor='signin-username'
+							className='sr-only'
+						>
+							Username
+						</label>
+						<input
+							id='signin-username'
+							name='username'
+							type='text'
+							value={username}
+							onChange={(e) => {
+								if (e.target.value.length <= 14) {
+									setUsername(e.target.value);
+								}
+							}}
+							pattern='^\S+$'
+							title='Spaces are not allowed'
+							autoComplete='signin-username'
+							required
+							maxLength={14}
+							className='relative block w-full appearance-none rounded-none rounded-t-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+							placeholder='Username'
+						/>
+					</div>
+					<div>
+						<label
+							htmlFor='signup-password'
+							className='sr-only'
+						>
+							Password
+						</label>
+						<input
+							id='signup-password'
+							name='signup-password'
+							type='password'
+							value={password}
+							onChange={(e) =>
+								setPassword(e.target.value)
+							}
+							pattern='[^:]*'
+							title="Password cannot contain the ':' character"
+							autoComplete='signup-password'
+							required
+							className='relative block w-full appearance-none rounded-none rounded-b-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+							placeholder='Password'
+						/>
+					</div>
+				</div>
+
+				<div className='flex items-center justify-between'>
+
+					<div className='text-sm'>
+						<a
+							href='#'
+							onClick={switchForm}
+							className='font-medium text-white hover:text-buttonblue'
+						>
+							Forgot your password?
+						</a>
+					</div>
+				</div>
+
+				<div>
+					<button
+						type='submit'
+						className='group relative flex w-full justify-center rounded-md border border-transparent bg-buttonblue py-2 px-4 text-sm font-medium text-white hover:bg-purple focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+					>
+						<span className='absolute inset-y-0 left-0 flex items-center pl-3'>
+							<LockClosedIcon
+								className='h-5 w-5 text-indigo-500 group-hover:text-indigo-400'
+								aria-hidden='true'
+							/>
+						</span>
+						Sign in
+					</button>
+				</div>
+				<p className={error ? 'text-red' : 'text-green'}>
+					{message}
+				</p>
+			</form>
+		);
+	}
+
+	const PasswordRecoveryForm = () => {
+		return (
+			<form
+				className='mt-8 space-y-6'
+				onSubmit={handlePasswordRecovery}
+			>
+				<input
+					type='hidden'
+					name='remember'
+					defaultValue='true'
+				/>
+				<div className='-space-y-px rounded-md shadow-sm'>
+					<div>
+						<label
+							htmlFor='signin-email'
+							className='sr-only'
+						>
+							Email
+						</label>
+						<input
+							id='signin-email'
+							name='email'
+							type='text'
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							autoComplete='signin-email'
+							required
+							className='relative block w-full appearance-none rounded-none rounded-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+							placeholder='Please enter your email address'
+						/>
+					</div>
+				</div>
+				<div className='flex items-center justify-between'>
+
+					<div className='text-sm'>
+						<a
+							href='#'
+							onClick={switchForm}
+							className='font-medium text-white hover:text-buttonblue'
+						>
+							Back to login
+						</a>
+					</div>
+				</div>
+				<div>
+					<button
+						type='submit'
+						className='group relative flex w-full justify-center rounded-md border border-transparent bg-buttonblue py-2 px-4 text-sm font-medium text-white hover:bg-purple focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+					>
+						<span className='absolute inset-y-0 left-0 flex items-center pl-3'>
+							<LockClosedIcon
+								className='h-5 w-5 text-indigo-500 group-hover:text-indigo-400'
+								aria-hidden='true'
+							/>
+						</span>
+						Recover Password
+					</button>
+				</div>
+				<p className={error ? 'text-red' : 'text-green'}>
+					{message}
+				</p>
+			</form>
+		);
+	}
 
 	return (
 		<>
@@ -156,113 +342,9 @@ const Signin = () => {
 												</span>
 											</ShimmerButton>
 											<h2 className='mt-6 text-center text-sm tracking-tight text-white'>
-													or Signin with your username and password
-												</h2>
-											<form
-												className='mt-8 space-y-6'
-												onSubmit={handleSignin}
-											>
-												<input
-													type='hidden'
-													name='remember'
-													defaultValue='true'
-												/>
-												<div className='-space-y-px rounded-md shadow-sm'>
-													<div>
-														<label
-															htmlFor='signin-username'
-															className='sr-only'
-														>
-															Username
-														</label>
-														<input
-															id='signin-username'
-															name='username'
-															type='text'
-															value={username}
-															onChange={(e) => {
-																if (e.target.value.length <= 14) {
-																	setUsername(e.target.value);
-																}
-															}}
-															pattern='^\S+$'
-															title='Spaces are not allowed'
-															autoComplete='signin-username'
-															required
-															maxLength={14}
-															className='relative block w-full appearance-none rounded-none rounded-t-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
-															placeholder='Username'
-														/>
-													</div>
-													<div>
-														<label
-															htmlFor='signup-password'
-															className='sr-only'
-														>
-															Password
-														</label>
-														<input
-															id='signup-password'
-															name='signup-password'
-															type='password'
-															value={password}
-															onChange={(e) =>
-																setPassword(e.target.value)
-															}
-															pattern='[^:]*'
-															title="Password cannot contain the ':' character"
-															autoComplete='signup-password'
-															required
-															className='relative block w-full appearance-none rounded-none rounded-b-md border border-grey500 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
-															placeholder='Password'
-														/>
-													</div>
-												</div>
-
-												<div className='flex items-center justify-between'>
-													{/* <div className='flex items-center'>
-														<input
-															id='remember-me'
-															name='remember-me'
-															type='checkbox'
-															className='h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500'
-														/>
-														<label
-															htmlFor='remember-me'
-															className='ml-2 block text-sm text-gray-900'
-														>
-															Remember me
-														</label>
-													</div> */}
-
-													{/* <div className='text-sm'>
-														<a
-															href='#'
-															className='font-medium text-white hover:text-buttonblue'
-														>
-															Forgot your password?
-														</a>
-													</div> */}
-												</div>
-
-												<div>
-													<button
-														type='submit'
-														className='group relative flex w-full justify-center rounded-md border border-transparent bg-buttonblue py-2 px-4 text-sm font-medium text-white hover:bg-purple focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
-													>
-														<span className='absolute inset-y-0 left-0 flex items-center pl-3'>
-															<LockClosedIcon
-																className='h-5 w-5 text-indigo-500 group-hover:text-indigo-400'
-																aria-hidden='true'
-															/>
-														</span>
-														Sign in
-													</button>
-												</div>
-												<p className={error ? 'text-red' : 'text-green'}>
-													{message}
-												</p>
-											</form>
+												or Signin with your username and password
+											</h2>
+											{isPasswordRecovery ? <PasswordRecoveryForm /> : <LoginForm />}
 										</div>
 									</div>
 
