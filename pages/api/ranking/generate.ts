@@ -2,6 +2,8 @@ import { LeaderboardUpdater } from '@/modules/leaderboard/application/Leaderboar
 import { LeaderboardRedisRepository } from '@/modules/leaderboard/infrastructure/LeaderboardRedisRepository'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+export const maxDuration = 30;
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if(req.method === 'POST') {
 		if(req.query.key !== process.env.CRON_JOB_SECRET) {
