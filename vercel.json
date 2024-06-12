@@ -1,6 +1,6 @@
 {
 	"functions": {
-		"api/ranking/generate.ts": {
+		"pages/api/ranking/generate.ts": {
 			"maxDuration": 30
 		}
 	}
