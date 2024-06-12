@@ -1,0 +1,7 @@
+{
+	"functions": {
+		"api/ranking/generate.ts": {
+			"maxDuration": 30
+		}
+	}
+}
