@@ -104,7 +104,7 @@ export default async function Home() {
 			<Banner />
 			{/* <Companies /> */}
 			<Live />
-			<Top leaderboard={leaderboard} />
+			{/* <Top leaderboard={leaderboard} /> */}
 			<Tabs rankings={rankings} />
 			{/* <Table ranking={leaderboard} title='Ranking (Top 20)'/>
 			<Table ranking={thunderLeaderboard} title='Thunder Ranking' /> */}

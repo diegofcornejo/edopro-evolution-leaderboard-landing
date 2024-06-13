@@ -16,6 +16,7 @@ body {
 
 html {
   scroll-behavior: smooth !important;
+	scroll-padding-top: 6rem;
 }
 
 html:not([data-scroll="0"]) .navbar {

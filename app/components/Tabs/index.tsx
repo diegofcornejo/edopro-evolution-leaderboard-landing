@@ -3,6 +3,7 @@
 // import React, { useState } from 'react';
 import { Tab } from '@headlessui/react';
 import Table from '../Table';
+import Top from '../Top';
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(' ');
@@ -10,8 +11,8 @@ function classNames(...classes) {
 
 export default function Tabs({ rankings }) {
 	return (
-		<>
-			<div className='relative mx-auto max-w-7xl px-6'>
+		<div id='topplayers-section'>
+			<div className='relative mx-auto max-w-7xl px-6 pt-36'>
 				<Tab.Group>
 					<Tab.List className='flex space-x-1 rounded-xl bg-buttonblue/20 p-1'>
 						{rankings.map((ranking) => (
@@ -33,12 +34,13 @@ export default function Tabs({ rankings }) {
 					<Tab.Panels className=''>
 						{rankings.map((ranking) => (
 							<Tab.Panel key={ranking.name} className={classNames('')}>
+								<Top leaderboard={ranking.data} />
 								<Table ranking={ranking.data} title={ranking.title} banlistname={ranking.banlistname} className="mx-auto max-w-7xl" />
 							</Tab.Panel>
 						))}
 					</Tab.Panels>
 				</Tab.Group>
 			</div>
-		</>
+		</div>
 	);
 }

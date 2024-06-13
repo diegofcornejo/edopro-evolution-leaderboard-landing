@@ -5,6 +5,8 @@ import UserAvatar from '../Avatar';
 // import Snowfall from 'react-snowfall';
 
 const Top = ({ leaderboard }) => {
+	console.log("🚀 ~ Top ~ leaderboard:", leaderboard.data)
+	
 	// leaderboard.sort((a, b) => b.score - a.score);
 	let topThree = leaderboard.data?.slice(0, 3);
 	// topThree = topThree.map((item, i) => {
@@ -17,7 +19,7 @@ const Top = ({ leaderboard }) => {
 	return (
 		<div>
 			{/* <Snowfall /> */}
-			<div className='mx-auto max-w-7xl mt-16 px-6 mb-20 relative' id='topplayers-section'>
+			<div className='mx-auto max-w-7xl mt-16 px-6 mb-20 relative'>
 				<div className='radial-bgone hidden lg:block'></div>
 				<div className='text-center mb-14'>
 					<h3 className='text-offwhite text-3xl md:text-5xl font-bold mb-3'>
