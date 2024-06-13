@@ -51,16 +51,10 @@ export default async function Home() {
 			banlistname: 'Global'
 		},
 		{
-			name: 'Evolution S6',
-			title: 'Evolution S6',
-			data: evolution,
-			banlistname: 'Evolution S6'
-		},
-		{
-			name: 'Edison',
-			title: 'Edison',
-			data: edison,
-			banlistname: 'Edison(PreErrata)'
+			name: '2024.04 TCG',
+			title: '2024.04 TCG',
+			data: tcg2,
+			banlistname: '2024.04 TCG'
 		},
 		{
 			name: '2024.01 TCG',
@@ -69,10 +63,16 @@ export default async function Home() {
 			banlistname: '2024.01 TCG'
 		},
 		{
-			name: '2024.04 TCG',
-			title: '2024.04 TCG',
-			data: tcg2,
-			banlistname: '2024.04 TCG'
+			name: 'Edison',
+			title: 'Edison',
+			data: edison,
+			banlistname: 'Edison(PreErrata)'
+		},
+		{
+			name: '2005.4 GOAT',
+			title: '2005.4 GOAT',
+			data: goat,
+			banlistname: '2005.4 GOAT'
 		},
 		{
 			name: 'JTP (Original)',
@@ -81,10 +81,10 @@ export default async function Home() {
 			banlistname: 'JTP (Original)'
 		},
 		{
-			name: '2005.4 GOAT',
-			title: '2005.4 GOAT',
-			data: goat,
-			banlistname: '2005.4 GOAT'
+			name: 'Evolution S6',
+			title: 'Evolution S6',
+			data: evolution,
+			banlistname: 'Evolution S6'
 		}
 	];
 	return (
