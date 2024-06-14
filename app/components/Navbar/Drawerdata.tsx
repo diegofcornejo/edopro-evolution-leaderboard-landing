@@ -16,11 +16,17 @@ const navigation: NavigationItem[] = [
 	{ name: 'Download', href: '/#download-section', current: false },
 	{ name: 'Tournaments', href: '/tournaments', current: false },
 	{
+		name: 'Status',
+		href: 'https://status.evolutionygo.com',
+		current: false,
+		target: '_blank',
+	},
+	{
 		name: 'Github',
 		href: 'https://github.com/diangogav/EDOpro-server-ts',
 		current: false,
 		target: '_blank',
-	},
+	}
 ];
 
 function classNames(...classes: string[]) {
