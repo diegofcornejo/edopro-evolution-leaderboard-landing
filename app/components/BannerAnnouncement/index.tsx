@@ -38,7 +38,7 @@ const BannerAnnouncement = () => {
 											Date: {announcements.data[0].scheduled_at}
 										</p>
 										<p className="mt-1 text-sm text-gray-500">
-											<Link className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`https://status.evolutionygo.com/#scheduled-${announcements.data[0].id}`} target="_blank">View more details</Link>
+											<Link className="font-medium text-blue-600 dark:text-blue-500 hover:underline" href={`${process.env.NEXT_PUBLIC_CACHET_API_URL}/#scheduled-${announcements.data[0].id}`} target="_blank">View more details</Link>
 										</p>
 									</div>
 								</div>
