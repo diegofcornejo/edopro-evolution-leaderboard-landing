@@ -2,7 +2,7 @@ import { Toaster } from 'react-hot-toast';
 import Image from 'next/image'
 import Banner from './components/Banner/index';
 import Live from './components/Live/index';
-import Top from './components/Top/index';
+// import Top from './components/Top/index';
 // import Table from './components/Table/index';
 import Features from './components/Features/index';
 import Download from './components/Download/index';
@@ -11,6 +11,8 @@ import Tabs from './components/Tabs/index';
 // import Trade from './components/Trade/index';
 // import Companies from './components/Companies/index';
 // import getLeaderBoard from './api/leaderboard';
+
+import BannerAnnouncement from './components/BannerAnnouncement';
 
 const getLeaderBoard = async (banlistname?: string) => {
 	if (!banlistname) {
@@ -29,6 +31,7 @@ const getLeaderBoard = async (banlistname?: string) => {
 // 	const data = await res.json();
 // 	return data;
 // }
+
 
 export default async function Home() {
 	// const rooms = await getRooms();
@@ -101,6 +104,7 @@ export default async function Home() {
 					style={{ position: 'fixed', bottom: 10, right: 10, zIndex: 99999 }}
 				/>
 			</a>
+			<BannerAnnouncement />
 			<Banner />
 			{/* <Companies /> */}
 			<Live />

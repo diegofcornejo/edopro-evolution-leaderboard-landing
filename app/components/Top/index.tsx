@@ -5,7 +5,7 @@ import UserAvatar from '../Avatar';
 // import Snowfall from 'react-snowfall';
 
 const Top = ({ leaderboard }) => {
-	console.log("🚀 ~ Top ~ leaderboard:", leaderboard.data)
+	// console.log("🚀 ~ Top ~ leaderboard:", leaderboard.data)
 	
 	// leaderboard.sort((a, b) => b.score - a.score);
 	let topThree = leaderboard.data?.slice(0, 3);
