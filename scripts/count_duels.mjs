@@ -1,3 +1,4 @@
+import { report } from 'process';
 import { createClient } from 'redis';
 
 // Create a Redis client and configure the connection
@@ -77,6 +78,22 @@ async function handleError(error) {
 		console.log("Total Duels:", result.totalDuels);
 		console.log("Duels per Banlist:", result.banlistCounts);
 		console.log("Duels per User:", orderedDuelCounts);
+
+		//Save results in redis
+		const date = new Date();
+		const dateString = date.toISOString().split('T')[0];
+		const key = `report:duels:${dateString}`;
+		const data = {
+			totalPlayers: orderedDuelCounts.length,
+			totalDuels: result.totalDuels,
+			duelsPerBanlist: result.banlistCounts,
+			duelsPerUser: orderedDuelCounts
+		};
+		const report = JSON.stringify(data);
+		await client.set(key, report);
+
+		console.log(`Report saved to Redis key: ${key}`);
+
 	} catch (e) {
 		await handleError(e);
 	} finally {
