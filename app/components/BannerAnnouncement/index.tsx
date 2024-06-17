@@ -15,7 +15,7 @@ const BannerAnnouncement = () => {
 		const fetchAnnouncement = async () => {
 			try {
 				const announcements = await getAnnouncement();
-				if (announcements.data) {
+				if (announcements.data.length > 0 && announcements.data[0].status < 2) {
 					toast.custom((t) => (
 						<div
 							className={`${t.visible ? 'animate-enter' : 'animate-leave'
@@ -60,6 +60,8 @@ const BannerAnnouncement = () => {
 				}
 			} catch (error) {
 				console.error(error);
+			} finally {
+				console.log("Announcement fetched");
 			}
 		}
 		fetchAnnouncement();
