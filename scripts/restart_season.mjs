@@ -73,7 +73,7 @@ async function renameRankings() {
 		await deleteDuels();
 		//2. delete leardeboard keys of current season --> generated dynamically from every duel
 		await deleteLeaderboard();
-		//3. rename rankings keys of current season  --> generated dynamically from qstash
+		//3. rename rankings keys of current season  --> generated dynamically from redis
 		await renameRankings();
 		//4. Increment season
 		await client.incr('season');

@@ -32,7 +32,7 @@ async function countAllUserDuels(pattern) {
 	let banlistCounts = {};
 
 	for (const key of keys) {
-		console.log("🚀 ~ countAllUserDuels ~ key:", key)
+		console.log("🚀 ~ key:", key)
 		const user = key.split(':')[1];
 		const listLength = await client.lLen(key);
 		duelCounts.push({ user, listLength });
