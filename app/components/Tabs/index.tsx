@@ -12,7 +12,7 @@ function classNames(...classes) {
 export default function Tabs({ rankings }) {
 	return (
 		<div id='topplayers-section'>
-			<div className='relative mx-auto max-w-7xl px-6 pt-36'>
+			<div className='relative mx-auto max-w-7xl px-6 pt-28'>
 				<div className='text-center mb-14'>
 					<h3 className='text-offwhite text-3xl md:text-5xl font-bold mb-3'>
 						Top Players
