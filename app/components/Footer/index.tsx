@@ -168,10 +168,15 @@ const footer = () => {
 
 			<div className='py-8 px-4 border-t border-t-lightblue'>
 				<h3 className='text-center text-offwhite'>
-					@2023 - All Rights Reserved by{' '}
-					<Link href='#' target='_blank'>
+					We Love Open Source ❤️. You can find the code for the{' '}
+					<Link href='https://github.com/diangogav/EDOpro-server-ts' target='_blank' className='text-buttonblue dark:text-buttonblue hover:underline'>
 						{' '}
-						Evolution Server
+						Server
+					</Link>
+					{' '} and the
+					<Link href='https://github.com/diegofcornejo/edopro-evolution-leaderboard-landing' target='_blank' className='text-buttonblue dark:text-buttonblue hover:underline'>
+						{' '}
+						Web
 					</Link>
 				</h3>
 			</div>

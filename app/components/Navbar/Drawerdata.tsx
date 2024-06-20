@@ -20,13 +20,13 @@ const navigation: NavigationItem[] = [
 		href: 'https://status.evolutionygo.com',
 		current: false,
 		target: '_blank',
-	},
-	{
-		name: 'Github',
-		href: 'https://github.com/diangogav/EDOpro-server-ts',
-		current: false,
-		target: '_blank',
 	}
+	// {
+	// 	name: 'Github',
+	// 	href: 'https://github.com/diangogav/EDOpro-server-ts',
+	// 	current: false,
+	// 	target: '_blank',
+	// }
 ];
 
 function classNames(...classes: string[]) {
