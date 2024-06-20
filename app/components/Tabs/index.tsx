@@ -13,6 +13,17 @@ export default function Tabs({ rankings }) {
 	return (
 		<div id='topplayers-section'>
 			<div className='relative mx-auto max-w-7xl px-6 pt-36'>
+				<div className='text-center mb-14'>
+					<h3 className='text-offwhite text-3xl md:text-5xl font-bold mb-3'>
+						Top Players
+					</h3>
+					<p className='text-bluish md:text-lg font-normal leading-8'>
+						Explore the top players in our community. Discover who the standout
+						competitors are in our tournaments and events.
+						<br /> Get to know their achievements, strategies, and stay updated with the
+						rankings.
+					</p>
+				</div>
 				<Tab.Group>
 					<Tab.List className='flex space-x-1 rounded-xl bg-buttonblue/20 p-1'>
 						{rankings.map((ranking) => (

@@ -21,7 +21,7 @@ const Top = ({ leaderboard }) => {
 			{/* <Snowfall /> */}
 			<div className='mx-auto max-w-7xl mt-16 px-6 mb-20 relative'>
 				<div className='radial-bgone hidden lg:block'></div>
-				<div className='text-center mb-14'>
+				{/* <div className='text-center mb-14'>
 					<h3 className='text-offwhite text-3xl md:text-5xl font-bold mb-3'>
 						Top Players
 					</h3>
@@ -31,7 +31,7 @@ const Top = ({ leaderboard }) => {
 						<br /> Get to know their achievements, strategies, and stay updated with the
 						rankings.
 					</p>
-				</div>
+				</div> */}
 
 				<div className='grid md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-5 mt-32'>
 					{topThree?.map((items, i) => (
