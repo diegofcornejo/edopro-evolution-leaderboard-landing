@@ -29,9 +29,9 @@ const Join = async (req, res) => {
 
 			let [avatar] = await Promise.all([
 				client.hmGet(key, ['avatar']),
-				await client.zAdd(`${key}:leaderboard:points`, { score: 0, value: username }),
-				await client.zAdd(`${key}:leaderboard:wins`, { score: 0, value: username }),
-				await client.zAdd(`${key}:leaderboard:losses`, { score: 0, value: username })
+				client.zAdd(`${key}:leaderboard:points`, { score: 0, value: username }),
+				client.zAdd(`${key}:leaderboard:wins`, { score: 0, value: username }),
+				client.zAdd(`${key}:leaderboard:losses`, { score: 0, value: username })
 			]);
 
 

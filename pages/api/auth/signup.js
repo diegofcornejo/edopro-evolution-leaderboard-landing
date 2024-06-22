@@ -35,10 +35,10 @@ const handler = async (req, res) => {
 			const createUser = await client.hSet(`user:${username}`, { username, password, email });
 			if (createUser === 3) { //This is the number of fields that we are setting
 				await Promise.all([
-					await client.set(`email:${email}`, username),
-					await client.zAdd('leaderboard:points', { score: 0, value: username }),
-					await client.zAdd('leaderboard:wins', { score: 0, value: username }),
-					await client.zAdd('leaderboard:losses', { score: 0, value: username })
+					client.set(`email:${email}`, username),
+					client.zAdd('leaderboard:points', { score: 0, value: username }),
+					client.zAdd('leaderboard:wins', { score: 0, value: username }),
+					client.zAdd('leaderboard:losses', { score: 0, value: username })
 				]);
 
 				const emailData = {
