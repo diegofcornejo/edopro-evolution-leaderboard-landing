@@ -5,6 +5,7 @@ import { UserAuthenticator } from "@/modules/user/application/UserAuthenticator"
 import { UserRedisRepository } from "@/modules/user/infrastructure/UserRedisRepository"
 import { UserDiscordAuthenticator } from "@/modules/user/application/UserDiscordAuthenticator"
 import { signIn } from 'next-auth/react';
+import { generateJwt } from "@/libs/jwtUtils"
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -54,6 +55,7 @@ export const authOptions = {
 		async session({ session, token }) {
 			session.accessToken = token.accessToken;
 			session.user = token.user;
+			session.user.token = generateJwt(token.user); // Here we generate a new JWT token to mantaing compatibility with the legacy code
 			return session;
 		}
 	}

@@ -35,13 +35,6 @@ const getLeaderBoard = async (banlistname?: string) => {
 
 export default async function Home() {
 	// const rooms = await getRooms();
-	// const leaderboard = await getLeaderBoard();
-	// const evolution = await getLeaderBoard('Evolution S6');
-	// const edison = await getLeaderBoard('Edison(PreErrata)');
-	// const tcg = await getLeaderBoard('2024.01 TCG');
-	// const tcg2 = await getLeaderBoard('2024.04 TCG');
-	// const jtp = await getLeaderBoard('JTP (Original)');
-	// const goat = await getLeaderBoard('2005.4 GOAT');
 
 	const [leaderboard, evolution, edison, tcg, tcg2, jtp, goat] = await Promise.all([
 		getLeaderBoard(),
