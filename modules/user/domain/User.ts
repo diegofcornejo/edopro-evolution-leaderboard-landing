@@ -11,6 +11,7 @@ export type UserPresentation = {
 	winrate: number;
   username: string;
   avatar: string | null;
+	token?: string;
 };
 
 export class User {

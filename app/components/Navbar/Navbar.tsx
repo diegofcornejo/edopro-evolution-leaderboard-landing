@@ -7,6 +7,7 @@ import Drawerdata from './Drawerdata';
 import Signdialog from './Signdialog';
 import Registerdialog from './Registerdialog';
 import Profile from './Profile';
+import SendMessageDialog from './SendMessageDialog';
 import { AuthContext } from '@/context/auth/AuthContext';
 // import Contactusform from './Contactus';
 
@@ -98,7 +99,12 @@ const Navbar = () => {
 									<Signdialog />
 								</>
 							)}
-							{isLoggedIn && <Profile setIsLogged={isLoggedIn} user={user} />}
+							{isLoggedIn && (
+								<>
+									{ user?.role === 'ADMIN' && <SendMessageDialog />}
+									<Profile setIsLogged={isLoggedIn} user={user} />
+								</>
+							)}
 							{/* <Contactusform /> */}
 						</div>
 
