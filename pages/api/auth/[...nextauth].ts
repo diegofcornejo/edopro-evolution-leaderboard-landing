@@ -55,7 +55,7 @@ export const authOptions = {
 		async session({ session, token }) {
 			session.accessToken = token.accessToken;
 			session.user = token.user;
-			session.user.token = generateJwt(token.user.role); // Here we generate a new JWT token to mantaing compatibility with the legacy code
+			session.user.token = generateJwt({role: token.user.role}); // Here we generate a new JWT token to mantaing compatibility with the legacy code
 			return session;
 		}
 	}
