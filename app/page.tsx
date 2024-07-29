@@ -38,7 +38,7 @@ export default async function Home() {
 
 	const [leaderboard, evolution, edison, tcg, tcg2, jtp, goat] = await Promise.all([
 		getLeaderBoard(),
-		getLeaderBoard('Evolution S6'),
+		// getLeaderBoard('Evolution S6'),
 		getLeaderBoard('Edison(PreErrata)'),
 		getLeaderBoard('2024.01 TCG'),
 		getLeaderBoard('2024.04 TCG'),
@@ -82,13 +82,13 @@ export default async function Home() {
 			title: 'JTP (Original)',
 			data: jtp,
 			banlistname: 'JTP (Original)'
-		},
-		{
-			name: 'Evolution S6',
-			title: 'Evolution S6',
-			data: evolution,
-			banlistname: 'Evolution S6'
 		}
+		// {
+		// 	name: 'Evolution S6',
+		// 	title: 'Evolution S6',
+		// 	data: evolution,
+		// 	banlistname: 'Evolution S6'
+		// }
 	];
 	return (
 		<main>

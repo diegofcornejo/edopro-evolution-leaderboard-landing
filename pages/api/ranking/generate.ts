@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 		const leaderboardUpdater = new LeaderboardUpdater(new LeaderboardRedisRepository());
 		await leaderboardUpdater.run('general');
-		await leaderboardUpdater.run('Evolution S6');
+		// await leaderboardUpdater.run('Evolution S6');
 		await leaderboardUpdater.run('Edison(PreErrata)');
 		await leaderboardUpdater.run('2024.01 TCG');
 		await leaderboardUpdater.run('2024.04 TCG');
