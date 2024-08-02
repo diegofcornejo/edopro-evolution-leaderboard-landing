@@ -1,5 +1,9 @@
 import { GeneralStats } from "./GeneralStats";
 
+export type Permissions = {
+  banlists?: string[];
+};
+
 export type UserPresentation = {
   id: string;
   email: string;
@@ -12,7 +16,7 @@ export type UserPresentation = {
   username: string;
   avatar: string | null;
 	token?: string;
-	permissions?: string | null;
+	permissions?: Permissions;
 };
 
 export class User {

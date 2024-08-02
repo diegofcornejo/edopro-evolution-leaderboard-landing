@@ -5,7 +5,7 @@ import { AuthContext } from '@/context/auth/AuthContext';
 
 
 const UploadBanlist = ({ isUploadOpen, setIsUploadOpen, banlist }) => {
-	const [selectedFile, setSelectedFile] = useState(null);
+	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const { user } = useContext(AuthContext);
 
 	const handleUploadBanlist = async (e) => {
@@ -100,7 +100,7 @@ const UploadBanlist = ({ isUploadOpen, setIsUploadOpen, banlist }) => {
 															type='file'
 															required
 															className='block w-full shadow-sm sm:text-sm focus:ring-buttonblue focus:border-buttonblue border-gray-300 rounded-md'
-															onChange={(e) => setSelectedFile(e.target.files[0])}
+															onChange={(e) => setSelectedFile(e.target.files ? e.target.files[0] : null)}
 														/>
 													</div>
 												</div>

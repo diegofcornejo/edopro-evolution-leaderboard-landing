@@ -35,9 +35,9 @@ const navigation: NavigationItem[] = [
 const getNavigation = (user) => {
 	const permissions = user?.role;
 	const nav = navigation.map((item) => {
-		if (item.permission.includes('ANY')) {
+		if (item.permission?.includes('ANY')) {
 			item.show = true;
-		} else if (item.permission.includes(permissions)) {
+		} else if (item.permission?.includes(permissions)) {
 			item.show = true;
 		}
 		return item;
