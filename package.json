@@ -39,6 +39,7 @@
     "react-sound": "1.2.0",
     "redis": "4.6.7",
     "sass": "1.62.1",
+    "simple-git": "3.25.0",
     "slick-carousel": "1.8.1",
     "styled-components": "6.0.7",
     "typescript": "5.0.4",

@@ -1,45 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
-
-interface NavigationItem {
-	name: string;
-	href: string;
-	current: boolean;
-	target?: string;
-}
-
-const navigation: NavigationItem[] = [
-	{ name: 'Home', href: '/#home-section', current: false },
-	// { name: 'Top', href: '#topplayers-section', current: false },
-	{ name: 'Ranking', href: '/#topplayers-section', current: false },
-	{ name: 'Features', href: '/#features-section', current: false },
-	{ name: 'Download', href: '/#download-section', current: false },
-	{ name: 'Tournaments', href: '/tournaments', current: false },
-	{
-		name: 'Status',
-		href: 'https://status.evolutionygo.com',
-		current: false,
-		target: '_blank',
-	}
-	// {
-	// 	name: 'Github',
-	// 	href: 'https://github.com/diangogav/EDOpro-server-ts',
-	// 	current: false,
-	// 	target: '_blank',
-	// }
-];
+import { AuthContext } from '@/context/auth/AuthContext';
+import { getNavigation } from './menuItems';
 
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ');
 }
 
 const Data = () => {
+	const { user } = useContext(AuthContext);
+	const navItems = getNavigation(user);
 	return (
 		<div className='rounded-md max-w-sm w-full'>
 			<div className='flex-1 space-y-4 py-1'>
 				<div className='sm:block'>
 					<div className='space-y-1 px-5 pt-2 pb-3'>
-						{navigation.map((item) => (
+						{navItems.filter(item => item.show).map((item) => (
 							<Link
 								key={item.name}
 								href={item.href}
