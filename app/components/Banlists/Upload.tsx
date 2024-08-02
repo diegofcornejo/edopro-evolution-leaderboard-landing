@@ -1,51 +1,45 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useContext } from 'react';
 import toast from 'react-hot-toast';
-// import { camelCaseToWords } from '../../../libs/helpers';
-import options from './options';
+import { AuthContext } from '@/context/auth/AuthContext';
+
 
 const UploadBanlist = ({ isUploadOpen, setIsUploadOpen, banlist }) => {
-	const [tournamentOptions, setTournamentOptions] = useState({
-		id: '',
-		name: '',
-		startDate: new Date().toISOString().slice(0, 10),
-		banlist: '',
-		mode: '',
-		bestOf: '',
-		rule: '',
-		type: ''
-	});
-
-	const handleChange = (option, value) => {
-		setTournamentOptions((prevParts) => ({
-			...prevParts,
-			[option]: value,
-		}));
-	};
+	const [selectedFile, setSelectedFile] = useState(null);
+	const { user } = useContext(AuthContext);
 
 	const handleUploadBanlist = async (e) => {
 		e.preventDefault();
-		console.log('Uploaderd');
-		// const session = localStorage.getItem('session');
-		// const token = session ? JSON.parse(session).token : '';
 
-		// const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tournament`, {
-		// 	method: 'POST',
-		// 	headers: {
-		// 		'Content-Type': 'application/json',
-		// 		Authorization: `Bearer ${token}`,
-		// 	},
-		// 	body: JSON.stringify(tournamentOptions),
-		// });
-		// const res = await response.json();
-		// if (response.ok) {
-		// 	toast.success(res.message, { duration: 5000 });
-		// 	tournamentOptions.id = res.tournamentId;
-		// 	// tournaments.push(tournamentOptions);
-		// } else {
-		// 	toast.error(res.error, { duration: 5000 });
-		// }
-		closeModal();
+		if (!selectedFile) {
+			toast.error('Please select a file first.');
+			return;
+		}
+
+		const formData = new FormData();
+		formData.append('file', selectedFile);
+		formData.append('commitMessage', `Update banlist ${banlist.name} by ${user?.username}`);
+	
+		try {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/banlist/upload`, {
+				method: 'POST',
+				headers: {
+					Authorization: `Bearer ${user?.token}`,
+				},
+				body: formData,
+			});
+
+			const res = await response.json();
+			if (response.ok) {
+				toast.success(res.message, { duration: 5000 });
+			} else {
+				toast.error(res.error, { duration: 5000 });
+			}
+			closeModal();
+		} catch (error) {
+			console.error('Error uploading file:', error);
+			toast.error('An error occurred while uploading the file.', { duration: 5000 });
+		}
 	};
 
 	const closeModal = () => {
@@ -94,22 +88,19 @@ const UploadBanlist = ({ isUploadOpen, setIsUploadOpen, banlist }) => {
 													All changes made to the banlist will be reflected after the next server restart at 03:00 UTC, you can continue making changes until then.
 												</p>
 											</div>
-											<form
-												className='mt-8 space-y-6'
-												onSubmit={handleUploadBanlist}
-											>
+											<form className='mt-8 space-y-6' onSubmit={handleUploadBanlist}>
 												<div className='space-y-2 rounded-md shadow-sm'>
-													<label htmlFor='name' className='block text-sm font-medium text-white'>
+													<label htmlFor='file' className='block text-sm font-medium text-white'>
 														Select a banlist file
 													</label>
 													<div className='mt-1'>
 														<input
-															id='name'
-															name='name'
+															id='file'
+															name='file'
 															type='file'
 															required
 															className='block w-full shadow-sm sm:text-sm focus:ring-buttonblue focus:border-buttonblue border-gray-300 rounded-md'
-															onChange={(e) => handleChange('name', e.target.value)}
+															onChange={(e) => setSelectedFile(e.target.files[0])}
 														/>
 													</div>
 												</div>

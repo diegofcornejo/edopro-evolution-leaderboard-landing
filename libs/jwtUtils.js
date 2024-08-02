@@ -5,8 +5,9 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_ISSUER = process.env.JWT_ISSUER;
 
 function verifyJwt(req) {
-
-  const token = req.headers.authorization?.split(' ')[1];
+	const header = req.headers.authorization || req.headers.get('Authorization');
+  const token = header?.split(' ')[1];
+	
   if (!token) {
     throw new Error('Forbidden');
   }
