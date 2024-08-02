@@ -11,14 +11,12 @@ export default function Home() {
 	if (!hasAccess) {
 		return <h1 className='text-center text-white' >Unauthorized</h1>;
 	}
-
-	// const banlists = user?.permissions?.banlists;
-	console.log("🚀 ~ Home ~ user:", user)
-	// console.log("🚀 ~ Home ~ banlists:", banlists)
+	
+	const banlists = user?.permissions?.banlists;
 	
 	return (
 		<main>
-			{/* <Banlists tournaments = {tournaments} /> */}
+			<Banlists banlists = {banlists} />
 			<Toaster position="bottom-center" reverseOrder={false}/>
 		</main>
 	);
