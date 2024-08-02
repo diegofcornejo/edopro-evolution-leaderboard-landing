@@ -7,12 +7,6 @@ import { NextRequest, NextResponse } from 'next/server';
 const git = simpleGit();
 const githubURLRepo = 'https://github.com/termitaklk/lflist';
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 const done = (response, status) => {
 	return new Response(JSON.stringify(response), {
 		status: status,
