@@ -39,6 +39,7 @@ export class UserRedisRepository implements UserRepository {
       points,
       wins,
       losses,
+			permissions: userData?.permissions || null
     });
     await client.quit();
     return user;
@@ -67,6 +68,7 @@ export class UserRedisRepository implements UserRepository {
       points,
       wins,
       losses,
+			permissions: userData?.permissions || null
     });
 
 		await client.quit();

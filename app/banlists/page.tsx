@@ -1,17 +1,24 @@
+'use client';
+
+import { useContext } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Banlists from '../components/Banlists/index';
+import { AuthContext } from '@/context/auth/AuthContext';
 
-const getTournaments = async () => {
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tournament`,{ cache: 'no-store' });
-	const data = await res.json();
-	return data;
-}
+export default function Home() {
+	const { user } = useContext(AuthContext);
+	const hasAccess = user?.role === 'ADMIN' || user?.role === 'MANAGER';
+	if (!hasAccess) {
+		return <h1 className='text-center text-white' >Unauthorized</h1>;
+	}
 
-export default async function Home() {
-	const tournaments = await getTournaments();
+	// const banlists = user?.permissions?.banlists;
+	console.log("🚀 ~ Home ~ user:", user)
+	// console.log("🚀 ~ Home ~ banlists:", banlists)
+	
 	return (
 		<main>
-			<Banlists tournaments = {tournaments} />
+			{/* <Banlists tournaments = {tournaments} /> */}
 			<Toaster position="bottom-center" reverseOrder={false}/>
 		</main>
 	);

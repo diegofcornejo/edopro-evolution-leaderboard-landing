@@ -12,6 +12,7 @@ export type UserPresentation = {
   username: string;
   avatar: string | null;
 	token?: string;
+	permissions?: string | null;
 };
 
 export class User {
@@ -23,6 +24,7 @@ export class User {
   public readonly avatar: string | null;
   public readonly discordId: string | null;
   private readonly generalStats: GeneralStats;
+	public readonly permissions: string | null;
 
   constructor({
     email,
@@ -35,6 +37,7 @@ export class User {
     losses,
     avatar,
     discordId,
+		permissions
   }: {
     email: string;
     role: string;
@@ -46,6 +49,7 @@ export class User {
     losses: number;
     avatar: string | null;
     discordId: string | null;
+		permissions: string | null;
   }) {
     this.id = email;
     this.email = email;
@@ -55,6 +59,7 @@ export class User {
     this.role = role || "PUBLIC";
     this.username = username;
     this.generalStats = new GeneralStats({ rank, points, wins, losses });
+		this.permissions = permissions;
   }
 
   toPresentation(): UserPresentation {
@@ -69,6 +74,7 @@ export class User {
 			winrate: this.generalStats.winrate,
       username: this.username,
       avatar: this.avatar ? JSON.parse(this.avatar): null,
+			permissions: this.permissions ? JSON.parse(this.permissions): null
     };
   }
 }
