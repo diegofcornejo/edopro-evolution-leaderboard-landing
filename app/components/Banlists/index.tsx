@@ -1,8 +1,36 @@
 'use client';
 import Image from 'next/image';
-import { ArrowDownTrayIcon, EyeIcon, PencilSquareIcon } from '@heroicons/react/20/solid';
+import { ArrowDownTrayIcon, EyeIcon, ArrowUpTrayIcon } from '@heroicons/react/20/solid';
+import { useState } from 'react';
+import UploadBanlist from './Upload';
+
+const githubURLRepo = 'https://raw.githubusercontent.com/termitaklk/lflist/main';
+// Download file from github
+const downloadFile = (name) => {
+	const url = `${githubURLRepo}/${name}`;
+	fetch(url)
+		.then((response) => response.blob())
+		.then((blob) => {
+			const blobUrl = window.URL.createObjectURL(new Blob([blob]));
+			const a = document.createElement('a');
+			a.href = blobUrl;
+			a.download = name;
+			a.click();
+		});
+};
+
+// View banlists in github
+const viewBanlist = (name) => {
+	const url = `${githubURLRepo}/${name}`;
+	window.open(url, '_blank');
+};
 
 const Table = ({ banlists }) => {
+	const [isUploadOpen, setIsUploadOpen] = useState(false);
+
+	const handleUploadBanlist = () => {
+		setIsUploadOpen(true);
+	};
 
 	return (
 		<>
@@ -10,7 +38,7 @@ const Table = ({ banlists }) => {
 				<div className='table-b bg-navyblue p-8 overflow-x-auto'>
 					<div className='flex justify-between'>
 						<h3 className='text-offwhite text-2xl'>Banlists Manager</h3>
-						
+
 					</div>
 					<table className='table-auto w-full mt-10'>
 						<thead>
@@ -31,9 +59,14 @@ const Table = ({ banlists }) => {
 									<td className='px-4 py-2 text-white'>{items.name}</td>
 									<td className='px-4 py-2 text-center text-white'>{items.version}</td>
 									<td className='px-4 py-2 text-white flex gap-x-4'>
-										<EyeIcon className='h-4 w-4 text-white cursor-pointer hover:text-purple' title='View'/>
-										<ArrowDownTrayIcon className='h-4 w-4 text-white cursor-pointer hover:text-purple' title='Download'/>
-										<PencilSquareIcon className='h-4 w-4 text-white cursor-pointer hover:text-purple' title='Edit'/>
+										<EyeIcon className='h-4 w-4 text-white cursor-pointer hover:text-purple' title='View' onClick={() => viewBanlist(items.githubFileName)} />
+										<ArrowDownTrayIcon className='h-4 w-4 text-white cursor-pointer hover:text-purple' title='Download' onClick={() => downloadFile(items.githubFileName)} />
+										<ArrowUpTrayIcon className='h-4 w-4 text-white cursor-pointer hover:text-purple' title='Upload' onClick={handleUploadBanlist} />
+										<UploadBanlist
+											isUploadOpen={isUploadOpen}
+											setIsUploadOpen={setIsUploadOpen}
+											banlist={items}
+										/>
 									</td>
 								</tr>
 							))}
