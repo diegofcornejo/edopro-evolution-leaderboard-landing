@@ -16,20 +16,25 @@ interface NavigationItem {
 	href: string;
 	current: boolean;
 	target?: string;
+	show?: boolean;
+	permission?: string[];
 }
 
 const navigation: NavigationItem[] = [
-	{ name: 'Home', href: '/#home-section', current: false },
+	{ name: 'Home', href: '/#home-section', current: false, show: true, permission: ['ANY'] },
 	// { name: 'Top', href: '#topplayers-section', current: false },
-	{ name: 'Ranking', href: '/#topplayers-section', current: false },
-	{ name: 'Features', href: '/#features-section', current: false },
-	{ name: 'Download', href: '/#download-section', current: false },
-	{ name: 'Tournaments', href: '/tournaments', current: false },
+	{ name: 'Ranking', href: '/#topplayers-section', current: false, show: false, permission: ['ANY'] },
+	{ name: 'Features', href: '/#features-section', current: false, show: false, permission: ['ANY'] },
+	{ name: 'Download', href: '/#download-section', current: false, show: false, permission: ['ANY'] },
+	{ name: 'Tournaments', href: '/tournaments', current: false, show: false, permission: ['ANY'] },
+	{ name: 'Banlists', href: '/banlists', current: false, show: false, permission: ['MANAGER','ADMIN'] },
 	{
 		name: 'Status',
 		href: 'https://status.evolutionygo.com',
 		current: false,
 		target: '_blank',
+		show: false,
+		permission: ['ANY']
 	}
 	// {
 	// 	name: 'Github',
@@ -39,12 +44,27 @@ const navigation: NavigationItem[] = [
 	// }
 ];
 
+// get menu items based on user permissions
+const getNavigation = (user) => {
+	const permissions = user?.role;
+	const nav = navigation.map((item) => {
+		if (item.permission.includes('ANY')) {
+			item.show = true;
+		} else if (item.permission.includes(permissions)) {
+			item.show = true;
+		}
+		return item;
+	});
+	return nav;
+}
+
 function classNames(...classes: string[]) {
 	return classes.filter(Boolean).join(' ');
 }
 
 const Navbar = () => {
 	const { user, isLoggedIn } = useContext(AuthContext);
+	const navItems = getNavigation(user);
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
@@ -72,7 +92,7 @@ const Navbar = () => {
 
 							<div className='hidden lg:flex items-center border-right '>
 								<div className='flex justify-end space-x-4'>
-									{navigation.map((item) => (
+									{navItems.filter(item => item.show).map((item) => (
 										<Link
 											key={item.name}
 											href={item.href}
@@ -101,7 +121,7 @@ const Navbar = () => {
 							)}
 							{isLoggedIn && (
 								<>
-									{ user?.role === 'ADMIN' && <SendMessageDialog />}
+									{user?.role === 'ADMIN' && <SendMessageDialog />}
 									<Profile setIsLogged={isLoggedIn} user={user} />
 								</>
 							)}
