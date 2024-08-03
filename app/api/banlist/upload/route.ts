@@ -53,6 +53,23 @@ async function checkFileName(banlists, fileName) {
 	return false;
 }
 
+async function getBanlistInFile(file) {
+  const data = Buffer.from(await file.arrayBuffer());
+  const fileContent = data.toString('utf-8');
+  const lines = fileContent.split('\n');
+  let banlistCount = 0;
+
+  for (const line of lines) {
+		if (line.startsWith('!')) {
+			banlistCount++;
+		}
+	}
+
+  return banlistCount;
+}
+
+const MAX_BANLIST_PER_FILE = 2; // 2 banlists per file, 1 file per community
+
 
 export async function POST(req) {
   let decoded;
@@ -73,14 +90,10 @@ export async function POST(req) {
   try {
     const formData = await req.formData();
 		const username = formData.get('username');
-		console.log("🚀 ~ POST ~ username:", username)
 		const commitMessage = formData.get('commitMessage') || 'Adding banlist file';
-    console.log("🚀 ~ POST ~ commitMessage:", commitMessage)
     const file = formData.get('file');
 		const banlists = await getUserBanlists(username);
-		console.log("🚀 ~ POST ~ banlists:", banlists)
 		const hasPermission = await checkFileName(banlists, file.name);
-		console.log("🚀 ~ POST ~ hasPermission:", hasPermission)
 
     if (!file) {
       return done({ error: 'No file provided' }, 400);
@@ -90,7 +103,11 @@ export async function POST(req) {
 			return done({ error: 'You do not have permission to upload this banlist, check the filename' }, 403);
 		}
 
-		return done({ message: 'Banlist Uploaded' }, 200);
+		const banlistInFile = await getBanlistInFile(file);
+
+		if(banlistInFile > MAX_BANLIST_PER_FILE) {
+			return done({ error: `You can only have ${MAX_BANLIST_PER_FILE} banlists per file` }, 403);
+		}
 
     const repoUrl = githubURLRepo;
 
