@@ -19,6 +19,7 @@ const UploadBanlist = ({ isUploadOpen, setIsUploadOpen, banlist }) => {
 		const formData = new FormData();
 		formData.append('file', selectedFile);
 		formData.append('commitMessage', `Update banlist ${banlist.name} by ${user?.username}`);
+		formData.append('username',`${user?.username}`);
 	
 		try {
 			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/banlist/upload`, {
