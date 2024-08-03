@@ -2,7 +2,6 @@ import { verifyJwt } from '../../../../libs/jwtUtils';
 import fs from 'fs';
 import path from 'path';
 import { Octokit } from '@octokit/rest';
-import { NextRequest, NextResponse } from 'next/server';
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
@@ -65,8 +64,6 @@ export async function POST(req) {
         ref: 'heads/main',
       });
 
-      console.log('Reference data:', refData);
-
       const baseTree = refData.object.sha;
 
       // Create a new blob with the file content
@@ -76,8 +73,6 @@ export async function POST(req) {
         content: content,
         encoding: 'base64',
       });
-
-      console.log('Blob data:', blobData);
 
       // Create a new tree
       const treeData = await octokit.rest.git.createTree({
@@ -94,7 +89,6 @@ export async function POST(req) {
         ],
       });
 
-      console.log('Tree data:', treeData);
 
       // Create a new commit
       const commitData = await octokit.rest.git.createCommit({
@@ -104,8 +98,6 @@ export async function POST(req) {
         tree: treeData.data.sha,
         parents: [baseTree],
       });
-
-      console.log('Commit data:', commitData);
 
       // Update the reference to point to the new commit
       await octokit.rest.git.updateRef({
