@@ -1,20 +1,23 @@
 import { verifyJwt } from '../../../../libs/jwtUtils';
-import simpleGit from 'simple-git';
 import fs from 'fs';
 import path from 'path';
+import { Octokit } from '@octokit/rest';
 import { NextRequest, NextResponse } from 'next/server';
 
-const git = simpleGit();
+const octokit = new Octokit({
+  auth: process.env.GITHUB_TOKEN,
+});
+
 const githubURLRepo = 'https://github.com/termitaklk/lflist';
 
 const done = (response, status) => {
-	return new Response(JSON.stringify(response), {
-		status: status,
-		headers: {
-			'Content-Type': 'application/json',
-		},
-	});
-}
+  return new Response(JSON.stringify(response), {
+    status: status,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};
 
 async function saveFile(file) {
   const data = Buffer.from(await file.arrayBuffer());
@@ -23,13 +26,14 @@ async function saveFile(file) {
   return filePath;
 }
 
+
 export async function POST(req) {
   let decoded;
   try {
     decoded = verifyJwt(req);
   } catch (error) {
     console.log(error);
-		return done({ error: 'Unauthorized' }, 401);
+    return done({ error: 'Unauthorized' }, 401);
   }
 
   if (decoded.role !== 'ADMIN' && decoded.role !== 'MANAGER') {
@@ -48,37 +52,73 @@ export async function POST(req) {
     const repoUrl = githubURLRepo;
     const commitMessage = fields.commitMessage || 'Adding banlist file';
 
-    const repoDir = path.join('/tmp', 'repo');
-    const gitUrlWithCredentials = repoUrl.replace(
-      'https://',
-      `https://${process.env.GIT_USER}:${process.env.GIT_TOKEN}@`
-    );
+    const filePath = await saveFile(file);
+    const content = fs.readFileSync(filePath, { encoding: 'base64' });
+
+    const [owner, repo] = repoUrl.split('/').slice(-2);
 
     try {
-      // Clone repository with credentials
-      await git.clone(gitUrlWithCredentials, repoDir);
-      const repoGit = simpleGit(repoDir);
+      // Get the reference of the main branch
+      const { data: refData } = await octokit.rest.git.getRef({
+        owner,
+        repo,
+        ref: 'heads/main',
+      });
 
-      // Save file to /tmp
-      const filePath = await saveFile(file);
+      console.log('Reference data:', refData);
 
-      // Move file to repository
-      const repoFilePath = path.join(repoDir, file.name);
-      await fs.promises.rename(filePath, repoFilePath);
+      const baseTree = refData.object.sha;
 
-      // Make commit
-      await repoGit.add(repoFilePath);
-      await repoGit.commit(commitMessage);
+      // Create a new blob with the file content
+      const blobData = await octokit.rest.git.createBlob({
+        owner,
+        repo,
+        content: content,
+        encoding: 'base64',
+      });
 
-      // Make push
-      await repoGit.push();
+      console.log('Blob data:', blobData);
+
+      // Create a new tree
+      const treeData = await octokit.rest.git.createTree({
+        owner,
+        repo,
+        base_tree: baseTree,
+        tree: [
+          {
+            path: file.name,
+            mode: '100644',
+            type: 'blob',
+            sha: blobData.data.sha,
+          },
+        ],
+      });
+
+      console.log('Tree data:', treeData);
+
+      // Create a new commit
+      const commitData = await octokit.rest.git.createCommit({
+        owner,
+        repo,
+        message: commitMessage,
+        tree: treeData.data.sha,
+        parents: [baseTree],
+      });
+
+      console.log('Commit data:', commitData);
+
+      // Update the reference to point to the new commit
+      await octokit.rest.git.updateRef({
+        owner,
+        repo,
+        ref: 'heads/main',
+        sha: commitData.data.sha,
+      });
 
       return done({ message: 'Banlist Uploaded' }, 200);
     } catch (error) {
       console.error('Error during processing:', error);
       return done({ error: 'Error during processing' }, 500);
-    } finally {
-      fs.rmSync(repoDir, { recursive: true, force: true });
     }
   } catch (error) {
     console.error('Error parsing the form:', error);
