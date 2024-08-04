@@ -18,7 +18,7 @@ const UploadBanlist = ({ isUploadOpen, setIsUploadOpen, banlist }) => {
 
 		const formData = new FormData();
 		formData.append('file', selectedFile);
-		formData.append('commitMessage', `Update banlist ${banlist.name} by ${user?.username}`);
+		formData.append('commitMessage', `Update banlist ${banlist.identifier} by ${user?.username}`);
 		formData.append('username',`${user?.username}`);
 	
 		try {
