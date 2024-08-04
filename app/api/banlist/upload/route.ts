@@ -171,6 +171,11 @@ export async function POST(req) {
 			const commitData = await octokit.rest.git.createCommit({
 				owner,
 				repo,
+				author: {
+					name: 'evolutionygo',
+					email: 'bot@evolutionygo.com',
+					date: new Date().toISOString()
+				},
 				message: commitMessage,
 				tree: treeData.data.sha,
 				parents: [baseTree],
