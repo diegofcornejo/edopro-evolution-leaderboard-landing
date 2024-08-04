@@ -20,24 +20,25 @@ const done = (response, status) => {
 };
 
 async function addIdentifierToBanlist(file: File, banlist: { identifier: string }): Promise<string> {
-	const identifier = banlist.identifier;
+	const identifier = banlist.identifier; //Identifier always has to be 3 characters
 	const data = Buffer.from(await file.arrayBuffer());
 	const fileContent = data.toString('utf-8');
 	const lines = fileContent.split('\n');
 	const newLines: string[] = [];
 
-	for (let i = 0; i < lines.length; i++) {
-		let line = lines[i];
-		if (i === 0) {
-			line = line.replace(/\[([^\]]+)\]/g, `\[${identifier} - $1\]`);
-			newLines.push(line);
-		} else if (line.startsWith('!')) {
-			newLines.push(`!${identifier} - ${line.slice(1)}`);
+	for (const line of lines) {
+		if (line.startsWith('!')) {
+			const words = line.split(' ');
+			const banlistIdentifier = words[0];
+			if (banlistIdentifier.slice(1, 4) !== identifier) {
+				newLines.push(`!${identifier} - ${line.slice(1)}`);
+			} else {
+				newLines.push(line);
+			}
 		} else {
 			newLines.push(line);
 		}
 	}
-
 	return newLines.join('\n');
 }
 
