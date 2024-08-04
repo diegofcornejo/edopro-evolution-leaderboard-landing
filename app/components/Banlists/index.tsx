@@ -44,8 +44,8 @@ const Table = ({ banlists }) => {
 						<thead>
 							<tr className='text-white bg-darkblue rounded-lg'>
 								<th className='px-4 py-4 text-start font-normal'>COMMUNITY</th>
-								<th className='px-4 py-4 text-start font-normal'>NAME</th>
-								<th className='px-4 py-4 font-normal'>VERSION</th>
+								<th className='px-4 py-4 text-start font-normal'>IDENTIFIER</th>
+								<th className='px-4 py-4 font-normal'>NAME</th>
 								<th className='px-4 py-4 text-start font-normal'></th>
 							</tr>
 						</thead>
@@ -56,8 +56,8 @@ const Table = ({ banlists }) => {
 									className='border-b border-b-darkblue'
 								>
 									<td className='px-4 py-2 text-white'>{items.community}</td>
-									<td className='px-4 py-2 text-white'>{items.name}</td>
-									<td className='px-4 py-2 text-center text-white'>{items.version}</td>
+									<td className='px-4 py-2 text-white'>{items.identifier}</td>
+									<td className='px-4 py-2 text-center text-white'>{items.identifier} - Banlist</td>
 									<td className='px-4 py-2 text-white flex gap-x-4'>
 										<EyeIcon className='h-4 w-4 text-white cursor-pointer hover:text-purple' title='View' onClick={() => viewBanlist(items.githubFileName)} />
 										<ArrowDownTrayIcon className='h-4 w-4 text-white cursor-pointer hover:text-purple' title='Download' onClick={() => downloadFile(items.githubFileName)} />
