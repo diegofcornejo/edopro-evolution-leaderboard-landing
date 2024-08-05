@@ -69,7 +69,7 @@ async function getUserBanlists(username) {
 
 async function checkFileName(banlists, fileName) {
 	for (const banlist of banlists) {
-		if (banlist.githubFileName === fileName) {
+		if (banlist.filename === fileName) {
 			return true;
 		}
 	}
