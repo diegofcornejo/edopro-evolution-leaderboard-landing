@@ -35,12 +35,10 @@ const Features = () => {
 						FEATURES
 					</h3>
 					<h2 className='text-offwhite text-3xl lg:text-5xl font-semibold leading-snug mb-6 text-center md:text-start'>
-						The most featured EDOPro Server
+						The most featured YGOPro Server
 					</h2>
 					<p className='lg:text-lg font-normal text-bluish text-center md:text-start'>
-						Evolution is built on top of the EDOPro Server, which is fully compatible
-						with their client and offers additional features such as duel reconnection
-						and automatic ranking.
+						Evolution is built on top of the EDOPro and Mercury (Koishi) Servers, fully compatible with their clients and offering additional features such as duel reconnection and automatic ranking.
 					</p>
 				</div>
 				{/* Column-2 */}
