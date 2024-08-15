@@ -14,7 +14,7 @@ const faqdata: FaqData[] = [
 		heading: "1. How to play on Evolution Server?",
 		subheading: [
 			`You only need to download a compatible client. We recommend downloading the official EDOPro client (Project Ignis) or any of the other clients listed on the download section. Finally, follow the instructions provided on our `,
-			<Link href="https://discord.com/invite/f6UkbRyqUz" key="link">
+			<Link href="https://discord.com/invite/f6UkbRyqUz" key="link" rel="noopener noreferrer" target="_blank">
 				<span className="text-red">Discord</span>
 			</Link>,
 			` to setup the server.`,
