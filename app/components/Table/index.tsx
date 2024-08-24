@@ -38,7 +38,7 @@ const Table = ({ ranking, title = 'Ranking', banlistname, className = "mx-auto m
 			setIsOpenDuelLogs(true);
 
 			// setAnchorEl2(null);
-			toast.success('Duel logs fetched successfully');
+			// toast.success('Duel logs fetched successfully');
 		} else {
 			toast.error('Error while fetching duel logs');
 		}

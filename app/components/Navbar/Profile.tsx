@@ -63,7 +63,7 @@ const Profile = ({ setIsLogged, user }) => {
 			setDuels(duels);
 			setIsOpenDuelLogs(true);
 			setAnchorEl2(null);
-			toast.success('Duel logs fetched successfully');
+			// toast.success('Duel logs fetched successfully');
 		} else {
 			toast.error('Error while fetching duel logs');
 		}

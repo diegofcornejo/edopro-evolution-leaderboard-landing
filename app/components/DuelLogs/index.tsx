@@ -137,7 +137,7 @@ const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels, banlistname }) => 
 											</div>
 										</div>
 									</div>
-									<div className='mt-4 flex justify-center'>
+									<div className='flex justify-center'>
 										<button
 											type='button'
 											className='inline-flex justify-center rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white hover:text-purple focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2'
