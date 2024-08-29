@@ -13,7 +13,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		// await leaderboardUpdater.run('Evolution S6');
 		await leaderboardUpdater.run('Edison(PreErrata)');
 		await leaderboardUpdater.run('2024.01 TCG');
+		await leaderboardUpdater.run('2024.1 TCG KS');
 		await leaderboardUpdater.run('2024.04 TCG');
+		await leaderboardUpdater.run('2024.4 TCG KS');
 		await leaderboardUpdater.run('JTP (Original)');
 		await leaderboardUpdater.run('2005.4 GOAT');
 		return res.status(200).json({});
