@@ -15,17 +15,10 @@ const Table = ({ ranking, title = 'Ranking', banlistname, className = "mx-auto m
 	const lastUpdated = new Date(ranking.lastUpdated);
 	const leaderboard = ranking.data ?? [];
 
-	const [duels, setDuels] = useState([]);
+	const [duels, setDuels] = useState<any[]>([]);
 	const [isOpenDuelLogs, setIsOpenDuelLogs] = useState(false);
-	const handleOpenDuelLogs = async (username) => {
 
-		if (!isLoggedIn) {
-			toast.error('You need to login to view duels history', { duration: 5000 });
-			const loginButton = document.getElementById('login-button');
-			if (loginButton) loginButton.click();
-			return;
-		}
-
+	const getDuelsByBanlist = async (username, banlistname) => {
 		const res = await fetch(`/api/user/duels?username=${username}&banlistname=${banlistname}`, {
 			method: 'GET',
 			headers: {
@@ -34,14 +27,37 @@ const Table = ({ ranking, title = 'Ranking', banlistname, className = "mx-auto m
 		});
 		if (res.ok) {
 			const duels = await res.json();
-			setDuels(duels);
-			setIsOpenDuelLogs(true);
-
-			// setAnchorEl2(null);
-			// toast.success('Duel logs fetched successfully');
+			return duels;
 		} else {
 			toast.error('Error while fetching duel logs');
 		}
+	};
+
+	const handleOpenDuelLogs = async (username: string) => {
+		if (!isLoggedIn) {
+			toast.error('You need to login to view duels history', { duration: 5000 });
+			const loginButton = document.getElementById('login-button');
+			if (loginButton) loginButton.click();
+			return;
+		}
+	
+		let duels: any[] = [];
+	
+		if (Array.isArray(banlistname)) {
+			const duelPromises = banlistname.map(banlist => getDuelsByBanlist(username, banlist));
+			const duelResultsArray = await Promise.all(duelPromises);
+			duels = duelResultsArray.flat();
+			duels.sort((a, b) => {
+				const dateA = new Date(a.date).getTime();
+				const dateB = new Date(b.date).getTime();
+				return dateB - dateA;
+			});
+		} else {
+			duels = await getDuelsByBanlist(username, banlistname);
+		}
+	
+		setDuels(duels);
+		setIsOpenDuelLogs(true);
 	};
 
 	return (
