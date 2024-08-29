@@ -383,7 +383,7 @@ html:not([data-scroll="0"]) .navbar {
   margin-top: 20px;
 }
 
-td:first-child,
+/* td:first-child,
 th:first-child {
   border-radius: 15px 0 0 15px;
 }
@@ -391,7 +391,7 @@ th:first-child {
 td:last-child,
 th:last-child {
   border-radius: 0 15px 15px 0;
-}
+} */
 
 .radial-bgone {
   position: absolute;
@@ -403,6 +403,7 @@ th:last-child {
   height: 50rem;
   right: -13%;
   top: 50%;
+	z-index: -1;
 }
 
 .radial-banner {

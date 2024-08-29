@@ -98,7 +98,7 @@ const Table = ({ ranking, title = 'Ranking', banlistname, className = "mx-auto m
 							{leaderboard.map((items, i) => (
 								<tr
 									key={i}
-									className='border-b border-b-darkblue cursor-pointer hover:bg-purple'
+									className='border-b border-b-darkblue cursor-pointer hover:bg-purple transition-colors duration-150 ease-in-out'
 									onClick={() => handleOpenDuelLogs(items.value)}
 								>
 									<td className='px-4 py-2 text-center text-white'>
