@@ -86,16 +86,17 @@ const mergeRankings = (rankingsArray) => {
 export default async function Home() {
 	// const rooms = await getRooms();
 
-	const [leaderboard, edison, tcg202401, tcg202401ks, tcg202404, tcg202404ks, jtp, goat] = await Promise.all([
+	const [leaderboard, tcg202409, tcg202404, tcg202404ks, edison, goat, jtp] = await Promise.all([
 		getLeaderBoard(),
-		// getLeaderBoard('Evolution S6'),
-		getLeaderBoard('Edison(PreErrata)'),
-		getLeaderBoard('2024.01 TCG'),
-		getLeaderBoard('2024.1 TCG KS'),
+		getLeaderBoard('2024.09 TCG'),
 		getLeaderBoard('2024.04 TCG'),
 		getLeaderBoard('2024.4 TCG KS'),
+		getLeaderBoard('Edison(PreErrata)'),
+		getLeaderBoard('2005.4 GOAT'),
 		getLeaderBoard('JTP (Original)'),
-		getLeaderBoard('2005.4 GOAT')
+		// getLeaderBoard('Evolution S6'),
+		// getLeaderBoard('2024.01 TCG'),
+		// getLeaderBoard('2024.1 TCG KS'),
 	]);
 
 	const rankings = [
@@ -106,16 +107,16 @@ export default async function Home() {
 			banlistname: 'Global'
 		},
 		{
+			name: '2024.09 TCG',
+			title: '2024.09 TCG',
+			data: tcg202409,
+			banlistname: '2024.09 TCG'
+		},
+		{
 			name: '2024.04 TCG',
 			title: '2024.04 TCG',
 			data: mergeRankings([tcg202404, tcg202404ks]),
 			banlistname: ['2024.04 TCG', '2024.4 TCG KS']
-		},
-		{
-			name: '2024.01 TCG',
-			title: '2024.01 TCG',
-			data: mergeRankings([tcg202401, tcg202401ks]),
-			banlistname: ['2024.01 TCG', '2024.1 TCG KS']
 		},
 		{
 			name: 'Edison',
@@ -135,12 +136,6 @@ export default async function Home() {
 			data: jtp,
 			banlistname: 'JTP (Original)'
 		}
-		// {
-		// 	name: 'Evolution S6',
-		// 	title: 'Evolution S6',
-		// 	data: evolution,
-		// 	banlistname: 'Evolution S6'
-		// }
 	];
 	return (
 		<main>
