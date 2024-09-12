@@ -51,7 +51,7 @@ const Profile = ({ setIsLogged, user }) => {
 	const handleOpenDuelLogs = async () => {
 		const session = localStorage.getItem('session');
 		const token = session ? JSON.parse(session).token : '';
-		const res = await fetch(`/api/user/duels?banlistname=Global&username=${user.username}`, {
+		const res = await fetch(`/api/user/duels?banListName=Global&userId=${user.id}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -193,7 +193,7 @@ const Profile = ({ setIsLogged, user }) => {
 					isOpenDuelLogs={isOpenDuelLogs}
 					setIsOpenDuelLogs={setIsOpenDuelLogs}
 					duels={duels}
-					banlistname="Global"
+					banListName="Global"
 				/>
 			)}
 		</Box>

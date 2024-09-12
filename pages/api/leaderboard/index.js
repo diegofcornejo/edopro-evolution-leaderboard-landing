@@ -19,7 +19,7 @@ const handler = async (request, response) => {
       const dataSource = await initializeDataSource();
       
       const query = `
-				SELECT username, avatar, points, wins, losses
+				SELECT user_id, username, avatar, points, wins, losses
 				FROM player_stats
 				INNER JOIN users ON player_stats.user_id = users.id
 				WHERE player_stats.ban_list_name = '${banListName}' 
@@ -28,6 +28,7 @@ const handler = async (request, response) => {
 			`;
       const topPlayers = await dataSource.query(query);
 			const leaderboard = topPlayers.map((player, index) => ({
+				userId: player.user_id,
 				points: player.points,
 				wins: player.wins,
 				losses: player.losses,

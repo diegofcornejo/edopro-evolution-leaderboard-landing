@@ -18,8 +18,8 @@ const Table = ({ ranking, title = 'Ranking', banListName, className = "mx-auto m
 	const [duels, setDuels] = useState<any[]>([]);
 	const [isOpenDuelLogs, setIsOpenDuelLogs] = useState(false);
 
-	const getDuelsByBanList = async (username, banListName) => {
-		const res = await fetch(`/api/user/duels?username=${username}&banListName=${banListName}`, {
+	const getDuelsByBanList = async (userId, banListName) => {
+		const res = await fetch(`/api/user/duels?userId=${userId}&banListName=${banListName}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ const Table = ({ ranking, title = 'Ranking', banListName, className = "mx-auto m
 		}
 	};
 
-	const handleOpenDuelLogs = async (username: string) => {
+	const handleOpenDuelLogs = async (userId: string) => {
 		if (!isLoggedIn) {
 			toast.error('You need to login to view duels history', { duration: 5000 });
 			const loginButton = document.getElementById('login-button');
@@ -44,7 +44,7 @@ const Table = ({ ranking, title = 'Ranking', banListName, className = "mx-auto m
 		let duels: any[] = [];
 
 		if (Array.isArray(banListName)) {
-			const duelPromises = banListName.map(banList => getDuelsByBanList(username, banList));
+			const duelPromises = banListName.map(banList => getDuelsByBanList(userId, banList));
 			const duelResultsArray = await Promise.all(duelPromises);
 			duels = duelResultsArray.flat();
 			duels.sort((a, b) => {
@@ -53,9 +53,8 @@ const Table = ({ ranking, title = 'Ranking', banListName, className = "mx-auto m
 				return dateB - dateA;
 			});
 		} else {
-			duels = await getDuelsByBanList(username, banListName);
+			duels = await getDuelsByBanList(userId, banListName);
 		}
-
 		setDuels(duels);
 		setIsOpenDuelLogs(true);
 	};
@@ -99,7 +98,7 @@ const Table = ({ ranking, title = 'Ranking', banListName, className = "mx-auto m
 								<tr
 									key={index}
 									className='border-b border-b-darkblue cursor-pointer hover:bg-purple transition-colors duration-150 ease-in-out'
-									onClick={() => handleOpenDuelLogs(item.username)}
+									onClick={() => handleOpenDuelLogs(item.userId)}
 								>
 									<td className='px-4 py-2 text-center text-white'>
 										{item.position}
@@ -197,7 +196,7 @@ const Table = ({ ranking, title = 'Ranking', banListName, className = "mx-auto m
 					isOpenDuelLogs={isOpenDuelLogs}
 					setIsOpenDuelLogs={setIsOpenDuelLogs}
 					duels={duels}
-					banlistname={banListName}
+					banListName={banListName}
 				/>
 			)}
 			<Image

@@ -11,7 +11,7 @@ const formatDate = (date) => {
 	const seconds = newDate.getSeconds().toString().padStart(2, '0');
 	return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 };
-const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels, banlistname }) => {
+const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels, banListName }) => {
 	const closeModal = () => {
 		setIsOpenDuelLogs(false);
 	};
@@ -90,15 +90,11 @@ const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels, banlistname }) => 
 															>
 																<td className='px-4 py-2 text-white'>
 																	{
-																		duel.players[0].name.split(
-																			','
-																		).length
+																		duel.playerNames.length
 																	}{' '}
 																	v{' '}
 																	{
-																		duel.players[1].name.split(
-																			','
-																		).length
+																		duel.opponentNames.length
 																	}{' '}
 																	| Best Of {duel.bestOf}
 																</td>
@@ -106,26 +102,26 @@ const DuelLogs = ({ isOpenDuelLogs, setIsOpenDuelLogs, duels, banlistname }) => 
 																	{duel.type}
 																</td>
 																<td className='px-4 py-2 text-white'>
-																	{duel.banlistName}
+																	{duel.banListName}
 																</td>
 																<td className='px-4 py-2 text-white'>
-																	{duel.players[0].name}
+																	{duel.playerNames.join(', ')}
 																</td>
 																<td className='px-4 py-2 text-white'></td>
 																<td className='px-4 py-2 text-white'>
-																	{duel.players[1].name}
+																	{duel.opponentNames.join(', ')}
 																</td>
 																<td
-																	className={`px-4 py-2 text-center ${duel.players[0].winner
+																	className={`px-4 py-2 text-center ${duel.winner
 																		? 'text-green'
 																		: 'text-red'
 																		}`}
 																>
-																	{duel.players[0].score} -{' '}
-																	{duel.players[1].score}
+																	{duel.playerScore} -{' '}
+																	{duel.opponentScore}
 																</td>
 																<td className='px-4 py-2 text-white text-center'>
-																	{duel.players[0].points && duel.players[0].points[banlistname]}
+																	{duel.points}
 																</td>
 																<td className='px-4 py-2 text-white'>
 																	{formatDate(duel.date)}
