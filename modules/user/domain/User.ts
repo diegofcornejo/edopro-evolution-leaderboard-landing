@@ -12,7 +12,7 @@ export type UserPresentation = {
   points: number;
   wins: number;
   losses: number;
-	winrate: number;
+	winRate: number;
   username: string;
   avatar: string | null;
 	token?: string;

@@ -81,7 +81,7 @@ const Profile = ({ setIsLogged, user }) => {
 			icon: IconUserCircle,
 		},
 		{
-			text: `Rank # ${user.rank + 1}`,
+			text: `Rank # ${user.rank}`,
 			icon: IconMedal,
 		},
 		{
@@ -97,7 +97,7 @@ const Profile = ({ setIsLogged, user }) => {
 			icon: IconHexagon,
 		},
 		{
-			text: `Winrate: ${user.winrate}%`,
+			text: `WinRate: ${user.winRate}%`,
 			icon: IconHexagon,
 		},
 		{
