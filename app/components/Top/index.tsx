@@ -6,7 +6,7 @@ import UserAvatar from '../Avatar';
 
 const Top = ({ leaderboard }) => {
 	// console.log("🚀 ~ Top ~ leaderboard:", leaderboard.data)
-	
+
 	// leaderboard.sort((a, b) => b.score - a.score);
 	let topThree = leaderboard.data?.slice(0, 3);
 	// topThree = topThree.map((item, i) => {
@@ -34,29 +34,29 @@ const Top = ({ leaderboard }) => {
 				</div> */}
 
 				<div className='grid md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-5 mt-32'>
-					{topThree?.map((items, i) => (
+					{topThree?.map((item, index) => (
 						<div
 							className={
-								`card-b p-8 order-${i} ` +
-								(i === 0 ? 'gold lg:-mt-8' : '') +
-								(i === 1 ? 'silver lg:order-first' : '') +
-								(i === 2 ? 'bronze' : '')
+								`card-b p-8 order-${index} ` +
+								(index === 0 ? 'gold lg:-mt-8' : '') +
+								(index === 1 ? 'silver lg:order-first' : '') +
+								(index === 2 ? 'bronze' : '')
 							}
-							key={i}
+							key={index}
 						>
 							<div className='work-img-bg rounded-full flex justify-center absolute p-6'>
 								<img
-									src={`/images/Top/${items.position}.svg`}
+									src={`/images/Top/${item.position}.svg`}
 									alt={''}
 									width={32}
 									height={32}
 									className='rounded-full'
 									style={{ position: 'absolute', top: '0', right: '0' }}
 								/>
-								{items.avatar ? (
-									<UserAvatar size={'50px'} avatarParts={items.avatar} />
+								{item.avatar ? (
+									<UserAvatar size={'50px'} avatarParts={item.avatar} />
 								) : (
-									<LetterAvatar name={items.value} size={50} />
+									<LetterAvatar name={item.username} size={50} />
 								)}
 							</div>
 							<div>
@@ -68,22 +68,22 @@ const Top = ({ leaderboard }) => {
 								/>
 							</div>
 							<h3 className='text-2xl text-offwhite font-semibold text-center mt-8'>
-								#{items.position} {items.value}
+								#{item.position} {item.username}
 							</h3>
 							<p className='text-base font-normal text-bluish text-center mt-2'>
-								Points: {items.score}
+								Points: {item.points}
 							</p>
 							<p className='text-base font-normal text-bluish text-center mt-2 text-green'>
-								Wins: {items.wins}
+								Wins: {item.wins}
 							</p>
 							<p className='text-base font-normal text-bluish text-center mt-2 text-red'>
-								Losses: {items.losses}
+								Losses: {item.losses}
 							</p>
 							<p className='text-base font-normal text-bluish text-center mt-2 mb-2'>
-								Winrate: {items.winrate}%
+								WinRate: {item.winRate}%
 							</p>
 							<div className='flex justify-center gap-2'>
-								{items.winrate >= 75 ? (
+								{item.winRate >= 75 ? (
 									<img
 										src='/images/Table/pro.webp'
 										alt='pro'
@@ -94,7 +94,7 @@ const Top = ({ leaderboard }) => {
 								) : (
 									''
 								)}
-								{items.winrate == 100 ? (
+								{item.winRate == 100 ? (
 									<img
 										src='/images/Table/invictus.webp'
 										alt='invictus'

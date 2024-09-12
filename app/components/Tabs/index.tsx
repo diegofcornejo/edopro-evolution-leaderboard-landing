@@ -46,7 +46,7 @@ export default function Tabs({ rankings }) {
 						{rankings.map((ranking) => (
 							<Tab.Panel key={ranking.name} className={classNames('')}>
 								<Top leaderboard={ranking.data} />
-								<Table ranking={ranking.data} title={ranking.title} banlistname={ranking.banlistname} className="mx-auto max-w-7xl" />
+								<Table ranking={ranking.data} title={ranking.title} banListName={ranking.banListName} className="mx-auto max-w-7xl" />
 							</Tab.Panel>
 						))}
 					</Tab.Panels>
