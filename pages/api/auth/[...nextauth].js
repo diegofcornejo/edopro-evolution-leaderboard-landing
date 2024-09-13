@@ -21,21 +21,24 @@ const initializeDataSource = async () => {
 const getUserData = async (dataSource, userId) => {
   const stats = await dataSource.query(`SELECT * FROM player_stats WHERE user_id = '${userId}' AND ban_list_name = 'global'`);
   const rank = await dataSource.query(`
-    SELECT COUNT(*) + 1 as rank
-    FROM player_stats
-    WHERE ban_list_name = 'global' AND points > (
-      SELECT points
+    WITH user_points AS (
+      SELECT COALESCE(points, 0) as points
       FROM player_stats
       WHERE user_id = '${userId}' AND ban_list_name = 'global'
+      UNION ALL
+      SELECT 0 WHERE NOT EXISTS (SELECT 1 FROM player_stats WHERE user_id = '${userId}' AND ban_list_name = 'global')
     )
+    SELECT COUNT(*) + 1 as rank
+    FROM player_stats
+    WHERE ban_list_name = 'global' AND points > (SELECT points FROM user_points)
   `);
 
   return {
-    points: stats[0].points,
-    wins: stats[0].wins,
-    losses: stats[0].losses,
-    winRate: (stats[0].wins / (stats[0].wins + stats[0].losses) * 100).toFixed(2),
-    rank: rank[0].rank
+    points: stats[0]?.points ?? 0,
+    wins: stats[0]?.wins ?? 0,
+    losses: stats[0]?.losses ?? 0,
+    winRate: stats[0] ? (stats[0].wins / (stats[0].wins + stats[0].losses) * 100).toFixed(2) : '0.00',
+    rank: rank[0]?.rank
   };
 };
 
