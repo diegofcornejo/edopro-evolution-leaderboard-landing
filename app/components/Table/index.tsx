@@ -105,7 +105,7 @@ const Table = ({ ranking, title = 'Ranking', banListName, className = "mx-auto m
 									</td>
 									<td className='px-4 py-2 text-center text-white flex items-center justify-start gap-5 '>
 										{item.avatar ? (
-											<UserAvatar size={'40px'} avatarParts={item.avatar} />
+											<UserAvatar size={'40px'} avatarParts={JSON.parse(item.avatar)} />
 										) : (
 											<LetterAvatar
 												name="username"

@@ -54,7 +54,7 @@ const Top = ({ leaderboard }) => {
 									style={{ position: 'absolute', top: '0', right: '0' }}
 								/>
 								{item.avatar ? (
-									<UserAvatar size={'50px'} avatarParts={item.avatar} />
+									<UserAvatar size={'50px'} avatarParts={JSON.parse(item.avatar)} />
 								) : (
 									<LetterAvatar name={item.username} size={50} />
 								)}
