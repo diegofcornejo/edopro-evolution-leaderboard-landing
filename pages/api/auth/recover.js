@@ -1,58 +1,59 @@
-import createRedisClient from '../../../libs/redisUtils';
 import { passwordGenerator } from '../../../libs/helpers';
 import sendEmail from '../../../libs/sendGridUtils';
+import databaseConfig from '../../../ormconfig.json';
+import { DataSource } from 'typeorm';
+import bcrypt from 'bcrypt';
 
-const handler = async (req, res) => {
-	if (req.method === 'POST') {
+let AppDataSource;
 
-		let client;
+const initializeDataSource = async () => {
+  if (!AppDataSource || !AppDataSource.isInitialized) {
+    AppDataSource = new DataSource(databaseConfig);
+    await AppDataSource.initialize();
+  }
+  return AppDataSource;
+};
+
+const handler = async (request, response) => {
+	if (request.method === 'POST') {
 		try {
-
-			client = await createRedisClient();
-
-			if (!req.body.email) {
-				res.status(400).json({ error: 'Missing email in the request body' });
+			if (!request.body.email) {
+				response.status(400).json({ error: 'Missing email in the request body' });
 				return;
 			}
+			
+			const { email } = request.body;
 
-			const { email } = req.body;
-
-			//Generate a random password
 			const password = passwordGenerator(4);
+			const passwordHashed = await bcrypt.hash(password, 10);
 
-			const username = await client.get(`email:${email}`);
+			const dataSource = await initializeDataSource();
+
+			const userResponse = await dataSource.query(`SELECT * FROM users WHERE email = '${email}'`);
 			
-			if (!username) {
-				res.status(404).json({ error: 'Email not found' });
+			if (userResponse.length === 0) {
+				response.status(404).json({ error: 'Email not found' });
 				return;
 			}
 
-			const updateUser = await client.hSet(`user:${username}`, { password });
-			
-			if (updateUser === 0) { //This is the number of fields that we are setting
-				console.log('Password reset successfully');
-				const emailData = {
-					email,
-					username,
-					password,
-					template_id: process.env.SENDGRID_PASSWORD_TEMPLATE_ID
-				};
-				await sendEmail(emailData);
+			await dataSource.query(`UPDATE users SET password = '${passwordHashed}' WHERE id = '${userResponse[0].id}'`)
 
-				res.status(202).json({ message: 'We have sent your new credentials to the registered email' });
-			} else {
-				res.status(500).json({ error: 'Password not reset' });
-				return;
-			}
+			const emailData = {
+				email,
+				username: userResponse[0].username,
+				password,
+				template_id: process.env.SENDGRID_PASSWORD_TEMPLATE_ID
+			};
+
+			await sendEmail(emailData);
+			response.status(202).json({ message: 'We have sent your new credentials to the registered email' });
+
 		} catch (error) {
 			console.error('Error during processing:', error);
-			res.status(500).json({ error: 'Internal Server Error' });
-		} finally {
-			if (client) await client.quit();
+			response.status(500).json({ error: 'Internal Server Error' });
 		}
-
 	} else {
-		res.status(405).json({ error: 'Method not allowed' });
+		response.status(405).json({ error: 'Method not allowed' });
 	}
 };
 
