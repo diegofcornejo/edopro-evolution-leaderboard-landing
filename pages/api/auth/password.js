@@ -1,21 +1,11 @@
 import sendEmail from '../../../libs/sendGridUtils';
 import { getServerSession } from 'next-auth';
 import { authOptions } from './[...nextauth]';
-import databaseConfig from '../../../ormconfig.json';
-import { DataSource } from 'typeorm';
+import { initializeDataSource } from '../../../libs/database';
 import bcrypt from 'bcrypt';
 
 const PASSWORD_LENGTH = 4
 
-let AppDataSource;
-
-const initializeDataSource = async () => {
-  if (!AppDataSource || !AppDataSource.isInitialized) {
-    AppDataSource = new DataSource(databaseConfig);
-    await AppDataSource.initialize();
-  }
-  return AppDataSource;
-};
 
 const handler = async (request, response) => {
 	if (request.method === 'POST') {

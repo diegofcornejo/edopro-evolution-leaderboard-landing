@@ -1,16 +1,5 @@
 /* eslint-disable unicorn/no-null */
-import { DataSource } from 'typeorm';
-import databaseConfig from '../../../ormconfig.json';
-
-let AppDataSource;
-
-const initializeDataSource = async () => {
-  if (!AppDataSource || !AppDataSource.isInitialized) {
-    AppDataSource = new DataSource(databaseConfig);
-    await AppDataSource.initialize();
-  }
-  return AppDataSource;
-};
+import { initializeDataSource } from '../../../libs/database';
 
 const handler = async (request, response) => {
   if (request.method === 'GET') {

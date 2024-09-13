@@ -1,20 +1,9 @@
 /* eslint-disable unicorn/no-null */
 import { passwordGenerator } from '../../../libs/helpers';
 import sendEmail from '../../../libs/sendGridUtils';
-import databaseConfig from '../../../ormconfig.json';
-import { DataSource } from 'typeorm';
 import bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
-
-let AppDataSource;
-
-const initializeDataSource = async () => {
-  if (!AppDataSource || !AppDataSource.isInitialized) {
-    AppDataSource = new DataSource(databaseConfig);
-    await AppDataSource.initialize();
-  }
-  return AppDataSource;
-};
+import { initializeDataSource } from '../../../libs/database';
 
 const handler = async (request, response) => {
 	if (request.method !== 'POST') {

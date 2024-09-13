@@ -1,17 +1,7 @@
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../auth/[...nextauth]';
-import { DataSource } from 'typeorm';
-import databaseConfig from '../../../../ormconfig.json';
+import { initializeDataSource } from '../../../../libs/database';
 
-let AppDataSource;
-
-const initializeDataSource = async () => {
-  if (!AppDataSource || !AppDataSource.isInitialized) {
-    AppDataSource = new DataSource(databaseConfig);
-    await AppDataSource.initialize();
-  }
-  return AppDataSource;
-};
 
 
 const handler = async (request, response) => {

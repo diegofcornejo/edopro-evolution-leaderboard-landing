@@ -5,18 +5,9 @@ import NextAuth from "next-auth"
 import DiscordProvider from "next-auth/providers/discord"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { generateJwt } from "@/libs/jwtUtils"
-import databaseConfig from '../../../ormconfig.json';
-import { DataSource } from 'typeorm';
 import bcrypt from 'bcrypt';
-let AppDataSource;
+import { initializeDataSource } from '../../../libs/database';
 
-const initializeDataSource = async () => {
-  if (!AppDataSource || !AppDataSource.isInitialized) {
-    AppDataSource = new DataSource(databaseConfig);
-    await AppDataSource.initialize();
-  }
-  return AppDataSource;
-};
 
 const getUserData = async (dataSource, userId) => {
   const stats = await dataSource.query(`SELECT * FROM player_stats WHERE user_id = '${userId}' AND ban_list_name = 'global'`);
