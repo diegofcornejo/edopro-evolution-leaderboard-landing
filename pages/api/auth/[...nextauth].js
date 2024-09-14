@@ -89,7 +89,7 @@ export const authOptions = {
 							throw new Error(`User ${user.email} not found.`);
 						}
 						if (!userProfile[0].discordId) {
-							//TODO: Update discordId in the database
+							await dataSource.query(`UPDATE users SET discord_id = '${user.id}' WHERE email = '${user.email}'`);
 						}
 						userData = await getUserData(dataSource, userProfile[0].id);
 						token.user = {
