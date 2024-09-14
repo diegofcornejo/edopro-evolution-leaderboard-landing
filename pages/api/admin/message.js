@@ -1,19 +1,19 @@
 import { verifyJwt } from "../../../libs/jwtUtils";
 
-const handler = async (req, res) => {
-	if (req.method === 'POST') {
+const handler = async (request, response) => {
+	if (request.method === 'POST') {
 		let decoded;
 		try {
-			decoded = verifyJwt(req);
+			decoded = verifyJwt(request);
 		} catch (error) {
 			console.error('Error during JWT processing:', error);
-			return res.status(401).json({ error: 'Unauthorized' });
+			return response.status(401).json({ error: 'Unauthorized' });
 		}
-		if (decoded.role !== 'ADMIN') {
-			return res.status(403).json({ error: 'Forbidden' });
+		if (decoded.role !== 'admin') {
+			return response.status(403).json({ error: 'Forbidden' });
 		}
 
-		const { message, reason } = req.body;
+		const { message, reason } = request.body;
 
 		try {
 			const payload = {
@@ -29,13 +29,13 @@ const handler = async (req, res) => {
 				body: JSON.stringify(payload),
 			});
 			const data = await request.json();
-			return res.status(200).json({message: 'Message sent', data});
+			return response.status(200).json({message: 'Message sent', data});
 		} catch (error) {
 			console.error('Error during processing:', error);
-			return res.status(500).json({ error: 'Internal Server Error' });
+			return response.status(500).json({ error: 'Internal Server Error' });
 		}
 	} else {
-		res.status(405).json({ error: 'Method not allowed' });
+		response.status(405).json({ error: 'Method not allowed' });
 	}
 };
 
