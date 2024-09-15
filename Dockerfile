@@ -74,9 +74,9 @@ RUN apk --no-cache add curl
 
 WORKDIR /app
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-USER nextjs
+# RUN addgroup --system --gid 1001 nodejs
+# RUN adduser --system --uid 1001 nextjs
+# USER nextjs
 
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/package.json ./package.json
