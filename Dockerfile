@@ -63,8 +63,6 @@ ENV SERVER_API_ADMIN_KEY=$SERVER_API_ADMIN_KEY
 ARG SERVER_API_URL
 ENV SERVER_API_URL=$SERVER_API_URL
 
-# Show some important environment variables
-RUN echo "NEXT_PUBLIC_API_URL: $NEXT_PUBLIC_API_URL"
 
 # Build the app
 RUN npm run build
@@ -81,7 +79,6 @@ RUN adduser --system --uid 1001 nextjs
 USER nextjs
 
 COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 
 EXPOSE 3000
