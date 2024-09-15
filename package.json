@@ -26,7 +26,7 @@
     "avataaars": "2.0.0",
     "eslint-config-next": "13.4.2",
     "jsonwebtoken": "9.0.1",
-    "next": "13.5.3",
+    "next": "13.5.5",
     "next-auth": "^4.24.3",
     "p5": "1.9.3",
     "postcss": "8.4.23",
