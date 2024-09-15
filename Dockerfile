@@ -70,13 +70,7 @@ RUN npm run build
 # Production image
 FROM builder as production
 
-RUN apk --no-cache add curl
-
 WORKDIR /app
-
-# RUN addgroup --system --gid 1001 nodejs
-# RUN adduser --system --uid 1001 nextjs
-# USER nextjs
 
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/package.json ./package.json
