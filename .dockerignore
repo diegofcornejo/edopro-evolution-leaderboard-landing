@@ -1,0 +1,24 @@
+# Git
+.git
+.gitignore
+# Node
+node_modules
+npm-debug.log
+# Vercel
+.vercel
+.cache
+.next
+out
+# Production
+build
+# Environment
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env*.local
+# macOS
+.DS_Store
+# Visual Studio Code
+.vscode
