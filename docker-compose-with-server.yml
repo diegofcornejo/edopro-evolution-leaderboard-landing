@@ -1,0 +1,5 @@
+name: evolutionygo
+
+include:  
+  - path: ./docker-compose.yml  
+  - path: ./server/docker-compose.yaml
