@@ -32,3 +32,22 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Docker Compose
+You need to compose the Docker image passing `--env-file .env` used for build arguments in the Dockerfile.
+
+### Just web
+```bash
+docker compose --env-file .env build --progress plain
+# Load env file here is important to pass the build arguments to the Dockerfile from the .env file.
+
+docker compose up
+# No need to pass the .env file again, since the environment variables are already defined in the docker-compose.yml, and they will be available during execution.
+```
+
+### With server
+```bash
+docker compose -f docker-compose-with-server.yml --env-file .env build --progress plain
+docker compose -f docker-compose-with-server.yml up
+```
+
