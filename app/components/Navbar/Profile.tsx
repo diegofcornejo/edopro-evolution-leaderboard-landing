@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import { Box, Menu, Button, IconButton, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
@@ -19,14 +19,20 @@ import CustomAvatar from '../AvatarGenerator';
 import DuelLogs from '../DuelLogs';
 import { AuthContext } from '@/context/auth/AuthContext';
 
-// const handleOpenHistory = async () => {
-
-// };
+interface PlayerStats {
+	rank: number;
+	points: number;
+	wins: number;
+	losses: number;
+	winRate: number;
+}
 
 const Profile = ({ setIsLogged, user }) => {
 	const { logout } = useContext(AuthContext);
 
 	const [anchorEl2, setAnchorEl2] = useState(null);
+	const [playerStats, setPlayerStats] = useState<PlayerStats | null>(null);
+
 	const handleClick2 = (event: any) => {
 		setAnchorEl2(event.currentTarget);
 	};
@@ -75,25 +81,41 @@ const Profile = ({ setIsLogged, user }) => {
 		<LetterAvatar name={user.username} size={48} borderColor='#ffffff' />
 	);
 
+	useEffect(() => {
+		if (user?.id) {
+			const fetchPlayerStats = async () => {
+				const response = await fetch(`/api/user/stats?userId=${user?.id}`);
+				if (!response.ok) {
+					throw new Error('Cannot get player stats');
+				}
+				const data = await response.json();
+
+				setPlayerStats(data);
+			};
+
+			fetchPlayerStats();
+		}
+	}, []);
+
 	const menuItems = [
 		{
 			text: user.username,
 			icon: IconUserCircle,
 		},
 		{
-			text: `Rank # ${user.rank}`,
+			text: `Rank # ${playerStats?.rank ?? user?.rank}`,
 			icon: IconMedal,
 		},
 		{
-			text: `Points: ${user.points}`,
+			text: `Points: ${playerStats?.points ?? user?.points}`,
 			icon: IconHexagon,
 		},
 		{
-			text: `Wins: ${user.wins}`,
+			text: `Wins: ${playerStats?.wins ?? user?.wins}`,
 			icon: IconHexagon,
 		},
 		{
-			text: `Losses: ${user.losses}`,
+			text: `Losses: ${playerStats?.losses ?? user?.losses}`,
 			icon: IconHexagon,
 		},
 		{
