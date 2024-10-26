@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import databaseConfig from '../ormconfig.json';
+import databaseConfig from '../ormconfig';
 
 let AppDataSource;
 
