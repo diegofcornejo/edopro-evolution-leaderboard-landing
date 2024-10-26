@@ -21,16 +21,16 @@ export default async function Home({ params }: { params: { id: string } }) {
 	const ChallongeIframe = (url) => {
 		const iframeUrl = `${url}/module`;
 		return (
-				<div className='mx-auto max-w-7xl'>
-					<iframe
-						src={iframeUrl}
-						width="100%"
-						height="650"
-						frameBorder="0"
-						scrolling="auto"
-						title="Challonge Iframe"
-					></iframe>
-				</div>
+			<div className='mx-auto max-w-7xl'>
+				<iframe
+					src={iframeUrl}
+					width="100%"
+					height="650"
+					frameBorder="0"
+					scrolling="auto"
+					title="Challonge Iframe"
+				></iframe>
+			</div>
 		);
 	};
 
@@ -38,7 +38,7 @@ export default async function Home({ params }: { params: { id: string } }) {
 		if (tournament.type === 'single') {
 			return <SingleElimination />;
 		} else if (tournament.type === 'league') {
-			return <Table ranking={tournament.ranking} banlistname='' />;
+			return <Table ranking={tournament.ranking} banListName='' />;
 		} else {
 			return <div>Unknown tournament type</div>;
 		}

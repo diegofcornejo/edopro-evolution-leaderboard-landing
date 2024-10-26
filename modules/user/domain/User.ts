@@ -75,7 +75,7 @@ export class User {
 			points: this.generalStats.points,
 			wins: this.generalStats.wins,
 			losses: this.generalStats.losses,
-			winrate: this.generalStats.winrate,
+			winRate: this.generalStats.winrate,
       username: this.username,
       avatar: this.avatar ? JSON.parse(this.avatar): null,
 			permissions: this.permissions ? JSON.parse(this.permissions): null
