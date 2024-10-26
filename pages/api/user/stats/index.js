@@ -20,7 +20,7 @@ const handler = async (request, response) => {
 						FROM 
 								player_stats
 						WHERE 
-								ban_list_name = 'global'
+								ban_list_name = 'Global'
 						)
 						SELECT *
 						FROM RankedPlayers
