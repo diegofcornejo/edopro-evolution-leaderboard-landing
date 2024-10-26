@@ -32,7 +32,7 @@ const getLeaderBoard = async (banListName?: string) => {
 		const data = await res.json();
 		return { data: data.leaderboard, lastUpdated: data.lastUpdated };
 	} catch (error) {
-		console.error(`Error fetching leaderboard for ${banListName || 'global'}:`, error);
+		console.error(`Error fetching leaderboard for ${banListName || 'Global'}:`, error);
 		return { data: [], lastUpdated: null };
 	}
 }

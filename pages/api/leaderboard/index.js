@@ -4,7 +4,7 @@ import { initializeDataSource } from '../../../libs/database';
 const handler = async (request, response) => {
   if (request.method === 'GET') {
     try {
-      const { banListName = 'global', limit = 20 } = request.query;
+      const { banListName = 'Global', limit = 20 } = request.query;
       const dataSource = await initializeDataSource();
       
       const query = `
