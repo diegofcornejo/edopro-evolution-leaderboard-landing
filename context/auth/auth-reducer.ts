@@ -14,7 +14,10 @@ export const authReducer = (
       return {
         ...state,
         isLoggedIn: true,
-        user: action.payload,
+        user: {
+					...action.payload,
+					avatar: action.payload.avatar ? JSON.parse(action.payload.avatar) : null
+				},
       };
 
     case "[Auth] - Logout":

@@ -1,70 +1,58 @@
-import createRedisClient from '../../../libs/redisUtils';
+/* eslint-disable unicorn/no-null */
 import { passwordGenerator } from '../../../libs/helpers';
 import sendEmail from '../../../libs/sendGridUtils';
+import bcrypt from 'bcrypt';
+import { v4 as uuidv4 } from 'uuid';
+import { initializeDataSource } from '../../../libs/database';
 
-const handler = async (req, res) => {
-	if (req.method === 'POST') {
+const handler = async (request, response) => {
+	if (request.method !== 'POST') {
+		return response.status(405).json({ error: 'Method not allowed' });
+	}
 
-		let client;
-		try {
+	try {
+		const { username, email } = request.body;
 
-			client = await createRedisClient();
-
-			if (!req.body.username || !req.body.email) {
-				res.status(400).json({ error: 'Missing username, or email in the request body' });
-				return;
-			}
-
-			const { username, email } = req.body;
-
-			const usernameExists = await client.exists(`user:${username}`);
-			if (usernameExists) {
-				res.status(409).json({ error: 'Username already registered' });
-				return;
-			}
-
-			const emailExists = await client.exists(`email:${email}`);
-			if (emailExists) {
-				res.status(409).json({ error: 'Email already registered' });
-				return;
-			}
-
-			//Generate a random password
-			const password = passwordGenerator(4);
-
-			const createUser = await client.hSet(`user:${username}`, { username, password, email });
-			if (createUser === 3) { //This is the number of fields that we are setting
-				await Promise.all([
-					client.set(`email:${email}`, username),
-					client.zAdd('leaderboard:points', { score: 0, value: username }),
-					client.zAdd('leaderboard:wins', { score: 0, value: username }),
-					client.zAdd('leaderboard:losses', { score: 0, value: username })
-				]);
-
-				const emailData = {
-					email,
-					username,
-					password,
-					template_id: process.env.SENDGRID_TEMPLATE_ID
-				};
-				await sendEmail(emailData);
-
-				res.status(202).json({ message: 'User created: We have sent your credentials to the registered email' });
-			} else {
-				await client.del(`user:${username}`);
-				res.status(500).json({ error: 'User not created' });
-				return;
-			}
-		} catch (error) {
-			console.error('Error during processing:', error);
-			res.status(500).json({ error: 'Internal Server Error' });
-		} finally {
-			if(client) await client.quit();
+		if (!username || !email) {
+			return response.status(400).json({ error: 'Missing username or email in the request body' });
 		}
 
-	} else {
-		res.status(405).json({ error: 'Method not allowed' });
-	}
+		const dataSource = await initializeDataSource();
+
+		const userCount = await dataSource.query(
+			'SELECT COUNT(*) FROM users WHERE username = $1 OR email = $2',
+			[username, email]
+		);
+
+		if (Number(userCount[0].count) > 0) {
+			return response.status(409).json({ error: 'Username or email already registered' });
+		}
+
+		const password = passwordGenerator(4);
+		const passwordHashed = await bcrypt.hash(password, 10);
+		const id = uuidv4();
+
+		const query = `
+			INSERT INTO users (id, username, email, password, avatar)	
+			VALUES ($1, $2, $3, $4, $5)
+		`;
+		const values = [id, username, email, passwordHashed, null];
+
+		await dataSource.query(query, values);
+
+		const emailData = {
+			email,
+			username,
+			password,
+			template_id: process.env.SENDGRID_TEMPLATE_ID
+		};
+		await sendEmail(emailData);
+
+		return response.status(201).json({ message: 'User created: We have sent your credentials to the registered email' });
+	} catch (error) {
+		console.error('Error during processing:', error);
+		return response.status(500).json({ error: 'Internal Server Error' });
+	} 
 };
 
 export default handler;

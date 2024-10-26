@@ -1,47 +1,37 @@
-import createRedisClient from '../../../libs/redisUtils';
-import { verifyJwt } from '../../../libs/jwtUtils';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../auth/[...nextauth]';
+import { initializeDataSource } from '../../../libs/database';
 
-const handler = async (req, res) => {
-	if (req.method === 'POST') {
+const handler = async (request, response) => {
+	if (request.method === 'POST') {
 
-		const session = await getServerSession(req, res, authOptions)
+		const session = await getServerSession(request, response, authOptions)
 
 		if(!session) {
-			res.status(401).json({ error: 'Unauthorized' });
+			response.status(401).json({ error: 'Unauthorized' });
 		}
 
-		let client;
 		try {
-			client = await createRedisClient();
-			const { username } = session?.user;
-			const { avatar } = req.body;
-			const key = `user:${username}`;
-			const usernameExists = await client.exists(key);
+			const { id } = session.user;
+			const { avatar } = request.body;
+			const dataSource = await initializeDataSource();
+			const userResponse = await dataSource.query(`SELECT * FROM users WHERE id = '${id}'`);
 
-			if (!usernameExists) {
-				res.status(409).json({ error: 'Username does not exist' });
-				return;
+			if(userResponse.length === 0) {
+				response.status(409).json({ error: 'User does not exist' });
+				return
 			}
 
-			const saveAvatar = await client.hSet(key, 'avatar', JSON.stringify(avatar));
-			if (saveAvatar != 0 && saveAvatar != 1) {
-				res.status(401).json({ error: 'Avatar save failed' });
-				return;
-			}
-
-			res.status(200).json({ message: 'Avatar saved' });
+			await dataSource.query(`UPDATE users SET avatar = '${JSON.stringify(avatar)}' WHERE id = '${id}'`);
+			response.status(200).json({ message: 'Avatar saved' });
 		} catch (error) {
 			console.error('Error during processing:', error);
-			res.status(500).json({ error: 'Internal Server Error' });
-		} finally {
-			if (client) await client.quit();
+			response.status(500).json({ error: 'Internal Server Error' });
 		}
-
 	} else {
-		res.status(405).json({ error: 'Method not allowed' });
+		response.status(405).json({ error: 'Method not allowed' });
 	}
 }
+
 
 export default handler;

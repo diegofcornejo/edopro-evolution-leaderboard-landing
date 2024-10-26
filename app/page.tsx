@@ -14,16 +14,27 @@ import Tabs from './components/Tabs/index';
 
 import BannerAnnouncement from './components/BannerAnnouncement';
 
-const getLeaderBoard = async (banlistname?: string) => {
-	if (!banlistname) {
-		const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/leaderboard`, { cache: 'no-store' });
+const getLeaderBoard = async (banListName?: string) => {
+	try {
+		const url = banListName
+			? `${process.env.NEXT_PUBLIC_API_URL}/api/leaderboard?banListName=${encodeURIComponent(banListName)}`
+			: `${process.env.NEXT_PUBLIC_API_URL}/api/leaderboard`;
+
+		const res = await fetch(url, {
+			cache: 'no-store',
+			next: { revalidate: 60 }
+		});
+
+		if (!res.ok) {
+			throw new Error(`HTTP error! status: ${res.status}`);
+		}
+
 		const data = await res.json();
 		return { data: data.leaderboard, lastUpdated: data.lastUpdated };
+	} catch (error) {
+		console.error(`Error fetching leaderboard for ${banListName || 'global'}:`, error);
+		return { data: [], lastUpdated: null };
 	}
-
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/leaderboard?banlistname=${banlistname}`, { cache: 'no-store' });
-	const data = await res.json();
-	return { data: data.leaderboard, lastUpdated: data.lastUpdated };
 }
 
 // const getRooms = async () => {
@@ -33,52 +44,52 @@ const getLeaderBoard = async (banlistname?: string) => {
 // }
 
 const mergeRankings = (rankingsArray) => {
-  
-  const playerMap = new Map();
 
-  // Merge rankings
-  rankingsArray.forEach(ranking => {
-    ranking.data.forEach(player => {
-      const { value, score, wins, losses } = player;
+	const playerMap = new Map();
 
-      if (playerMap.has(value)) {
-        const existingPlayer = playerMap.get(value);
-        existingPlayer.score += score;
-        existingPlayer.wins += wins;
-        existingPlayer.losses += losses;
-      } else {
-        playerMap.set(value, {
-          ...player
-        });
-      }
-    });
-  });
+	// Merge rankings
+	rankingsArray.forEach(ranking => {
+		ranking.data.forEach(player => {
+			const { username, points, wins, losses } = player;
 
-  // Recalculate winrate
-  const combinedPlayers = Array.from(playerMap.values()).map(player => {
-    player.winrate = (player.wins / (player.wins + player.losses) * 100).toFixed(2);
-    return player;
-  });
+			if (playerMap.has(username)) {
+				const existingPlayer = playerMap.get(username);
+				existingPlayer.points += points;
+				existingPlayer.wins += wins;
+				existingPlayer.losses += losses;
+			} else {
+				playerMap.set(username, {
+					...player
+				});
+			}
+		});
+	});
 
-  // Order by score
-  combinedPlayers.sort((a, b) => b.score - a.score);
+	// Recalculate winrate
+	const combinedPlayers = Array.from(playerMap.values()).map(player => {
+		player.winRate = (player.wins / (player.wins + player.losses) * 100).toFixed(2);
+		return player;
+	});
 
-  // Recalculate position
-  combinedPlayers.forEach((player, index) => {
-    player.position = index + 1;
-  });
+	// Order by score
+	combinedPlayers.sort((a, b) => b.score - a.score);
+
+	// Recalculate position
+	combinedPlayers.forEach((player, index) => {
+		player.position = index + 1;
+	});
 
 	// get top 20 players
 	const top20 = combinedPlayers.slice(0, 20);
 
-  // Retrieve lastUpdated from the first ranking
-  const lastUpdated = rankingsArray[0].lastUpdated;
+	// Retrieve lastUpdated from the first ranking
+	const lastUpdated = rankingsArray[0].lastUpdated;
 
-  // Return the combined result in the requested format
-  return {
-    data: top20,
-    lastUpdated: lastUpdated
-  };
+	// Return the combined result in the requested format
+	return {
+		data: top20,
+		lastUpdated: lastUpdated
+	};
 };
 
 
@@ -104,37 +115,37 @@ export default async function Home() {
 			name: 'General',
 			title: 'Ranking (Top 20)',
 			data: leaderboard,
-			banlistname: 'Global'
+			banListName: 'Global'
 		},
 		{
 			name: '2024.09 TCG',
 			title: '2024.09 TCG',
 			data: tcg202409,
-			banlistname: '2024.09 TCG'
+			banListName: '2024.09 TCG'
 		},
 		{
 			name: '2024.04 TCG',
 			title: '2024.04 TCG',
 			data: mergeRankings([tcg202404, tcg202404ks]),
-			banlistname: ['2024.04 TCG', '2024.4 TCG KS']
+			banListName: ['2024.04 TCG', '2024.4 TCG KS']
 		},
 		{
 			name: 'Edison',
 			title: 'Edison',
 			data: edison,
-			banlistname: 'Edison(PreErrata)'
+			banListName: 'Edison(PreErrata)'
 		},
 		{
 			name: '2005.4 GOAT',
 			title: '2005.4 GOAT',
 			data: goat,
-			banlistname: '2005.4 GOAT'
+			banListName: '2005.4 GOAT'
 		},
 		{
 			name: 'JTP (Original)',
 			title: 'JTP (Original)',
 			data: jtp,
-			banlistname: 'JTP (Original)'
+			banListName: 'JTP (Original)'
 		}
 	];
 	return (
