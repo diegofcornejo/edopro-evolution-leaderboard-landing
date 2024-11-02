@@ -24,11 +24,13 @@ const handler = async (request, response) => {
 				SELECT date, winner, best_of, ban_list_name, player_names, opponent_names, player_score, opponent_score, points 
 				FROM matches 
 				WHERE user_id = '${userId}'
+				ORDER BY date DESC
 			` : 
 			`
 				SELECT date, winner, best_of, ban_list_name, player_names, opponent_names, player_score, opponent_score, points 
 				FROM matches 
 				WHERE ban_list_name = '${banListName}' AND user_id = '${userId}'
+				ORDER BY date DESC
 			`
 			const matches = await dataSource.query(query)
 
